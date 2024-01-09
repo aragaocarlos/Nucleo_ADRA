@@ -1,0 +1,76 @@
+body{
+    margin: 0 auto;
+    color: rgb(255, 255, 255);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.fundo{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-1{
+    background-color: rgb(255, 255, 255);
+    width: 25vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid rgb(223, 223, 223);
+}
+
+.container-2{
+    background-color: rgb(255, 255, 255);
+    width: 75vw;
+    height: 100vh;
+}
+
+.logo img{
+    width: 329px;
+    height: 70px;
+    padding: 20px;
+    margin: 30px 0 80px 1.1vw;
+}
+
+.icone{
+    background-color: #2ab7a6;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icone img{
+    width: 30px;
+    height: 30px;
+}
+
+.caixa-selecionada{
+    padding: 10px 10px 10px 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    background-color: rgb(219, 219, 219);
+}
+
+.caixa{
+    padding: 10px 10px 10px 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.container-1 a{
+    text-decoration: none;
+}
+
+.painel{
+    font-size: 17px;
+    color: black;
+    font-weight: 500;
+}

@@ -1,0 +1,581 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background: url("../imagens/Professor-icone-branco.png") no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+header{
+    height: 10vh;
+    background-color: #bebebe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+main div{
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecalho-conteudo{
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    width: 90vw;
+    height: 48px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.opcoes-nav{
+    display: flex;
+    gap: 50px;
+    height: 10vh;
+}
+
+.opcao-nav{
+    height: 10vh;
+}
+
+.opcao-nav:hover{
+    border-bottom: 4px solid white;
+}
+
+main a{
+    text-decoration: none;
+}
+
+#logo{
+    cursor: pointer;
+}
+
+#perfil{
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    background-image: url("../imagens/perfil-branco.png");
+}
+
+#perfil:hover{
+    background-image: url("../imagens/perfil-branco-selecionado.png");
+}
+
+.container{
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+}
+
+.container-geral{
+    width: 1000px;
+}
+
+.titulo-curso{
+    margin: 30px 0;
+    background-color: #2ab7a6;
+    height: 70px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.titulo-texto{
+    font-size: 30px;
+    font-weight: 500;
+    padding: 20px;
+}
+
+.container-caixa{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgb(206, 206, 206);
+}
+
+.container-alinhamento{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.caixa-texto textarea{
+    padding: 20px;
+    background-color: rgb(233, 233, 233);
+    border: none;
+    border-bottom: 3px solid #2ab7a6;
+    border-radius: 10px 10px 0 0;
+    width: 960px;
+    font-size: 20px;
+}
+
+.caixa-base{
+    padding: 10px 0;
+    width: 960px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.anexo{
+    width: 48px;
+    height: 48px;
+    background-color: #2ab7a6;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.anexo img{
+    width: 80%;
+}
+
+.publicar button{
+    cursor: pointer;
+    border: none;
+    width: 150px;
+    height: 48px;
+    border-radius: 5px;
+    background-color: #2ab7a6;
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+}
+
+.publicar button:hover{
+    background-color: #197469;
+}
+
+.aba-atividade{
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 23px;
+    border-radius: 10px;
+    background-color: #2ab7a6;
+    display: flex;
+}
+
+.aba-atividade:hover{
+    background-color: #218f82;
+}
+
+.icone-atividade{
+    background-color: #197469;
+    font-size: 40px;
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    display: flex;
+    padding-bottom: 10px;
+    justify-content: center;
+}
+
+.postar-atividade{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+.aba-atividade a{
+    width: 100%;
+
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+.post{
+    margin: 20px 0;
+    background-color: white;
+    border: 1px solid rgb(206, 206, 206);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.post a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.post:hover{
+    background-color: rgb(248, 248, 248);
+}
+
+.cabecalho{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.foto-aluno{
+    background-color: #bebebe;
+    border-radius: 50px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.foto-aluno img{
+    width: 35px;
+    height: 35px;
+}
+
+.nome-aluno{
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.conteudo-post{
+    margin: 10px 0;
+}
+
+.data{
+    color:#8a8989;
+    font-size: 15px;;
+}
+
+.comentarios{
+    cursor: pointer;
+    margin-top: 20px;
+    background-color:#bebebe;
+    padding: 10px;
+    border-radius: 5px;
+    color:#444444;
+}
+
+.comentarios:hover{
+    background-color:rgb(139, 139, 139);
+}
+
+.container-avaliacao{
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    padding: 50px 0;
+    font-size: 18px;
+}
+
+table{
+    width: 100%;
+}
+
+table td{
+    border: 1px solid #bebebe;
+    padding: 10px 20px;
+}
+
+.tabela-header{
+    background-color: #bebebe;
+    font-weight: 500;
+}
+
+.tabela-row{
+    background-color: white;
+}
+
+.container-atividades{
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0;
+    font-size: 18px;
+}
+
+.container-atividades a{
+    text-decoration: none;
+}
+
+.barra-atividades{
+    cursor: pointer;
+    width: 100%;
+    height: 70px;
+    background-color: #e2e2e2;
+    border-radius: 10px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.barra-atividades:hover{
+    background-color: #b3b3b3;
+}
+
+.barra-atividades div{
+    display: flex;
+    align-items: center;
+}
+
+.icone-atividades{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.icone-atividades img{
+    height: 40px;
+    width: 40px;
+}
+
+.nome-atividades{
+
+    height: 50px;
+    width: 800px;
+    font-weight: 500;
+}
+
+.data-atividades{
+
+    height: 50px;
+    width: 100px;
+    color:#444444;
+}
+
+.container-perfil{
+    height: 200px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icone-foto{
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    background: url(../imagens/Professor.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.icone-foto:hover{
+    cursor: pointer;
+}
+
+.icone-camera{
+    background: url(../imagens/camera.png);
+}
+
+.informacoes-titulo{
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.container-usuario{
+    margin: 20px 0;
+    background-color: white;
+    border: 1px solid rgb(206, 206, 206);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.espaco{
+    margin-top: 80px;
+}
+
+.sair{
+    height: 48px;
+}
+
+.botao-sair{
+    cursor: pointer;
+    height: 48px;
+    width: 100%;
+    background-color: #c71919;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sair a{
+    text-decoration: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.botao-sair:hover{
+    background-color: #921414;
+}
+
+
+.post_atividade{
+    margin: 70px 0;
+    background-color: white;
+    border: 1px solid rgb(206, 206, 206);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 800px;
+}
+
+.post_atividade_cadastro{
+    margin: 70px 0;
+    background-color: white;
+    border: 1px solid rgb(206, 206, 206);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 620px;
+}
+
+.atividade_titulo{
+    margin: 20px 0 15px 0;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.atividade_info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+p{
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+#atividade_sub{
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#atividade_sub button{
+    cursor: pointer;
+    margin-top: 20px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color:#218f82;
+    color:aliceblue;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+#atividade_sub button:hover{
+    background-color:#197469;
+}
+
+.caixa-texto-atividade textarea{
+    padding: 20px;
+    background-color: rgb(233, 233, 233);
+    border: none;
+    border-bottom: 3px solid #2ab7a6;
+    border-radius: 10px 10px 0 0;
+    width: 960px;
+    font-size: 20px;
+}
+
+.container-admin{
+    padding: 50px;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-admin a{
+    cursor: pointer;
+    background-color: #218f82;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.container-admin a:hover{
+    background-color:#197469;
+}
+
+.container-admin form{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabela-linha a{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    background-color: #218f82;
+    border-radius: 10px;
+}
+
+.tabela-linha a:hover{
+    background-color:#197469;
+}
+
+.container-admin h2{
+    margin: 10px 0;
+}
+
+.tabela-admin{
+    margin-top: 10px;
+}
+
+.botao_funcionario{
+    margin: 20px 0;
+    cursor: pointer;
+    border: none;
+    background-color: #218f82;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.botao_funcionario:hover{
+    background-color:#197469;
+}
+
+.voltar a{
+    display:flex;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(61, 61, 61);
+}
+
+.voltar a:hover{
+    color: rgb(0, 0, 0);
+}

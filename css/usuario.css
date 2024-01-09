@@ -1,0 +1,114 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background: url("../imagens/Professor-icone-branco.png") no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+header{
+    height: 10vh;
+    background-color: #bebebe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+main div{
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecalho-conteudo{
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    width: 90vw;
+    height: 48px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.opcoes-nav{
+    display: flex;
+    gap: 50px;
+    height: 10vh;
+}
+
+.opcao-nav{
+    height: 10vh;
+}
+
+.opcao-nav:hover{
+    border-bottom: 4px solid white;
+}
+
+main a{
+    text-decoration: none;
+}
+
+#logo{
+    cursor: pointer;
+}
+
+#perfil{
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    background-image: url("../imagens/perfil-branco.png");
+}
+
+#perfil:hover{
+    background-image: url("../imagens/perfil-branco-selecionado.png");
+}
+
+.container{
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+}
+
+.container-geral{
+    width: 1000px;
+}
+
+.titulo-curso{
+    margin: 30px 0;
+    background-color: #2ab7a6;
+    height: 70px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.titulo-texto{
+    font-size: 30px;
+    font-weight: 500;
+    padding: 20px;
+}
+
+.container-caixa{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgb(206, 206, 206);
+}
+
+.container-alinhamento{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

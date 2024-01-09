@@ -1,0 +1,189 @@
+body{
+    margin: 0 auto;
+    color: rgb(255, 255, 255);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url(../imagens/Professor.jpg) no-repeat center center fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+header{
+    height: 10vh;
+    background-color: #bebebe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+main div{
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecalho-conteudo{
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    width: 90vw;
+    height: 48px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.opcoes-nav{
+    display: flex;
+    gap: 50px;
+    height: 10vh;
+}
+
+.opcao-nav{
+    height: 10vh;
+}
+
+.opcao-nav:hover{
+    border-bottom: 4px solid white;
+}
+
+main a{
+    text-decoration: none;
+}
+
+.quadrado{
+    margin-top: 600px;
+}
+
+.area{
+    flex: wrap;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 900px;
+}
+
+.titulo{
+    font-size: 60px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.texto{
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.fundo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario{
+    margin-top: 30px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-cad{
+    margin-top: 20px;
+    height: 40px;
+    width: 100%;
+    background-color: white;
+    border-radius: 7px;
+}
+
+.input-cad input{
+    margin: 5px 0 5px 5px;
+    height: 30px;
+    width: 98%;
+    border: none;
+    outline: none;
+    font-size: 17px;
+}
+
+.input-cad input::placeholder {
+    font-size: 17px;
+}
+
+.input-end{
+    margin-top: 20px;
+    height: 40px;
+    width: 100%;
+    background-color: white;
+    border-radius: 7px;
+}
+
+.input-end input{
+    margin: 5px 0 5px 5px;
+    height: 30px;
+    width: 98%;
+    border: none;
+    outline: none;
+    font-size: 17px;
+}
+
+.input-end input::placeholder {
+    font-size: 17px;
+}
+
+
+#botao-cadastrar{
+    margin: 20px 0 0 0;
+    height: 40px;
+    width: 100%;
+    background-color: #2ab7a6;
+    color: white;
+    border-radius: 7px;
+    border: none;
+    font-size: 17px;
+}
+
+#botao-cadastrar:hover{
+    background-color: #000;
+    cursor: pointer;
+}
+
+
+.logo img{
+    width: 50%;
+}
+
+.aba-institucional a{
+    text-decoration: none;
+    width: 600px;
+    margin: 20px 0 0 0;
+    height: 40px;
+    background-color: none;
+    color: #ffffff;
+    border-radius: 7px;
+    border: 2px solid #ffffff;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aba-institucional a:hover{
+    margin: 20px 0 0 0;
+    height: 40px;
+    width: 600px;
+    background-color: none;
+    color: #00634f;
+    border-radius: 7px;
+    border: 2px solid #00634f;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

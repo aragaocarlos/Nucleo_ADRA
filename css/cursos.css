@@ -1,0 +1,124 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background: url("../imagens/Professor-icone-branco.png") no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+header{
+    height: 10vh;
+    background-color: #b9b9b9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cabecalho-conteudo{
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    width: 90vw;
+    height: 48px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.perfil{
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    background-image: url("../imagens/perfil-branco.png");
+}
+
+.perfil:hover{
+    background-image: url("../imagens/perfil-branco-selecionado.png");
+}
+
+.container-titulo{
+    height: 8vh;
+    padding: 20px 0 10px 5vw;
+    width: 95vw;
+    font-size: 35px;
+    font-weight: 500;
+    color: #adadad;
+}
+
+.container-curso{
+    height: 82vh;
+    padding: 30px 5vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.curso{
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
+    background-image:linear-gradient(#77e7da, #2ab7a6);
+    display: flex;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.curso a{
+    text-decoration: none;
+    color: white;
+}
+
+.curso:hover{
+    border: 2px solid #2ab7a6;
+}
+
+.conteudo-curso{
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+.nome-curso{
+    font-size: larger;
+    font-weight: 500;
+}
+
+.descricao-curso{
+    margin-top: 2px;
+    font-size: small;
+}
+
+.professor{
+    margin-top: 5px;
+}
+
+.area{
+    cursor: pointer;
+    margin-top: 15px;
+    background-color: #2ab7a6;
+    border: 1px solid #1b756b;
+    border-radius: 30px;
+}
+
+.area-texto{
+    text-align: center;
+    font-size: small;
+    padding: 5px 15px;
+}
+
+.area:hover{
+    background-color: #1b756b;
+}

@@ -1,0 +1,68 @@
+<?php
+    session_start();
+    unset($_SESSION['msg']);
+    require_once "./util/config.php";
+    if ($_SERVER['REQUEST_METHOD'] == "POST"){
+        $login = $_POST["login"];
+        $senha = $_POST["senha"];
+
+        $sql = "SELECT * FROM administracao WHERE login = ? AND senha = ?";
+        $stmt = mysqli_prepare($link, $sql);
+        mysqli_stmt_bind_param($stmt, "ss", $login, $senha);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_array($result);
+        if(mysqli_num_rows($result) > 0){
+            header("location: ./administrador.php?i=" . $row['id']);
+            $_SESSION['login'] = $row['login'];
+            $_SESSION['senha'] = $row['senha'];
+        }else{
+            $_SESSION['msg'] = "Usuario ou senha inválido";
+        }
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área Institucional</title>
+    <link rel="stylesheet" type="text/css" href="./css/login-estilo.css" />
+</head>
+<body>
+    <div class="fundo">
+        <div class="area">
+        <div class="quadrado">
+            <div class="logo"><img src="./imagens/nucleo-adra.png"></div>
+            <div class="titulo">Área Institucional</div>
+            <div class="texto">Seja bem vindo.</div>
+            <div class="texto">Faça login para ter acesso a sua conta.</div>
+            <div class="formulario">
+            <form action="" method="POST">
+                <div class="login">
+                    <div class="input-login"><input type="text" name="login" placeholder="Informe seu e-mail"></div>
+                    <div class="input-login"><input type="password" name="senha" placeholder="Senha"></div>
+                    <button type="submit" id="botao-login">Entrar</button>
+                </div>
+                    <?php
+                              if (isset($_SESSION['msg']) == true) {
+                                echo "<div class='aviso'>";
+                                echo $_SESSION['msg'];
+                                echo "</div>";
+                              }
+                    ?>
+            </form>
+            </div>
+            <div class="aba-portal">
+                <a href="aluno.php"><div class="portal-aluno">
+                    <div class="texto-portal">
+                        Ir para Portal do Aluno
+                    </div>
+                </div></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
