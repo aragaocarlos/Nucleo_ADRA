@@ -2,6 +2,7 @@
     session_start();
     unset($_SESSION['msg']);
     require_once "./util/config.php";
+    //
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
         $login = $_POST["login"];
         $senha = $_POST["senha"];
@@ -13,7 +14,8 @@
         $result = mysqli_stmt_get_result($stmt);
         $row = mysqli_fetch_array($result);
         if(mysqli_num_rows($result) > 0){
-            header("location: ./administrador.php?i=" . $row['id']);
+            header("location: ./institucional/administrador.php?i=" . $row['id']);
+            //Rodi
             $_SESSION['login'] = $row['login'];
             $_SESSION['senha'] = $row['senha'];
         }else{
