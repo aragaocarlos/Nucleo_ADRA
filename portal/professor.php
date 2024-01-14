@@ -56,7 +56,7 @@
             </form>
             </div>
             <div class="aba-institucional">
-                <a href="index.php"><div class="portal-institucional">
+                <a href="../index.php"><div class="portal-institucional">
                     <div class="texto-institucional">
                         Ir para a Área Institucional
                     </div>
