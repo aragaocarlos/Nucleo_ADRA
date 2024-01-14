@@ -9,4 +9,5 @@
     if ($link === false){
         die("ERRO: não foi possivel realizar a conexao com o BD");
     }
+
 ?>

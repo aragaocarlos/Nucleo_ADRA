@@ -58,7 +58,7 @@
             </form>
             </div>
             <div class="aba-portal">
-                <a href="aluno.php"><div class="portal-aluno">
+                <a href="./portal/aluno.php"><div class="portal-aluno">
                     <div class="texto-portal">
                         Ir para Portal do Aluno
                     </div>

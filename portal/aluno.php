@@ -1,7 +1,7 @@
 <?php
     session_start();
     unset($_SESSION['msg']);
-    require_once "./util/config.php";
+    require_once ".././util/config.php";
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
         $email = $_POST["email"];
         $senha = $_POST["senha"];
@@ -29,13 +29,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal do Aluno</title>
-    <link rel="stylesheet" type="text/css" href="./css/login-estilo.css" />
+    <link rel="stylesheet" type="text/css" href=".././css/login-estilo.css" />
 </head>
 <body>
     <div class="fundo-aluno">
         <div class="area-aluno">
         <div class="quadrado-aluno">
-            <div class="logo"><img src="./imagens/nucleo-adra-branco.png"></div>
+            <div class="logo"><img src=".././imagens/nucleo-adra-branco.png"></div>
             <div class="titulo-aluno">Portal do Aluno</div>
             <div class="texto">Seja bem vindo.</div>
             <div class="texto">Faça login para ter acesso a sua conta.</div>
@@ -56,7 +56,7 @@
             </form>
             </div>
             <div class="aba-institucional">
-                <a href="professor.php"><div class="portal-institucional">
+                <a href=".././portal/professor.php"><div class="portal-institucional">
                     <div class="texto-institucional">
                         Ir para o Portal do Professor
                     </div>
