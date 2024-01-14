@@ -1,5 +1,5 @@
 <?php 
-        require_once "./util/config.php";
+        require_once "../../util/config.php";
         $idTurma = $_GET['t'];
         $idCurso = $_GET['c'];
         $idAluno = $_GET['i'];
@@ -49,9 +49,9 @@
 <header>
     <main>
         <div class="cabecalho-conteudo">
-            <a href="./administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../../institucional/administrador.php?i=<?php echo $idAluno; ?>">
             <div id="logo" class="opcoes-nav">
-                <img src="./imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
             </div>
             </a>
             <div id="perfil" class="opcoes-nav">
@@ -77,7 +77,7 @@
 
 </div>
 <div class="voltar">
-    <p><a href='index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+    <p><a href='../../index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
 </div>
     </body>
     </html>

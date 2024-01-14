@@ -1,7 +1,7 @@
 <?php
     session_start();
     date_default_timezone_set('America/Sao_Paulo');
-    require_once "./util/config.php";
+    require_once "../../util/config.php";
     $idCurso = $_GET['c'];
     $idTurma = $_GET['t'];
     $sql = "SELECT * FROM disciplina";
@@ -53,7 +53,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mural</title>
-    <link rel="stylesheet" href="./css/mural.css">
+    <link rel="stylesheet" href="../../css/mural.css">
 </head>
 <body>
 <header>
@@ -61,7 +61,7 @@
             <div class="cabecalho-conteudo">
                 <a href="cursos.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
-                    <img src="./imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                    <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="atividades.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
@@ -110,7 +110,7 @@
                 </div>
                 <div class="caixa-base">
                     <a href=""><div class="anexo">
-                        <img src="./imagens/paper-clip-branco.png" alt="">
+                        <img src="../../imagens/paper-clip-branco.png" alt="">
                     </div></a>
                     <div class="publicar">
                         <button type="submit">Publicar</button>

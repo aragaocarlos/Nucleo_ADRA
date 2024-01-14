@@ -11,33 +11,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Atividade</title>
-    <link rel="stylesheet" href="./css/mural.css">
+    <link rel="stylesheet" href="../../css/mural.css">
 </head>
 <body>
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="cursos_professor.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
-                    <img src="./imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                    <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
-                <a href="mural-professor.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="mural.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="mural-texto">
                             Mural
                         </div>
                     </div>
                 </a>
-                <a href="lista_atividades_professor.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="lista_atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
                     </div>
                 </div>
                 </a>
-                <a href="avaliacao_professor.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="notas-texto">
                             Avaliação

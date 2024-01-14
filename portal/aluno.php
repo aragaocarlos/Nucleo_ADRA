@@ -13,7 +13,7 @@
         $result = mysqli_stmt_get_result($stmt);
         $row = mysqli_fetch_array($result);
         if(mysqli_num_rows($result) > 0){
-            header("location: ./cursos.php?i=" . $row['id']);
+            header("location: ./aluno/curso.php?i=" . $row['id']);
             $_SESSION['email'] = $row['email'];
             $_SESSION['senha'] = $row['senha'];
         }else{

@@ -1,5 +1,5 @@
 <?php
-    require_once "./util/config.php";
+    require_once "../../util/config.php";
     $idAluno = $_GET['i'];
 
         $sql = "SELECT * FROM professor";
@@ -18,14 +18,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turmas</title>
-    <link rel="stylesheet" href="./css/cursos.css">
+    <link rel="stylesheet" href="../../css/cursos.css">
 </head>
 <body>
     <header>
         <main>
             <div class="cabecalho-conteudo">
                 <div class="logo">
-                    <img src="./imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                    <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 <a href="usuario.php?c=#&i=<?php echo $idAluno; ?>&t=#">
                 <div id="perfil" class="opcoes-nav">
@@ -52,7 +52,7 @@
                     $id_disciplina = $row['disciplina_id'];
         ?>
             <!-- INTEGRAÇÃO COM BANCO DE DADOS AQUI -->
-            <div class="curso"><a href="mural-professor.php?c=<?php echo $row['disciplina_id']; ?>&i=<?php echo $idAluno; ?>&t=<?php echo $row['id']; ?>">
+            <div class="curso"><a href="mural.php?c=<?php echo $row['disciplina_id']; ?>&i=<?php echo $idAluno; ?>&t=<?php echo $row['id']; ?>">
                 
                 <div class="conteudo-curso">
                     <!-- NOME DA TURMA -->

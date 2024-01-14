@@ -1,7 +1,7 @@
 <?php
     session_start();
     date_default_timezone_set('America/Sao_Paulo');
-    require_once "./util/config.php";
+    require_once "../../util/config.php";
 
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
@@ -66,15 +66,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mural</title>
-    <link rel="stylesheet" href="./css/mural.css">
+    <link rel="stylesheet" href="../../css/mural.css">
 </head>
 <body>
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="cursos.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
-                    <img src="./imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                    <img src="../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="atividades.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>">
+                <a href="atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
@@ -113,7 +113,7 @@
         <div class="post-alinhamento">
             <div class="cabecalho">
                 <div class="foto-aluno">
-                    <img src="./imagens/perfil-branco.png" alt="">
+                    <img src="../../imagens/perfil-branco.png" alt="">
                 </div>
                 <div class="container-nome">
                     <div class="nome-aluno">

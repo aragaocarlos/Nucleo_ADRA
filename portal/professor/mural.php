@@ -1,7 +1,7 @@
 <?php
     session_start();
     date_default_timezone_set('America/Sao_Paulo');
-    require_once "./util/config.php";
+    require_once "../../util/config.php";
     $idCurso = $_GET['c'];
     $idTurma = $_GET['t'];
     $sql = "SELECT * FROM disciplina";
@@ -53,15 +53,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mural</title>
-    <link rel="stylesheet" href="./css/mural.css">
+    <link rel="stylesheet" href="../../css/mural.css">
 </head>
 <body>
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="cursos_professor.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
-                    <img src="./imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                    <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
@@ -72,14 +72,14 @@
                         </div>
                     </div>
                 </a>
-                <a href="lista_atividades_professor.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="lista_atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
                     </div>
                 </div>
                 </a>
-                <a href="avaliacao_professor.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="notas-texto">
                             Avaliação
@@ -120,7 +120,7 @@
         </div>
         <!-- INSERIR NOVA ATIVIDADE -->
         <div class="aba-atividade">
-            <a href="atividade_professor.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>"><div class="postar-atividade">
+            <a href="atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>"><div class="postar-atividade">
                 <div class="icone-atividade">
                     +
                 </div>
@@ -140,7 +140,7 @@
             <div class="post-alinhamento">
                 <div class="cabecalho">
                     <div class="foto-aluno">
-                        <img src="./imagens/perfil-branco.png" alt="">
+                        <img src="../../imagens/perfil-branco.png" alt="">
                     </div>
                     <div class="container-nome">
                         <div class="nome-aluno">

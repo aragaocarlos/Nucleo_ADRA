@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once "./util/config.php";
+    require_once "../../util/config.php";
 
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
@@ -33,33 +33,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avaliação</title>
-    <link rel="stylesheet" href="./css/mural.css">
+    <link rel="stylesheet" href="../../css/mural.css">
 </head>
 <body>
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="cursos_professor.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="./imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
-                <a href="mural-professor.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="mural.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="mural-texto">
                             Mural
                         </div>
                     </div>
                 </a>
-                <a href="lista_atividades_professor.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="lista_atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
                     </div>
                 </div>
                 </a>
-                <a href="avaliacao_professor.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="notas-texto">
                             Avaliação
@@ -100,7 +100,7 @@
                 <td><?php echo $row['n3']; ?></td>
                 <td><?php echo $row['faltas']; ?></td>
                 <td><?php echo $row['situacao'];?></td>
-                <td><?php echo('<a href="update_avaliacao_professor.php?id='.$row['id'].'c='.$idCurso.'&i='.$idAluno.'&t='.$idTurma.'">Alterar</a>')?></td>
+                <td><?php echo('<a href="update_avaliacao.php?id='.$row['id'].'c='.$idCurso.'&i='.$idAluno.'&t='.$idTurma.'">Alterar</a>')?></td>
             </tr>
             <?php
                     }
