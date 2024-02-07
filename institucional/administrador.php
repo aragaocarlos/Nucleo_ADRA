@@ -1,7 +1,7 @@
 <?php
     session_start();
     date_default_timezone_set('America/Sao_Paulo');
-    require_once "./util/config.php";
+    require_once "../util/config.php";
 
 
     $idAluno = $_GET['i'];
@@ -44,8 +44,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mural</title>
-    <link rel="stylesheet" href="./css/mural.css">
-    <link rel="stylesheet" href="./css/administrador.css">
+    <link rel="stylesheet" href="../css/mural.css">
+    <link rel="stylesheet" href="../css/administrador.css">
 </head>
 <body>
 <header>

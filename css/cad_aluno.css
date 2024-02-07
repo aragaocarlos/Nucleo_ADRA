@@ -99,6 +99,7 @@ main a{
     width: 100%;
     background-color: white;
     border-radius: 7px;
+    
 }
 
 .input-cad input{
@@ -108,10 +109,12 @@ main a{
     border: none;
     outline: none;
     font-size: 17px;
+    
 }
 
 .input-cad input::placeholder {
     font-size: 17px;
+    
 }
 
 .input-end{

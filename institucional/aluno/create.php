@@ -43,6 +43,12 @@
                             <option value="feminino">Feminino</option>
                         </select>
                     </div>
+                    <div class="input-cad">
+                        <select name="pcd">
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                        </select>
+                    </div>
                     <div class = "input-cad"><input type = "email" name = "email" placeholder = "Informe seu email"></div>
                     <div class = "input-cad"><input type = "fone" name = "fone" placeholder = "telefone"></div> 
                     <div class = "input-cad"><input type = "password" name = "senha" placeholder = "Digite uma senha"></div>
@@ -50,7 +56,15 @@
                     <div class = "input-cad"><input type = "text" name = "rg" placeholder = "Digite o seu Rg"></div> 
                     <div class = "input-cad"><input type = "text" name = "cpf" placeholder = "digite o seu cpf"></div>                  
                     </div>
-                <br>
+                 <br>
+                    <label for="radio">Possui alguma deficiência?(PCD)</label>
+                    <div class = "radio"><input type="radio" name = "pcd" value="sim">
+                    <label for="sim">SIM!</label><br>
+                    <div class = "radio"><input type="radio" name = "pcd" value="nao">
+                    <label for="nao">NÃO!</label><br>
+                    </div>
+                    <div class = "input-end"><input type = "text" name = "descricao_pcd" placeholder = "Descreva se sim!"></div>
+                 <br>
                     <div class ="texto">Endereço</div>
                     <div class = "end">
                     <div class = "input-end"><input type = "text" name = "logradouro" placeholder = "Logradouro"></div> 
