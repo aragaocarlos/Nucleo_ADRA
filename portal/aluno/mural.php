@@ -4,10 +4,10 @@
     require_once "../../util/config.php";
     $idCurso = $_GET['c'];
     $idTurma = $_GET['t'];
-    $sql = "SELECT * FROM disciplina";
+    $sql = "SELECT * FROM curso";
     $result = mysqli_query($link, $sql);
     while($row = mysqli_fetch_array($result)){
-        if($row['id_dis'] == $idCurso){
+        if($row['id_curso'] == $idCurso){
             $nomeCurso = $row['nome'];
         }
     }

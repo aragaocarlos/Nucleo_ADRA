@@ -110,13 +110,22 @@ header{
     margin-top: 15px;
     background-color: #2ab7a6;
     border: 1px solid #1b756b;
-    border-radius: 30px;
+    border-radius: 15px;
 }
 
-.area-texto{
+.area-texto-turma{
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 15px;
+    padding-top: 5px;
+}
+
+.area-texto-sala{
     text-align: center;
     font-size: small;
-    padding: 5px 15px;
+    padding: 0 15px;
+    padding-bottom: 5px;
 }
 
 .area:hover{

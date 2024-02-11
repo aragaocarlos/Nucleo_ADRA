@@ -4,14 +4,6 @@
     
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
-    $sql = "SELECT * FROM disciplina";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
-        if($idCurso == $row['id_dis']){
-            $nomeCurso = $row['nome'];
-        }
-    }
-
 
     $idAluno = $_GET['i'];
     $sql = "SELECT * FROM aluno";

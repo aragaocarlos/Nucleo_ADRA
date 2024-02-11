@@ -53,7 +53,7 @@
             <div class="cabecalho-conteudo">
                 <a href="administrador.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
-                    <img src="./imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                    <img src="../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div id="perfil" class="opcoes-nav">
@@ -70,24 +70,24 @@
     </div>
     <div class="container-botoes">
         <div class="dois_botoes">
-            <a href="./area_admin/funcionarios/index.php?&i=<?php echo $idAluno; ?>">
+            <a href="./funcionario/index.php?&i=<?php echo $idAluno; ?>">
                 <div class="botao-texto">
                     Funcionários
                 </div>
             </a>
-            <a href="./area_admin/cursos/index.php?&i=<?php echo $idAluno; ?>">
+            <a href="./curso/index.php?&i=<?php echo $idAluno; ?>">
                 <div class="botao-texto">
                     Cursos
                 </div>
             </a>
         </div>
         <div class="dois_botoes">
-            <a href="./area_admin/professores/index.php?&i=<?php echo $idAluno; ?>">
+            <a href="./professor/index.php?&i=<?php echo $idAluno; ?>">
                 <div class="botao-texto">
                     Professores
                 </div>
             </a>
-            <a href="./area_admin/alunos/index.php?&i=<?php echo $idAluno; ?>">
+            <a href="./aluno/index.php?&i=<?php echo $idAluno; ?>">
                 <div class="botao-texto">
                     Alunos
                 </div>
