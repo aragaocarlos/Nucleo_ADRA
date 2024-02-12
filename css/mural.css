@@ -509,7 +509,7 @@ p{
     align-items: center;
 }
 
-.container-admin a{
+.incluir{
     cursor: pointer;
     background-color: #218f82;
     padding: 10px;
@@ -518,7 +518,7 @@ p{
     text-decoration: none;
 }
 
-.container-admin a:hover{
+.incluir:hover{
     background-color:#197469;
 }
 
@@ -528,7 +528,7 @@ p{
     align-items: center;
 }
 
-.tabela-linha a{
+.crud_link{
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -538,8 +538,13 @@ p{
     border-radius: 10px;
 }
 
-.tabela-linha a:hover{
+.crud_link:hover{
     background-color:#197469;
+}
+
+.crud_curso{
+    text-decoration: none;
+    color: black;
 }
 
 .container-admin h2{

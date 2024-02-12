@@ -1,6 +1,7 @@
 <?php 
         require_once "../../util/config.php";
         $idAluno = $_GET['i'];
+        var_dump($idAluno);
         if($_GET['id']){
             $id = $_GET['id'];
             $sql = "SELECT * FROM aluno WHERE id = ?";
@@ -21,11 +22,11 @@
             $login = $_POST["login"];
             $senha = $_POST["senha"];
             $id = $_POST["id"];
-            $sql = "UPDATE produtos SET nome = ?, sobrenome = ?, sexo = ?, email = ?, nascimento = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
+            $sql = "UPDATE aluno SET nome = ?, sobrenome = ?, sexo = ?, email = ?, nascimento = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "ssssssssss", $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $login, $senha);
+            mysqli_stmt_bind_param($stmt, "sssssssssi", $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $login, $senha, $id);
             if(mysqli_stmt_execute($stmt)){
-                header('location: index.php');
+                header("Location: index.php?i=" . urlencode($idAluno));
                 exit;
             } else {
                 echo "Ocorreu um erro";
@@ -38,7 +39,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Alterar Produtos</title>
+        <title>Alterar Alunos</title>
         <link rel="stylesheet" href="../../css/mural.css">
     </head>
     <body>

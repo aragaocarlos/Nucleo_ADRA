@@ -2,6 +2,7 @@
     require_once "../../util/config.php";
 
     $idAluno = $_GET['i'];
+
     $sql = "SELECT * FROM curso";
     $result = mysqli_query($link, $sql);
 
@@ -32,7 +33,7 @@
 
 <div class="container-admin">
     <h2>Cursos</h2>
-    <p><a href="create.php?i=<?php echo $idAluno; ?>">Incluir</a></p>
+    <p><a href="create.php?i=<?php echo $idAluno; ?>" class="incluir">Incluir</a></p>
     <table border="0" class="tabela-admin">
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->
@@ -52,20 +53,21 @@
         <?php while($row = mysqli_fetch_array($result)){?>
         <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
-            <td><?php echo($row['nome'])?></td>
-            <td><?php echo($row['sigla'])?></td>
-            <td><?php echo($row['descricao'])?></td>
-            <td><?php echo($row['area'])?></td>
-            <td><?php echo($row['ch'])?></td>
-            <td><?php echo($row['periodo'])?></td>
-            <td><?php echo($row['curso_inicio'])?></td>
-            <td><?php echo($row['curso_fim'])?></td>
-            <td><?php echo($row['hora_inicio'])?></td>
-            <td><?php echo($row['hora_fim'])?></td>
-            <td><?php echo($row['valor'])?></td>
-            <td><?php echo('<a href="read.php?id='.$row['id_curso'].'&i='.$idAluno.'">Exibir</a>')?></td>
-            <td><?php echo('<a href="update.php?id='.$row['id_curso'].'&i='.$idAluno.'">Alterar</a>')?></td>
-            <td><?php echo('<a href="delete.php?id='.$row['id_curso'].'&i='.$idAluno.'">Excluir</a>')?></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['nome'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['sigla'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['descricao'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['area'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['ch'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['periodo'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['curso_inicio'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['curso_fim'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['hora_inicio'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['hora_fim'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['valor'])?></a></td>
+            </div>
+            <td><?php echo('<a href="read.php?id='.$row['id_curso'].'&i='.$idAluno.'" class="crud_link">Exibir</a>')?></td>
+            <td><?php echo('<a href="update.php?id='.$row['id_curso'].'&i='.$idAluno.'" class="crud_link">Alterar</a>')?></td>
+            <td><?php echo('<a href="delete.php?id='.$row['id_curso'].'&i='.$idAluno.'" class="crud_link">Excluir</a>')?></td>
         </tr>
         <?php } ?>
     </table>
