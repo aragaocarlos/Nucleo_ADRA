@@ -1,10 +1,11 @@
 <?php
-    require_once "../../util/config.php";
+    require_once "../../../util/config.php";
 
     $idAluno = $_GET['i'];
+    $idCurso = $_GET['c'];
     if($_GET['id']){
         $id = $_GET['id'];
-        $sql = "SELECT * FROM curso WHERE id_curso = ?";
+        $sql = "SELECT * FROM turma WHERE id = ?";
         $stmt = mysqli_prepare($link, $sql);
         mysqli_stmt_bind_param($stmt, "i", $id);
         mysqli_stmt_execute($stmt);
@@ -20,7 +21,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Curso</title>
-    <link rel="stylesheet" href="../../css/mural.css">
+    <link rel="stylesheet" href="../../../css/mural.css">
 </head>
 <body>
     <header>
@@ -28,7 +29,7 @@
             <div class="cabecalho-conteudo">
                 <a href="../administrador.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
-                    <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                    <img src="../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div id="perfil" class="opcoes-nav">
@@ -38,21 +39,11 @@
     </header>
     
     <div class="container-admin">
-        <h2>Detalhes do Curso</h2>
-        <p>Nome: <?php echo($row['nome']) ?></p>
-        <p>Sigla: <?php echo($row['sigla']) ?></p>
-        <p>Descrição: <?php echo($row['descricao']) ?></p>
-        <p>Área: <?php echo($row['area']) ?></p>
-        <p>Carga Horária: <?php echo($row['ch']) ?></p>
-        <p>Período: <?php echo($row['periodo']) ?></p>
-        <p>Início do Curso: <?php echo($row['curso_inicio']) ?></p>
-        <p>Fim do Curso: <?php echo($row['curso_fim']) ?></p>
-        <p>Hora de Início: <?php echo($row['hora_inicio']) ?></p>
-        <p>Hora de Término: <?php echo($row['hora_fim']) ?></p>
-        <p>Valor: <?php echo($row['valor']) ?></p>
+        <h2>Detalhes da Turma</h2>
+        <p>Turma: <?php echo($row['codigo']) ?></p>
     </div>
     <div class="voltar">
-        <p><a href='index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+        <p><a href='index.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>'>Voltar</a></p>
     </div>
 </body>
 </html>

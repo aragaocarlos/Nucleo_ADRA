@@ -2,6 +2,7 @@
     require_once "../../util/config.php";
 
     $idAluno = $_GET['i'];
+    $idCurso = $_GET['c'];
 ?>
 
 <!DOCTYPE html>

@@ -1,7 +1,6 @@
 <?php 
         require_once "../../util/config.php";
         $idAluno = $_GET['i'];
-        var_dump($idAluno);
         if($_GET['id']){
             $id = $_GET['id'];
             $sql = "SELECT * FROM aluno WHERE id = ?";
@@ -25,12 +24,6 @@
             $sql = "UPDATE aluno SET nome = ?, sobrenome = ?, sexo = ?, email = ?, nascimento = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
             mysqli_stmt_bind_param($stmt, "sssssssssi", $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $login, $senha, $id);
-            if(mysqli_stmt_execute($stmt)){
-                header("Location: index.php?i=" . urlencode($idAluno));
-                exit;
-            } else {
-                echo "Ocorreu um erro";
-            }
         }
     ?>
     <!DOCTYPE html>
@@ -58,7 +51,7 @@
 </header>
 <div class="container-admin">
     <h2>Alteração de Alunos</h2>
-    <form method="post" action="update.php">
+    <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>">
         <p>Nome: <input type="text" name="nome" value="<?php echo $row['nome'] ?>"></p>
         <p>Sobrenome: <input type="text" name="sobrenome" value="<?php echo $row['sobrenome'] ?>"></p>
         <p>Sexo: <input type="text" name="sexo" value="<?php echo $row['sexo'] ?>"></p>

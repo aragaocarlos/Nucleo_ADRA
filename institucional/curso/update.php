@@ -26,12 +26,6 @@
             $sql = "UPDATE curso SET nome = ?, sigla = ?, descricao = ?, area = ?, ch = ?, periodo = ?, curso_inicio = ?, curso_fim = ?, hora_inicio = ?, hora_fim = ?, valor = ? WHERE id_curso = ?";
             $stmt = mysqli_prepare($link, $sql);
             mysqli_stmt_bind_param($stmt, "sssssissss", $nome, $sigla, $descricao, $area, $ch, $periodo, $curso_inicio, $curso_fim, $hora_inicio, $hora_fim, $valor);
-            if(mysqli_stmt_execute($stmt)){
-                header('location: index.php');
-                exit;
-            } else {
-                echo "Ocorreu um erro";
-            }
         }
     ?>
     <!DOCTYPE html>
@@ -59,7 +53,7 @@
 </header>
 <div class="container-admin">
     <h2>Alterar Cursos</h2>
-    <form method="post" action="update.php">
+    <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>">
         <p>Nome: <input type="text" name="nome" value="<?php echo $row['nome'] ?>"></p>
         <p>sigla: <input type="text" name="sigla" value="<?php echo $row['sigla'] ?>"></p>
         <p>descricao: <input type="text" name="descricao" value="<?php echo $row['descricao'] ?>"></p>

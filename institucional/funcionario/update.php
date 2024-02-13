@@ -18,12 +18,6 @@
             $sql = "UPDATE administracao SET nome = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
             mysqli_stmt_bind_param($stmt, "ssss", $nome, $login, $senha);
-            if(mysqli_stmt_execute($stmt)){
-                header('location: index.php');
-                exit;
-            } else {
-                echo "Ocorreu um erro";
-            }
         }
     ?>
     <!DOCTYPE html>
@@ -51,7 +45,7 @@
 </header>
 <div class="container-admin">
     <h2>Alteração de Funcionários</h2>
-    <form method="post" action="update.php">
+    <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>">
         <p>Nome: <input type="text" name="nome" value="<?php echo $row['nome'] ?>"></p>
         <p>Login: <input type="text" name="login" value="<?php echo $row['login'] ?>"></p>
         <p>Senha: <input type="text" name="senha" value="<?php echo $row['senha'] ?>"></p>

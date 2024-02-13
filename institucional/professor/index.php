@@ -32,7 +32,7 @@
 
 <div class="container-admin">
     <h2>Professores</h2>
-    <p><a href="create.php?i=<?php echo $idAluno; ?>">Incluir</a></p>
+    <p><a href="create.php?i=<?php echo $idAluno; ?>" class="incluir">Incluir</a></p>
     <table border="0" class="tabela-admin">
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->
@@ -49,9 +49,9 @@
             <td><?php echo($row['sobrenome'])?></td>
             <td><?php echo($row['email'])?></td>
             <td><?php echo($row['nascimento'])?></td>
-            <td><?php echo('<a href="read.php?id='.$row['id_professor'].'&i='.$idAluno.'">Exibir</a>')?></td>
-            <td><?php echo('<a href="update.php?id='.$row['id_professor'].'&i='.$idAluno.'">Alterar</a>')?></td>
-            <td><?php echo('<a href="delete.php?id='.$row['id_professor'].'&i='.$idAluno.'">Excluir</a>')?></td>
+            <td><?php echo('<a href="read.php?id='.$row['id_professor'].'&i='.$idAluno.'" class="crud_link">Exibir</a>')?></td>
+            <td><?php echo('<a href="update.php?id='.$row['id_professor'].'&i='.$idAluno.'" class="crud_link">Alterar</a>')?></td>
+            <td><?php echo('<a href="delete.php?id='.$row['id_professor'].'&i='.$idAluno.'" class="crud_link">Excluir</a>')?></td>
         </tr>
         <?php } ?>
     </table>

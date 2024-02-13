@@ -17,12 +17,6 @@
             $sql = "UPDATE turma SET codigo = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
             mysqli_stmt_bind_param($stmt, "si", $codigo, $id);
-            if(mysqli_stmt_execute($stmt)){
-                header(`location: index.php?i=`. echo($idAluno) . `&c=` . echo($idCurso));
-                exit;
-            } else {
-                echo "Ocorreu um erro";
-            }
         }
     ?>
     <!DOCTYPE html>
@@ -50,7 +44,7 @@
 </header>
 <div class="container-admin">
     <h2>Alterar Turmas</h2>
-    <form method="post" action="update.php">
+    <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>">
         <p>Turma: <input type="text" name="nome" value="<?php echo $row['codigo'] ?>"></p>
         <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
         <p><input type="submit" class="botao_funcionario" value="Alterar"></p>
