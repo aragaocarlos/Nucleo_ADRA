@@ -1,56 +1,57 @@
-CREATE DATABASE  IF NOT EXISTS `escola` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `escola`;
--- MySQL dump 10.13  Distrib 8.0.34, for Linux (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: escola
--- ------------------------------------------------------
--- Server version	8.0.36
+-- Host: 127.0.0.1:3306
+-- Tempo de geração: 11/02/2024 às 21:30
+-- Versão do servidor: 8.2.0
+-- Versão do PHP: 8.2.13
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `administracao`
+-- Banco de dados: `escola`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `administracao`
 --
 
 DROP TABLE IF EXISTS `administracao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `administracao` (
-  `id` smallint unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `administracao` (
+  `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` varchar(30) NOT NULL,
   `login` varchar(20) NOT NULL,
   `senha` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `administracao`
+-- Despejando dados para a tabela `administracao`
 --
 
-LOCK TABLES `administracao` WRITE;
-/*!40000 ALTER TABLE `administracao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `administracao` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `administracao` (`id`, `nome`, `login`, `senha`) VALUES
+(3, 'Luiz Carlos', 'luizcj', '1234');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `aluno`
+-- Estrutura para tabela `aluno`
 --
 
 DROP TABLE IF EXISTS `aluno`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `aluno` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `aluno` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome_completo` varchar(80) DEFAULT NULL,
   `nome` varchar(45) DEFAULT NULL,
   `sobrenome` varchar(45) DEFAULT NULL,
@@ -63,61 +64,54 @@ CREATE TABLE `aluno` (
   `pcd_desc` varchar(255) DEFAULT NULL,
   `login` varchar(20) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL,
-  `endereco_id` int unsigned DEFAULT NULL,
+  `endereco_id` int UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpf_UNIQUE` (`cpf`),
   UNIQUE KEY `rg_UNIQUE` (`rg`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `login_UNIQUE` (`login`),
-  KEY `fk_aluno_endereco1_idx` (`endereco_id`),
-  CONSTRAINT `fk_aluno_endereco1` FOREIGN KEY (`endereco_id`) REFERENCES `endereco` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `fk_aluno_endereco1_idx` (`endereco_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `aluno`
+-- Despejando dados para a tabela `aluno`
 --
 
-LOCK TABLES `aluno` WRITE;
-/*!40000 ALTER TABLE `aluno` DISABLE KEYS */;
-/*!40000 ALTER TABLE `aluno` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `aluno` (`id`, `nome_completo`, `nome`, `sobrenome`, `sexo`, `email`, `nascimento`, `rg`, `cpf`, `pcd`, `pcd_desc`, `login`, `senha`, `endereco_id`) VALUES
+(6, 'Luiz Carlos Aragão Carreira Junior', 'Luiz Carlos', 'Aragão', 'M', 'luiz10junior@gmail.com', '1998-09-01', '3827472', '03059302023', 1, '11aaaaaaaa', 'luizcj', '1234', NULL);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `aluno_has_turma`
+-- Estrutura para tabela `aluno_has_turma`
 --
 
 DROP TABLE IF EXISTS `aluno_has_turma`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `aluno_has_turma` (
-  `aluno_id` int unsigned NOT NULL,
-  `turma_id` int unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `aluno_has_turma` (
+  `aluno_id` int UNSIGNED NOT NULL,
+  `turma_id` int UNSIGNED NOT NULL,
   PRIMARY KEY (`aluno_id`,`turma_id`),
   KEY `fk_aluno_has_turma_turma1_idx` (`turma_id`),
-  KEY `fk_aluno_has_turma_aluno1_idx` (`aluno_id`),
-  CONSTRAINT `fk_aluno_has_turma_aluno1` FOREIGN KEY (`aluno_id`) REFERENCES `aluno` (`id`),
-  CONSTRAINT `fk_aluno_has_turma_turma1` FOREIGN KEY (`turma_id`) REFERENCES `turma` (`id`)
+  KEY `fk_aluno_has_turma_aluno1_idx` (`aluno_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `aluno_has_turma`
+-- Despejando dados para a tabela `aluno_has_turma`
 --
 
-LOCK TABLES `aluno_has_turma` WRITE;
-/*!40000 ALTER TABLE `aluno_has_turma` DISABLE KEYS */;
-/*!40000 ALTER TABLE `aluno_has_turma` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `aluno_has_turma` (`aluno_id`, `turma_id`) VALUES
+(6, 3),
+(6, 5),
+(6, 6);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `atividade`
+-- Estrutura para tabela `atividade`
 --
 
 DROP TABLE IF EXISTS `atividade`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `atividade` (
+CREATE TABLE IF NOT EXISTS `atividade` (
   `id` int NOT NULL AUTO_INCREMENT,
   `titulo` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `comando` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -127,25 +121,15 @@ CREATE TABLE `atividade` (
   `turma` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `atividade`
---
-
-LOCK TABLES `atividade` WRITE;
-/*!40000 ALTER TABLE `atividade` DISABLE KEYS */;
-/*!40000 ALTER TABLE `atividade` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `avaliacao`
+-- Estrutura para tabela `avaliacao`
 --
 
 DROP TABLE IF EXISTS `avaliacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `avaliacao` (
+CREATE TABLE IF NOT EXISTS `avaliacao` (
   `id` int NOT NULL AUTO_INCREMENT,
   `aluno_id` int DEFAULT NULL,
   `turma_id` int DEFAULT NULL,
@@ -158,83 +142,63 @@ CREATE TABLE `avaliacao` (
   KEY `FK_aluno` (`aluno_id`),
   KEY `FK_turma` (`turma_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `avaliacao`
---
-
-LOCK TABLES `avaliacao` WRITE;
-/*!40000 ALTER TABLE `avaliacao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `avaliacao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `conhecimento`
+-- Estrutura para tabela `conhecimento`
 --
 
 DROP TABLE IF EXISTS `conhecimento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `conhecimento` (
+CREATE TABLE IF NOT EXISTS `conhecimento` (
   `id` int NOT NULL,
   `materia` varchar(45) NOT NULL,
   `assunto` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `conhecimento`
---
-
-LOCK TABLES `conhecimento` WRITE;
-/*!40000 ALTER TABLE `conhecimento` DISABLE KEYS */;
-/*!40000 ALTER TABLE `conhecimento` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `curso`
+-- Estrutura para tabela `curso`
 --
 
 DROP TABLE IF EXISTS `curso`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `curso` (
-  `id_curso` int unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `curso` (
+  `id_curso` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `sigla` varchar(5) DEFAULT NULL,
   `descricao` text NOT NULL,
   `area` varchar(40) NOT NULL,
-  `ch` smallint unsigned DEFAULT NULL,
+  `ch` smallint UNSIGNED DEFAULT NULL,
   `periodo` enum('M','V','N') DEFAULT NULL,
   `curso_inicio` date DEFAULT NULL,
   `curso_fim` date DEFAULT NULL,
   `hora_inicio` char(5) DEFAULT NULL,
   `hora_fim` char(5) DEFAULT NULL,
-  `valor` decimal(6,2) unsigned DEFAULT NULL,
+  `valor` decimal(6,2) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `curso`
+-- Despejando dados para a tabela `curso`
 --
 
-LOCK TABLES `curso` WRITE;
-/*!40000 ALTER TABLE `curso` DISABLE KEYS */;
-/*!40000 ALTER TABLE `curso` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `curso` (`id_curso`, `nome`, `sigla`, `descricao`, `area`, `ch`, `periodo`, `curso_inicio`, `curso_fim`, `hora_inicio`, `hora_fim`, `valor`) VALUES
+(4, 'Técnico em Informática', 'TI', 'Terça e Quinta', 'Informática', 360, 'M', '2023-09-06', '2024-03-31', '19:00', '22:00', 1000.00),
+(5, 'Técnico em Informática', 'TI', 'Terça e Quinta', 'Informática', 360, 'M', '2023-09-06', '2024-03-31', '19:00', '22:00', 1000.00),
+(6, 'Desenvolvimento de Jogos', 'JG', 'Quarta e Sexta', 'Jogos', 100, 'V', '2023-09-06', '2024-03-31', '19:00', '22:00', 1000.00),
+(7, 'Desenvolvimento de Jogos', 'JG', 'Quarta e Sexta', 'Jogos', 100, 'V', '2023-09-06', '2024-03-31', '19:00', '22:00', 1000.00);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `endereco`
+-- Estrutura para tabela `endereco`
 --
 
 DROP TABLE IF EXISTS `endereco`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `endereco` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `endereco` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `logradouro` varchar(200) NOT NULL,
   `numero` varchar(10) NOT NULL,
   `complemento` varchar(255) DEFAULT NULL,
@@ -243,106 +207,80 @@ CREATE TABLE `endereco` (
   `cidade` varchar(124) NOT NULL,
   `estado` char(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `endereco`
+-- Despejando dados para a tabela `endereco`
 --
 
-LOCK TABLES `endereco` WRITE;
-/*!40000 ALTER TABLE `endereco` DISABLE KEYS */;
-/*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `endereco` (`id`, `logradouro`, `numero`, `complemento`, `bairro`, `cep`, `cidade`, `estado`) VALUES
+(5, 'Rua Domingos Marreiros', '1403', 'Apto 1804', 'Umarizal', '66060160', 'Belém', 'PA'),
+(6, 'Rua Domingos Marreiros', '1403', 'Apto 1804', 'Umarizal', '66060160', 'Belém', 'PA');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `frequencia`
+-- Estrutura para tabela `frequencia`
 --
 
 DROP TABLE IF EXISTS `frequencia`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `frequencia` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `frequencia` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `presenca` enum('presente','faltou') NOT NULL,
   `data` datetime NOT NULL,
   `situacao` enum('aprovado','reprovado') NOT NULL,
-  `aluno_disciplina_aluno_id` int unsigned NOT NULL,
-  `aluno_disciplina_disciplina_id` int unsigned NOT NULL,
+  `aluno_disciplina_aluno_id` int UNSIGNED NOT NULL,
+  `aluno_disciplina_disciplina_id` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `frequencia`
---
-
-LOCK TABLES `frequencia` WRITE;
-/*!40000 ALTER TABLE `frequencia` DISABLE KEYS */;
-/*!40000 ALTER TABLE `frequencia` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `matricula`
+-- Estrutura para tabela `matricula`
 --
 
 DROP TABLE IF EXISTS `matricula`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `matricula` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `aluno_id` int unsigned NOT NULL,
-  `curso_id` int unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `matricula` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `aluno_id` int UNSIGNED NOT NULL,
+  `curso_id` int UNSIGNED NOT NULL,
   `situacao` enum('aprovado','reprovado','cursando') NOT NULL,
   `data_matricula` datetime NOT NULL,
   PRIMARY KEY (`id`,`aluno_id`,`curso_id`),
   KEY `fk_aluno_has_curso_curso1_idx` (`curso_id`),
-  KEY `fk_aluno_has_curso_aluno1_idx` (`aluno_id`),
-  CONSTRAINT `fk_aluno_has_curso_aluno1` FOREIGN KEY (`aluno_id`) REFERENCES `aluno` (`id`),
-  CONSTRAINT `fk_aluno_has_curso_curso1` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `fk_aluno_has_curso_aluno1_idx` (`aluno_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `matricula`
+-- Despejando dados para a tabela `matricula`
 --
 
-LOCK TABLES `matricula` WRITE;
-/*!40000 ALTER TABLE `matricula` DISABLE KEYS */;
-/*!40000 ALTER TABLE `matricula` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `matricula` (`id`, `aluno_id`, `curso_id`, `situacao`, `data_matricula`) VALUES
+(2, 6, 4, 'cursando', '2024-02-11 19:43:23'),
+(6, 6, 6, 'cursando', '2024-02-11 19:43:53');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `mural`
+-- Estrutura para tabela `mural`
 --
 
 DROP TABLE IF EXISTS `mural`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `mural` (
+CREATE TABLE IF NOT EXISTS `mural` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `mural`
---
-
-LOCK TABLES `mural` WRITE;
-/*!40000 ALTER TABLE `mural` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mural` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `post`
+-- Estrutura para tabela `post`
 --
 
 DROP TABLE IF EXISTS `post`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `post` (
+CREATE TABLE IF NOT EXISTS `post` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sobrenome` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -353,238 +291,235 @@ CREATE TABLE `post` (
   `turma` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `post`
---
-
-LOCK TABLES `post` WRITE;
-/*!40000 ALTER TABLE `post` DISABLE KEYS */;
-/*!40000 ALTER TABLE `post` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `professor`
+-- Estrutura para tabela `professor`
 --
 
 DROP TABLE IF EXISTS `professor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `professor` (
-  `id_professor` int unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `professor` (
+  `id_professor` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   `sobrenome` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `nascimento` date NOT NULL,
-  `endereco_id` int unsigned NOT NULL,
+  `endereco_id` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id_professor`),
-  KEY `fk_professor_endereco1_idx` (`endereco_id`),
-  CONSTRAINT `fk_professor_endereco1` FOREIGN KEY (`endereco_id`) REFERENCES `endereco` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `fk_professor_endereco1_idx` (`endereco_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `professor`
+-- Despejando dados para a tabela `professor`
 --
 
-LOCK TABLES `professor` WRITE;
-/*!40000 ALTER TABLE `professor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `professor` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `professor` (`id_professor`, `nome`, `sobrenome`, `email`, `nascimento`, `endereco_id`) VALUES
+(4, 'Simone', 'Amaral', 'simoneamaral@gmail.com', '2024-02-01', 5),
+(5, 'Simone', 'Amaral', 'simoneamaral@gmail.com', '2024-02-01', 5);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `professor_has_conhecimento`
+-- Estrutura para tabela `professor_has_conhecimento`
 --
 
 DROP TABLE IF EXISTS `professor_has_conhecimento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `professor_has_conhecimento` (
-  `professor_id` int unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `professor_has_conhecimento` (
+  `professor_id` int UNSIGNED NOT NULL,
   `conhecimento_id` int NOT NULL,
   PRIMARY KEY (`professor_id`,`conhecimento_id`),
   KEY `fk_professor_has_conhecimento_conhecimento1_idx` (`conhecimento_id`),
-  KEY `fk_professor_has_conhecimento_professor1_idx` (`professor_id`),
-  CONSTRAINT `fk_professor_has_conhecimento_conhecimento1` FOREIGN KEY (`conhecimento_id`) REFERENCES `conhecimento` (`id`),
-  CONSTRAINT `fk_professor_has_conhecimento_professor1` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id_professor`)
+  KEY `fk_professor_has_conhecimento_professor1_idx` (`professor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `professor_has_conhecimento`
---
-
-LOCK TABLES `professor_has_conhecimento` WRITE;
-/*!40000 ALTER TABLE `professor_has_conhecimento` DISABLE KEYS */;
-/*!40000 ALTER TABLE `professor_has_conhecimento` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `professor_turma`
+-- Estrutura para tabela `professor_turma`
 --
 
 DROP TABLE IF EXISTS `professor_turma`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `professor_turma` (
-  `professor_id` int unsigned NOT NULL,
-  `turma_id` int unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `professor_turma` (
+  `professor_id` int UNSIGNED NOT NULL,
+  `turma_id` int UNSIGNED NOT NULL,
   PRIMARY KEY (`professor_id`,`turma_id`),
   KEY `fk_professor_has_turma_turma1_idx` (`turma_id`),
-  KEY `fk_professor_has_turma_professor1_idx` (`professor_id`),
-  CONSTRAINT `fk_professor_has_turma_professor1` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id_professor`),
-  CONSTRAINT `fk_professor_has_turma_turma1` FOREIGN KEY (`turma_id`) REFERENCES `turma` (`id`)
+  KEY `fk_professor_has_turma_professor1_idx` (`professor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `professor_turma`
---
-
-LOCK TABLES `professor_turma` WRITE;
-/*!40000 ALTER TABLE `professor_turma` DISABLE KEYS */;
-/*!40000 ALTER TABLE `professor_turma` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `sala`
+-- Estrutura para tabela `sala`
 --
 
 DROP TABLE IF EXISTS `sala`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sala` (
-  `id` tinyint unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `sala` (
+  `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT,
   `tipo` varchar(45) NOT NULL,
   `bloco` varchar(45) NOT NULL,
   `andar` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `sala`
+-- Despejando dados para a tabela `sala`
 --
 
-LOCK TABLES `sala` WRITE;
-/*!40000 ALTER TABLE `sala` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sala` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `sala` (`id`, `tipo`, `bloco`, `andar`) VALUES
+(2, '1', '12', '1'),
+(3, '1', '12', '1');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `sala_has_turma`
+-- Estrutura para tabela `sala_has_turma`
 --
 
 DROP TABLE IF EXISTS `sala_has_turma`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sala_has_turma` (
-  `sala_id` tinyint unsigned NOT NULL,
-  `turma_id` int unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `sala_has_turma` (
+  `sala_id` tinyint UNSIGNED NOT NULL,
+  `turma_id` int UNSIGNED NOT NULL,
   PRIMARY KEY (`sala_id`,`turma_id`),
   KEY `fk_sala_has_turma_turma1_idx` (`turma_id`),
-  KEY `fk_sala_has_turma_sala1_idx` (`sala_id`),
-  CONSTRAINT `fk_sala_has_turma_sala1` FOREIGN KEY (`sala_id`) REFERENCES `sala` (`id`),
-  CONSTRAINT `fk_sala_has_turma_turma1` FOREIGN KEY (`turma_id`) REFERENCES `turma` (`id`)
+  KEY `fk_sala_has_turma_sala1_idx` (`sala_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sala_has_turma`
+-- Despejando dados para a tabela `sala_has_turma`
 --
 
-LOCK TABLES `sala_has_turma` WRITE;
-/*!40000 ALTER TABLE `sala_has_turma` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sala_has_turma` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `sala_has_turma` (`sala_id`, `turma_id`) VALUES
+(2, 3),
+(3, 4);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `telefone_aluno`
+-- Estrutura para tabela `telefone_aluno`
 --
 
 DROP TABLE IF EXISTS `telefone_aluno`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `telefone_aluno` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `telefone_aluno` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `numero` varchar(15) NOT NULL,
-  `aluno_id` int unsigned NOT NULL,
+  `aluno_id` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `numero_UNIQUE` (`numero`),
-  KEY `fk_telefone_aluno1_idx` (`aluno_id`),
-  CONSTRAINT `fk_telefone_aluno1` FOREIGN KEY (`aluno_id`) REFERENCES `aluno` (`id`)
+  KEY `fk_telefone_aluno1_idx` (`aluno_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `telefone_aluno`
---
-
-LOCK TABLES `telefone_aluno` WRITE;
-/*!40000 ALTER TABLE `telefone_aluno` DISABLE KEYS */;
-/*!40000 ALTER TABLE `telefone_aluno` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `telefone_professor`
+-- Estrutura para tabela `telefone_professor`
 --
 
 DROP TABLE IF EXISTS `telefone_professor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `telefone_professor` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `telefone_professor` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `numero` varchar(15) NOT NULL,
-  `professor_id` int unsigned NOT NULL,
+  `professor_id` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_telefone_professor_professor1_idx` (`professor_id`),
-  CONSTRAINT `fk_telefone_professor_professor1` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id_professor`)
+  KEY `fk_telefone_professor_professor1_idx` (`professor_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `telefone_professor`
---
-
-LOCK TABLES `telefone_professor` WRITE;
-/*!40000 ALTER TABLE `telefone_professor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `telefone_professor` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `turma`
+-- Estrutura para tabela `turma`
 --
 
 DROP TABLE IF EXISTS `turma`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `turma` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `turma` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `codigo` char(2) NOT NULL,
-  `curso_id_curso` int unsigned NOT NULL,
+  `curso_id_curso` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`,`curso_id_curso`),
-  KEY `fk_turma_curso1_idx` (`curso_id_curso`),
-  CONSTRAINT `fk_turma_curso1` FOREIGN KEY (`curso_id_curso`) REFERENCES `curso` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `fk_turma_curso1_idx` (`curso_id_curso`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `turma`
+-- Despejando dados para a tabela `turma`
 --
 
-LOCK TABLES `turma` WRITE;
-/*!40000 ALTER TABLE `turma` DISABLE KEYS */;
-/*!40000 ALTER TABLE `turma` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `turma` (`id`, `codigo`, `curso_id_curso`) VALUES
+(3, 'A', 4),
+(4, 'B', 4),
+(5, 'C', 6),
+(6, 'D', 7);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `aluno`
+--
+ALTER TABLE `aluno`
+  ADD CONSTRAINT `fk_aluno_endereco1` FOREIGN KEY (`endereco_id`) REFERENCES `endereco` (`id`);
+
+--
+-- Restrições para tabelas `aluno_has_turma`
+--
+ALTER TABLE `aluno_has_turma`
+  ADD CONSTRAINT `fk_aluno_has_turma_aluno1` FOREIGN KEY (`aluno_id`) REFERENCES `aluno` (`id`),
+  ADD CONSTRAINT `fk_aluno_has_turma_turma1` FOREIGN KEY (`turma_id`) REFERENCES `turma` (`id`);
+
+--
+-- Restrições para tabelas `matricula`
+--
+ALTER TABLE `matricula`
+  ADD CONSTRAINT `fk_aluno_has_curso_aluno1` FOREIGN KEY (`aluno_id`) REFERENCES `aluno` (`id`),
+  ADD CONSTRAINT `fk_aluno_has_curso_curso1` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id_curso`);
+
+--
+-- Restrições para tabelas `professor`
+--
+ALTER TABLE `professor`
+  ADD CONSTRAINT `fk_professor_endereco1` FOREIGN KEY (`endereco_id`) REFERENCES `endereco` (`id`);
+
+--
+-- Restrições para tabelas `professor_has_conhecimento`
+--
+ALTER TABLE `professor_has_conhecimento`
+  ADD CONSTRAINT `fk_professor_has_conhecimento_conhecimento1` FOREIGN KEY (`conhecimento_id`) REFERENCES `conhecimento` (`id`),
+  ADD CONSTRAINT `fk_professor_has_conhecimento_professor1` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id_professor`);
+
+--
+-- Restrições para tabelas `professor_turma`
+--
+ALTER TABLE `professor_turma`
+  ADD CONSTRAINT `fk_professor_has_turma_professor1` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id_professor`),
+  ADD CONSTRAINT `fk_professor_has_turma_turma1` FOREIGN KEY (`turma_id`) REFERENCES `turma` (`id`);
+
+--
+-- Restrições para tabelas `sala_has_turma`
+--
+ALTER TABLE `sala_has_turma`
+  ADD CONSTRAINT `fk_sala_has_turma_sala1` FOREIGN KEY (`sala_id`) REFERENCES `sala` (`id`),
+  ADD CONSTRAINT `fk_sala_has_turma_turma1` FOREIGN KEY (`turma_id`) REFERENCES `turma` (`id`);
+
+--
+-- Restrições para tabelas `telefone_aluno`
+--
+ALTER TABLE `telefone_aluno`
+  ADD CONSTRAINT `fk_telefone_aluno1` FOREIGN KEY (`aluno_id`) REFERENCES `aluno` (`id`);
+
+--
+-- Restrições para tabelas `telefone_professor`
+--
+ALTER TABLE `telefone_professor`
+  ADD CONSTRAINT `fk_telefone_professor_professor1` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id_professor`);
+
+--
+-- Restrições para tabelas `turma`
+--
+ALTER TABLE `turma`
+  ADD CONSTRAINT `fk_turma_curso1` FOREIGN KEY (`curso_id_curso`) REFERENCES `curso` (`id_curso`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2024-02-06 20:12:06
