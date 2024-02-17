@@ -59,9 +59,9 @@
             <td><?php echo($row['cpf'])?></td>
             <td><?php echo($row['login'])?></td>
             <td><?php echo($row['senha'])?></td>
-            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'">Exibir</a>')?></td>
-            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.'">Alterar</a>')?></td>
-            <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.'">Excluir</a>')?></td>
+            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.' class="crud_link">Exibir</a>')?></td>
+            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.' class="crud_link">Alterar</a>')?></td>
+            <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.' class="crud_link">Excluir</a>')?></td>
         </tr>
         <?php } ?>
     </table>

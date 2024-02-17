@@ -21,15 +21,9 @@
             $login = $_POST["login"];
             $senha = $_POST["senha"];
             $id = $_POST["id"];
-            $sql = "UPDATE produtos SET nome = ?, sobrenome = ?, sexo = ?, email = ?, nascimento = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
+            $sql = "UPDATE aluno SET nome = ?, sobrenome = ?, sexo = ?, email = ?, nascimento = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "ssssssssss", $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $login, $senha);
-            if(mysqli_stmt_execute($stmt)){
-                header('location: index.php');
-                exit;
-            } else {
-                echo "Ocorreu um erro";
-            }
+            mysqli_stmt_bind_param($stmt, "sssssssssi", $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $login, $senha, $id);
         }
     ?>
     <!DOCTYPE html>
@@ -38,7 +32,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Alterar Produtos</title>
+        <title>Alterar Alunos</title>
         <link rel="stylesheet" href="../../css/mural.css">
     </head>
     <body>
@@ -57,7 +51,7 @@
 </header>
 <div class="container-admin">
     <h2>Alteração de Alunos</h2>
-    <form method="post" action="update.php">
+    <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>">
         <p>Nome: <input type="text" name="nome" value="<?php echo $row['nome'] ?>"></p>
         <p>Sobrenome: <input type="text" name="sobrenome" value="<?php echo $row['sobrenome'] ?>"></p>
         <p>Sexo: <input type="text" name="sexo" value="<?php echo $row['sexo'] ?>"></p>
