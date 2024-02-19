@@ -1,15 +1,8 @@
 <?php 
         require_once "../../util/config.php";
-        $idAluno = $_GET['i'];
-            $id = $_GET['id'];
-            $sql = "SELECT * FROM aluno WHERE id = ?";
-            $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "s", $id);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            $row = mysqli_fetch_array($result);
-
-        // Verifica se o formulário foi submetido
+        
+        //$idAluno = $_GET['i'];
+       // Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recupera os dados do formulário
     $nomeCompleto = $_POST["nome"];
@@ -32,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cidade = $_POST["cidade"];
     $estado = $_POST["uf"];
     $telefones = isset($_POST["telefones"]) ? $_POST["telefones"] : [];
-
+    
     // Inicia uma transação
     $conexao->begin_transaction();
 
@@ -76,11 +69,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conexao->close();
 } else {
     // Se o formulário não foi submetido, redireciona de volta para a página de cadastro
-    header("Location: cadastro_aluno.php");
+    header("Location: ../../create.php");
     exit();
 }
 ?>
-    ?>
+    
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -107,6 +100,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class = "fundo">
         <div class = "area">
         <div class = "quadrado"> 
+            <br>
+            <br>
             <div class ="titulo">Cadastro do Aluno</div>
             <div class ="texto">Preencha os dados</div>
             <div class ="formulario">
@@ -122,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                   
                     <div class = "input-cad"><input type = "email" name = "email" placeholder = "Informe seu email"></div>
-                    <div class = "input-cad"><input type = "fone" name = "fone" placeholder = "Telefone"></div> 
+                    <div class = "input-cad"><input type = "telefones" name = "telefones" placeholder = "Telefone"></div> 
                     <div class = "input-cad"><input type = "login" name = "login" placeholder = "Crie um login"></div> 
                     <div class = "input-cad"><input type = "password" name = "senha" placeholder = "Digite uma senha"></div>
                     <div class = "input-cad"><input type = "date" name = "data" placeholder = "Data de nascimento"></div> 
