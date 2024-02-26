@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once "../../util/config.php";
+require_once "../../../../util/config.php";
 
 $idAluno = $_GET['i'];
 
@@ -70,15 +70,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Aluno</title>
-    <link rel="stylesheet" type="text/css" href="../../css/cad_aluno.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../css/cad_funcionario.css" />
 </head>
 <body>
     <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+                <a href="../../administrador.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
-                    <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                    <img src="../../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div id="perfil" class="opcoes-nav">
@@ -88,52 +88,27 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     </header>
 <div class="container-geral">
 <div class = "fundo">
-        <div class = "area">
+        <div class = "area-matricula">
         <div class = "quadrado"> 
             <br>
             <br>
-            <div class ="titulo">Cadastro do Aluno</div>
-            <div class ="texto">Preencha os dados</div>
+            <div class ="titulo">Cadastro em Turma</div>
             <div class ="formulario">
                 <form method = "POST">
                     <div class = "cad">
-                    <div class = "input-cad"><input type = "text" name = "nome_completo" placeholder = "Nome completo"></div>
+                        <div class="input-selecao">
+                            <select name="sexo">
+                                <option value="masculino">Curso</option>
+                                <option value="feminino">Feminino</option>
+                            </select>
+                        </div>
                     <div class="input-selecao">
                         <select name="sexo">
-                            <option value="masculino">Masculino</option>
+                            <option value="masculino">Turma</option>
                             <option value="feminino">Feminino</option>
                         </select>
                     </div>
-                  
-                    <div class = "input-cad"><input type = "email" name = "email" placeholder = "Informe seu email"></div>
-                    <div class = "input-cad" id="telefone"><input type = "telefone" name = "telefone" placeholder = "Telefone"></div> 
-                    <label class="nascimento">Data de nascimento:</label>
-                    <div class = "input-cad" id="nascimento"><input type = "date" name = "nascimento" placeholder = "Data de nascimento"></div> 
-                    <div class = "input-cad"><input type = "rg" name = "rg" placeholder = "Digite o seu RG"></div> 
-                    <div class = "input-cad"><input type = "cpf" name = "cpf" placeholder = "Digite o seu CPF"></div>                  
-                    </div>
-                 <br>
-                    <label for="radio">Possui alguma deficiência? (PCD)</label>
-                    <div class = "radio"><input type="radio" name = "pcd" value="sim">
-                    <label for="sim">Sim</label><br>
-                    <div class = "radio"><input type="radio" name = "pcd" value="nao">
-                    <label for="nao">Não</label><br>
-                    </div>
-                    <div class = "input-end"><input type = "text" name = "pcd_desc" placeholder = "Descreva se sim"></div>
-                 <br>
-                    <div class ="texto">Endereço</div>
-                    <div class = "end">
-                    <div class = "input-end"><input type = "text" name = "logradouro" placeholder = "Logradouro"></div> 
-                    <div class = "input-end"><input type = "text" name = "numero" placeholder = "Numero"></div>
-                    <div class = "input-end"><input type = "text" name = "bairro" placeholder = "Bairro"></div>
-                    <div class = "input-end"><input type = "text" name = "cep" placeholder = "Cep"></div>
-                    <div class = "input-end"><input type = "text" name = "complemento" placeholder = "Complemento"></div>
-                    <div class = "input-end"><input type = "text" name = "cidade" placeholder = "Cidade"></div>
-                    <div class = "input-end"><input type = "text" name = "estado" placeholder = "Estado"></div> 
-                 <br>
-                    <div class ="texto">Login</div>
-                    <div class = "input-cad"><input type = "login" name = "login" placeholder = "Crie um login"></div>
-                    <div class = "input-cad"><input type = "senha" name = "senha" placeholder = "Crie a senha"></div>
+
                     <!-- Botão de salvar -->
                     <button type="submit" id="botao-cadastrar">Cadastrar</button>
 

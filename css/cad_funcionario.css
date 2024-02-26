@@ -25,12 +25,17 @@ main div{
     align-items: center;
 }
 
+.quadrado{
+    margin-top: 200px;
+    padding-bottom: 80px;
+}
+
 .cabecalho-conteudo{
     margin: 0 auto;
     padding: 0;
     display: flex;
     width: 90vw;
-    height: 48px;
+    height: 10vh;
     justify-content: space-between;
     align-items: center;
 }
@@ -53,20 +58,13 @@ main a{
     text-decoration: none;
 }
 
-.quadrado{
-    margin-top: 400px;
-}
-
 .area{
     flex: wrap;
-    width: 600px;
-    height: 1000px;
+    width: 100vw;
+    height: 90vh;
     display: flex;
-    position: relative;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 600px;
 }
 
 .titulo{
@@ -196,6 +194,8 @@ main a{
     border-radius: 7px;
 }
 
+
+
 form select{
     margin: 5px 0 5px 5px;
     height: 30px;
@@ -205,10 +205,12 @@ form select{
     font-size: 17px;
 }
 
-#telefone{
-    margin-bottom: 12px;
+#periodo{
+    width: 100%;
+    border-radius: 7px;
+    height: 40px;
 }
 
-#nascimento{
+#data{
     margin-top: 5px;
 }

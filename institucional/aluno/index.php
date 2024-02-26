@@ -32,7 +32,7 @@
 
 <div class="container-admin">
     <h2>Alunos</h2>
-    
+    <p><a href="create.php?i=<?php echo $idAluno; ?>" class="incluir">Incluir</a></p>
     <table border="0" class="tabela-admin">
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->

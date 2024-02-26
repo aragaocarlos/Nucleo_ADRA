@@ -2,7 +2,7 @@ body{
     margin: 0 auto;
     color: rgb(255, 255, 255);
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: url(../imagens/Professor.jpg) no-repeat center center fixed;
+    background: url(../imagens/professor-preto.png) no-repeat center center fixed;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -11,7 +11,6 @@ body{
 
 header{
     height: 10vh;
-    background-color: #bebebe;
     display: flex;
     align-items: center;
     justify-content: center;

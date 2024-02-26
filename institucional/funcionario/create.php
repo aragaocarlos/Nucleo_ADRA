@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Funcionário</title>
-    <link rel="stylesheet" type="text/css" href="../../css/cad_aluno.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/cad_funcionario.css" />
 </head>
 <body>
     <header>
@@ -35,22 +35,15 @@
             <div class ="formulario">
                 <form method = "POST">
                     <div class = "cad">
-                    <div class = "input-cad"><input type = "text" name = "nome" placeholder = "Primeiro nome"></div>
+                    <div class = "input-cad"><input type = "text" name = "nome" placeholder = "Nome completo"></div>
                     <div class = "input-end"><input type = "text" name = "cidade" placeholder = "Cidade"></div>
-                    <div class = "input-end"><input type = "text" name = "uf" placeholder = "UF"></div> 
+                    <div class = "input-end"><input type = "text" name = "uf" placeholder = "Estado"></div> 
                     <!-- Botão de salvar -->
                     <button type="submit" id="botao-cadastrar">Cadastrar</button>
 
                     
                     </div>
                 </form>
-            </div>
-            <div class="aba-institucional">
-                <a href="index.php"><div class="portal-institucional">
-                    <div class="texto-institucional">
-                        Ir para a Área Institucional
-                    </div>
-                </div></a>
             </div>
         </div>   
         </div>   

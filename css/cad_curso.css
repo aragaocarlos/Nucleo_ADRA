@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    background: url(../imagens/Professor-verde.jpg) no-repeat center center fixed;
+    background: url(../imagens/professor-preto.png) no-repeat center center fixed;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -10,12 +10,12 @@ body {
 
 h1 {
     text-align: center;
+    color: white;
 }
 
 form {
     max-width: 600px;
     margin: 0 auto;
-    background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -23,6 +23,7 @@ form {
 
 label {
     font-weight: bold;
+    color: white;
 }
 
 input[type="text"],
