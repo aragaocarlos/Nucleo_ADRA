@@ -23,6 +23,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 		$_SESSION['msg'] = "Erro no cadastro do endereço";
 	}
 
+    // Compara endereço cadastrado com o banco de dados para obter id
     $sql_end_2 = "SELECT * FROM endereco";
     $result = mysqli_query($link, $sql_end_2);
 	while($row = mysqli_fetch_array($result)){
@@ -32,6 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 	$nome_completo = $_POST["nome_completo"];
 
+    // Divide nome completo em nome e sobrenome
 	$partes = explode(' ', $nome_completo);
 	$ultimo_valor = count($partes)-1;
 
