@@ -1,78 +1,66 @@
-<?php 
-        require_once "../../util/config.php";
-        
-        //$idAluno = $_GET['i'];
-       // Verifica se o formulário foi submetido
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recupera os dados do formulário
-    $nomeCompleto = $_POST["nome"];
-    $nome = $_POST["nome"];
-    $sobrenome = $_POST["sobrenome"];
-    $sexo = $_POST["sexo"];
-    $email = $_POST["email"];
-    $nascimento = $_POST["data"];
-    $rg = $_POST["rg"];
-    $cpf = $_POST["cpf"];
-    $pcd = isset($_POST["pcd"]) ? 1 : 0; // Assume 1 se a checkbox estiver marcada, 0 caso contrário
-    $pcd_desc = $_POST["descricao_pcd"];
-    $login = $_POST["login"];
-    $senha = $_POST["senha"];
-    $logradouro = $_POST["logradouro"];
-    $numero = $_POST["numero"];
-    $complemento = $_POST["complemento"];
-    $bairro = $_POST["bairro"];
-    $cep = $_POST["cep"];
-    $cidade = $_POST["cidade"];
-    $estado = $_POST["uf"];
-    $telefones = isset($_POST["telefones"]) ? $_POST["telefones"] : [];
-    
-    // Inicia uma transação
-    $conexao->begin_transaction();
+<?php
 
-    try {
-        // Inserir dados de endereço na tabela endereco
-        $sql_endereco = "INSERT INTO endereco (logradouro, numero, complemento, bairro, cep, cidade, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt_endereco = $conexao->prepare($sql_endereco);
-        $stmt_endereco->bind_param("sssssss", $logradouro, $numero, $complemento, $bairro, $cep, $cidade, $estado);
-        $stmt_endereco->execute();
-        $endereco_id = $stmt_endereco->insert_id;
-        $stmt_endereco->close();
+session_start();
+require_once "../../util/config.php";
 
-        // Inserir dados do aluno na tabela aluno
-        $sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, nascimento, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt_aluno = $conexao->prepare($sql_aluno);
-        $stmt_aluno->bind_param("ssssssssisssi", $nomeCompleto, $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
-        $stmt_aluno->execute();
-        $aluno_id = $stmt_aluno->insert_id;
-        $stmt_aluno->close();
+$idAluno = $_GET['i'];
 
-        // Inserir telefones do aluno na tabela telefone_aluno
-        $sql_telefone = "INSERT INTO telefone_aluno (numero, aluno_id) VALUES (?, ?)";
-        $stmt_telefone = $conexao->prepare($sql_telefone);
-        foreach ($telefones as $telefone) {
-            $stmt_telefone->bind_param("si", $telefone, $aluno_id);
-            $stmt_telefone->execute();
-        }
-        $stmt_telefone->close();
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+	$logradouro = $_POST["logradouro"];
+	$numero = $_POST["numero"];
+	$complemento =  $_POST["complemento"];
+	$bairro = $_POST["bairro"];
+	$cep = $_POST["cep"];
+	$cidade = $_POST["cidade"];
+	$estado = $_POST["estado"];
 
-        // Commit da transação
-        $conexao->commit();
+	$sql_end_1 = "INSERT INTO endereco (logradouro, numero, complemento, bairro, cep, cidade, estado) VALUES(?, ?, ?, ?, ?, ?, ?)";
+	$stmt_end = mysqli_prepare($link, $sql_end_1);
+	mysqli_stmt_bind_param($stmt_end, "sssssss", $logradouro, $numero, $complemento, $bairro, $cep, $cidade, $estado);
 
-        echo "Cadastro realizado com sucesso!";
-    } catch (Exception $e) {
-        // Rollback da transação em caso de erro
-        $conexao->rollback();
-        echo "Erro ao cadastrar aluno: " . $e->getMessage();
-    }
-    
-    // Fecha a conexão com o banco de dados
-    $conexao->close();
-} else {
-    // Se o formulário não foi submetido, redireciona de volta para a página de cadastro
-    header("Location: ../../create.php");
-    exit();
+	if(mysqli_stmt_execute($stmt_end)){
+		$_SESSION['msg'] = "Endereço cadastrado com sucesso";
+		$_SESSION['msg'] = "Erro no cadastro do endereço";
+	}
+
+    $sql_end_2 = "SELECT * FROM endereco";
+    $result = mysqli_query($link, $sql_end_2);
+	while($row = mysqli_fetch_array($result)){
+	if($logradouro == $_POST["logradouro"])
+		$endereco_id = $row['id'];
+	}
+
+	$nome_completo = $_POST["nome_completo"];
+
+	$partes = explode(' ', $nome_completo);
+	$ultimo_valor = count($partes)-1;
+
+	$nome = $partes[0];
+	$sobrenome = $partes[$ultimo_valor];
+	$sexo = $_POST["sexo"];
+	$email = $_POST["email"];
+	$nascimento = $_POST["nascimento"];
+	$rg = $_POST["rg"]; 
+	$cpf = $_POST["cpf"]; 
+	$pcd = $_POST["pcd"];
+	$pcd_desc = $_POST["pcd_desc"];
+	$login = $_POST["login"];
+	$senha = $_POST["senha"];
+
+	$sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, nascimento, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	$stmt_aluno = mysqli_prepare($link, $sql_aluno);
+	mysqli_stmt_bind_param($stmt_aluno, "ssssssssisssi", $nome_completo, $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
+
+	if(mysqli_stmt_execute($stmt_aluno)){
+		$_SESSION['msg'] = "Aluno cadastrado com sucesso";
+		$_SESSION['msg'] = "Erro no cadastro do aluno";
+	}
+	
+	
 }
+
 ?>
+    
     
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -107,9 +95,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class ="formulario">
                 <form method = "POST">
                     <div class = "cad">
-                    <div class = "input-cad"><input type = "text" name = "nome" placeholder = "Primeiro nome"></div>
-                    <div class = "input-cad"><input type = "text" name = "sobrenome" placeholder = "Sobrenome"></div>
-                    <div class="input-cad">
+                    <div class = "input-cad"><input type = "text" name = "nome_completo" placeholder = "Nome completo"></div>
+                    <div class="input-selecao">
                         <select name="sexo">
                             <option value="masculino">Masculino</option>
                             <option value="feminino">Feminino</option>
@@ -118,20 +105,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   
                     <div class = "input-cad"><input type = "email" name = "email" placeholder = "Informe seu email"></div>
                     <div class = "input-cad"><input type = "telefones" name = "telefones" placeholder = "Telefone"></div> 
-                    <div class = "input-cad"><input type = "login" name = "login" placeholder = "Crie um login"></div> 
-                    <div class = "input-cad"><input type = "password" name = "senha" placeholder = "Digite uma senha"></div>
-                    <div class = "input-cad"><input type = "date" name = "data" placeholder = "Data de nascimento"></div> 
+                    <div class = "input-cad"><input type = "date" name = "nascimento" placeholder = "Data de nascimento"></div> 
                     <div class = "input-cad"><input type = "rg" name = "rg" placeholder = "Digite o seu Rg"></div> 
                     <div class = "input-cad"><input type = "cpf" name = "cpf" placeholder = "Digite o seu cpf"></div>                  
                     </div>
                  <br>
                     <label for="radio">Possui alguma deficiência?(PCD)</label>
                     <div class = "radio"><input type="radio" name = "pcd" value="sim">
-                    <label for="sim">SIM!</label><br>
+                    <label for="sim">SIM</label><br>
                     <div class = "radio"><input type="radio" name = "pcd" value="nao">
-                    <label for="nao">NÃO!</label><br>
+                    <label for="nao">NÃO</label><br>
                     </div>
-                    <div class = "input-end"><input type = "text" name = "descricao_pcd" placeholder = "Descreva se sim!"></div>
+                    <div class = "input-end"><input type = "text" name = "pcd_desc" placeholder = "Descreva se sim"></div>
                  <br>
                     <div class ="texto">Endereço</div>
                     <div class = "end">
@@ -141,20 +126,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class = "input-end"><input type = "text" name = "cep" placeholder = "Cep"></div>
                     <div class = "input-end"><input type = "text" name = "complemento" placeholder = "Complemento"></div>
                     <div class = "input-end"><input type = "text" name = "cidade" placeholder = "Cidade"></div>
-                    <div class = "input-end"><input type = "text" name = "uf" placeholder = "UF"></div> 
+                    <div class = "input-end"><input type = "text" name = "estado" placeholder = "Estado"></div> 
+                 <br>
+                    <div class ="texto">Login</div>
+                    <div class = "input-cad"><input type = "login" name = "login" placeholder = "Crie um login"></div>
+                    <div class = "input-cad"><input type = "senha" name = "senha" placeholder = "Crie a senha"></div>
                     <!-- Botão de salvar -->
                     <button type="submit" id="botao-cadastrar">Cadastrar</button>
 
                     
                     </div>
                 </form>
-            </div>
-            <div class="aba-institucional">
-                <a href="index.php"><div class="portal-institucional">
-                    <div class="texto-institucional">
-                        Ir para a Área Institucional
-                    </div>
-                </div></a>
             </div>
         </div>   
         </div>   

@@ -30,7 +30,7 @@
             $id = $_GET['id'];
             $sql = "DELETE FROM turma WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "i", $id);
+            mysqli_stmt_ bind_param($stmt, "i", $id);
             if(mysqli_stmt_execute($stmt)){
                 echo "<p>Registro Excluido</p>";
             }else{
