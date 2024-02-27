@@ -17,8 +17,16 @@
             $id = $_POST["id"];
             $sql = "UPDATE administracao SET nome = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "ssss", $nome, $login, $senha);
+            mysqli_stmt_bind_param($stmt, "sssi", $nome, $login, $senha, $id);
+
+        if (mysqli_stmt_execute($stmt)) {
+            echo "Registro atualizado com sucesso.";
+        } else {
+            echo "Erro na atualização: " . mysqli_error($link);
         }
+
+        mysqli_stmt_close($stmt);
+}
     ?>
     <!DOCTYPE html>
     <html lang="pt-br">

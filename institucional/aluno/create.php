@@ -18,11 +18,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$stmt_end = mysqli_prepare($link, $sql_end_1);
 	mysqli_stmt_bind_param($stmt_end, "sssssss", $logradouro, $numero, $complemento, $bairro, $cep, $cidade, $estado);
 
-	if(mysqli_stmt_execute($stmt_end)){
-		$_SESSION['msg'] = "Endereço cadastrado com sucesso";
-		$_SESSION['msg'] = "Erro no cadastro do endereço";
-	}
-
     // Compara endereço cadastrado com o banco de dados para obter id
     $sql_end_2 = "SELECT * FROM endereco";
     $result = mysqli_query($link, $sql_end_2);
@@ -52,11 +47,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, nascimento, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	$stmt_aluno = mysqli_prepare($link, $sql_aluno);
 	mysqli_stmt_bind_param($stmt_aluno, "ssssssssisssi", $nome_completo, $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
-
-	if(mysqli_stmt_execute($stmt_aluno)){
-		$_SESSION['msg'] = "Aluno cadastrado com sucesso";
-		$_SESSION['msg'] = "Erro no cadastro do aluno";
-	}
 	
 	
 }

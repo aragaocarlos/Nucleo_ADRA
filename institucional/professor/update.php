@@ -18,7 +18,15 @@
             $id = $_POST["id"];
             $sql = "UPDATE professor SET nome = ?, sobrenome = ?, email = ?, nascimento = ? WHERE id_professor = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "ssss", $nome, $login, $senha);
+            mysqli_stmt_bind_param($stmt, "ssssi", $nome, $sobrenome, $email, $nascimento, $id);
+
+            if (mysqli_stmt_execute($stmt)) {
+                echo "Registro atualizado com sucesso.";
+            } else {
+                echo "Erro na atualização: " . mysqli_error($link);
+            }
+    
+            mysqli_stmt_close($stmt);
         }
     ?>
     <!DOCTYPE html>

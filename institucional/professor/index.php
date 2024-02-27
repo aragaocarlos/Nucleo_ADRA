@@ -45,10 +45,10 @@
         <?php while($row = mysqli_fetch_array($result)){?>
         <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['nome'])?></td></a>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['sobrenome'])?></td></a>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['email'])?></td></a>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['nascimento'])?></td></a>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor'])?>" class="crud_curso"><?php echo($row['nome'])?></td></a>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor'])?>" class="crud_curso"><?php echo($row['sobrenome'])?></td></a>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor'])?>" class="crud_curso"><?php echo($row['email'])?></td></a>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor'])?>" class="crud_curso"><?php echo($row['nascimento'])?></td></a>
             <td><?php echo('<a href="read.php?id='.$row['id_professor'].'&i='.$idAluno.'" class="crud_link">Exibir</a>')?></td>
             <td><?php echo('<a href="update.php?id='.$row['id_professor'].'&i='.$idAluno.'" class="crud_link">Alterar</a>')?></td>
             <td><?php echo('<a href="delete.php?id='.$row['id_professor'].'&i='.$idAluno.'" class="crud_link">Excluir</a>')?></td>

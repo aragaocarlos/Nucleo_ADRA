@@ -2,6 +2,7 @@
     require_once "../../../util/config.php";
 
     $idAluno = $_GET['i'];
+    $idProfessor = $_GET['p'];
 
     $sql_1 = "SELECT * FROM turma";
     $result_1 = mysqli_query($link, $sql_1);
@@ -52,6 +53,7 @@
                 if($idCurso == $row['curso_id_curso']){?>
             <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
+                <td><a href="./aluno/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($idCurso)?>&t=<?php echo($row['id'])?>" class="crud_curso"><?php echo($row['codigo'])?></a></td>
                 <td><a href="./aluno/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($idCurso)?>&t=<?php echo($row['id'])?>" class="crud_curso"><?php echo($row['codigo'])?></a></td>
             </div>
             <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'&c='.$idCurso.'" class="crud_link">Exibir</a>')?></td>

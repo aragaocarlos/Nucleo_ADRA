@@ -2,6 +2,17 @@
     require_once "../../util/config.php";
 
     $idAluno = $_GET['i'];
+
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        $nome = $_POST["nome"];
+        $login = $_POST["login"];
+        $senha =  $_POST["senha"];
+    
+        $sql = "INSERT INTO administracao (nome, login, senha) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($link, $sql);
+        mysqli_stmt_bind_param($stmt, "sss", $nome, $login, $senha);
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -36,8 +47,8 @@
                 <form method = "POST">
                     <div class = "cad">
                     <div class = "input-cad"><input type = "text" name = "nome" placeholder = "Nome completo"></div>
-                    <div class = "input-end"><input type = "text" name = "cidade" placeholder = "Cidade"></div>
-                    <div class = "input-end"><input type = "text" name = "uf" placeholder = "Estado"></div> 
+                    <div class = "input-end"><input type = "text" name = "login" placeholder = "Login"></div>
+                    <div class = "input-end"><input type = "text" name = "senha" placeholder = "Senha"></div> 
                     <!-- Botão de salvar -->
                     <button type="submit" id="botao-cadastrar">Cadastrar</button>
 

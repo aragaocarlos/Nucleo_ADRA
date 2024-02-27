@@ -24,6 +24,14 @@
             $sql = "UPDATE aluno SET nome = ?, sobrenome = ?, sexo = ?, email = ?, nascimento = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
             mysqli_stmt_bind_param($stmt, "sssssssssi", $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $login, $senha, $id);
+
+            if (mysqli_stmt_execute($stmt)) {
+                echo "Registro atualizado com sucesso.";
+            } else {
+                echo "Erro na atualização: " . mysqli_error($link);
+            }
+    
+            mysqli_stmt_close($stmt);
         }
     ?>
     <!DOCTYPE html>

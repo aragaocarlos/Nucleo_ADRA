@@ -17,6 +17,14 @@
             $sql = "UPDATE turma SET codigo = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
             mysqli_stmt_bind_param($stmt, "si", $codigo, $id);
+
+            if (mysqli_stmt_execute($stmt)) {
+                echo "Registro atualizado com sucesso.";
+            } else {
+                echo "Erro na atualização: " . mysqli_error($link);
+            }
+    
+            mysqli_stmt_close($stmt);
         }
     ?>
     <!DOCTYPE html>

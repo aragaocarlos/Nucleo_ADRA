@@ -26,18 +26,25 @@
         require_once "../../../util/config.php";
         $idAluno = $_GET['i'];
         $idCurso = $_GET['c'];
+        $idTurma = $_GET['t'];
         if($_GET['id']){
-            $id = $_GET['id'];
-            $sql = "DELETE FROM turma WHERE id = ?";
-            $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "i", $id);
-            if(mysqli_stmt_execute($stmt)){
-                echo "<p>Registro Excluido</p>";
-            }else{
-                echo "<p>Não foi possível excluir</p>";
-            }
-            echo "<a href='index.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a>";
+            $sql_1 = "SELECT * FROM aluno_has_turma";
+            $result_1 = mysqli_query($link, $sql_1);
+            while($row = mysqli_fetch_array($result_1)){
+                if($idTurma == $row['turma_id']){
+                    $id = $_GET['id'];
+                    $sql = "DELETE FROM aluno_has_turma WHERE aluno_id = ?";
+                    $stmt = mysqli_prepare($link, $sql);
+                    mysqli_stmt_bind_param($stmt, "i", $id);
+                    if(mysqli_stmt_execute($stmt)){
+                        echo "<p>Registro Excluido</p>";
+                    }else{
+                        echo "<p>Não foi possível excluir</p>";
+                    }
+                    echo "<a href='index.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a>";
         }
+    }
+    }
     ?>
     </div>
 </body>

@@ -22,11 +22,22 @@
             $hora_inicio = $_POST["hora_inicio"];
             $hora_fim = $_POST["hora_fim"];
             $valor = $_POST["valor"];
-            $id = $_POST["id_curso"];
+            $id = $_POST["id"];
+        
             $sql = "UPDATE curso SET nome = ?, sigla = ?, descricao = ?, area = ?, ch = ?, periodo = ?, curso_inicio = ?, curso_fim = ?, hora_inicio = ?, hora_fim = ?, valor = ? WHERE id_curso = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "sssssissss", $nome, $sigla, $descricao, $area, $ch, $periodo, $curso_inicio, $curso_fim, $hora_inicio, $hora_fim, $valor);
+            mysqli_stmt_bind_param($stmt, "ssssisssssdi", $nome, $sigla, $descricao, $area, $ch, $periodo, $curso_inicio, $curso_fim, $hora_inicio, $hora_fim, $valor, $id);
+        
+            if (mysqli_stmt_execute($stmt)) {
+                echo "Registro atualizado com sucesso.";
+            } else {
+                echo "Erro na atualização: " . mysqli_error($link);
+            }
+    
+            mysqli_stmt_close($stmt);
         }
+
+
     ?>
     <!DOCTYPE html>
     <html lang="pt-br">
@@ -55,14 +66,16 @@
     <h2>Alterar Cursos</h2>
     <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>">
         <p>Nome: <input type="text" name="nome" value="<?php echo $row['nome'] ?>"></p>
-        <p>sigla: <input type="text" name="sigla" value="<?php echo $row['sigla'] ?>"></p>
-        <p>descricao: <input type="text" name="descricao" value="<?php echo $row['descricao'] ?>"></p>
-        <p>area: <input type="text" name="area" value="<?php echo $row['area'] ?>"></p>
-        <p>ch: <input type="text" name="ch" value="<?php echo $row['ch'] ?>"></p>
-        <p>periodo: <input type="text" name="periodo" value="<?php echo $row['periodo'] ?>"></p>
-        <p>curso_inicio: <input type="text" name="curso_inicio" value="<?php echo $row['curso_inicio'] ?>"></p>
-        <p>curso_fim: <input type="text" name="curso_fim" value="<?php echo $row['curso_fim'] ?>"></p>
-        <p>hora_inicio: <input type="text" name="hora_inicio" value="<?php echo $row['hora_inicio'] ?>"></p>
+        <p>Sigla: <input type="text" name="sigla" value="<?php echo $row['sigla'] ?>"></p>
+        <p>Descrição: <input type="text" name="descricao" value="<?php echo $row['descricao'] ?>"></p>
+        <p>Área: <input type="text" name="area" value="<?php echo $row['area'] ?>"></p>
+        <p>Carga Horária: <input type="text" name="ch" value="<?php echo $row['ch'] ?>"></p>
+        <p>Período: <input type="text" name="periodo" value="<?php echo $row['periodo'] ?>"></p>
+        <p>Curso início: <input type="text" name="curso_inicio" value="<?php echo $row['curso_inicio'] ?>"></p>
+        <p>Curso fim: <input type="text" name="curso_fim" value="<?php echo $row['curso_fim'] ?>"></p>
+        <p>Hora início: <input type="text" name="hora_inicio" value="<?php echo $row['hora_inicio'] ?>"></p>
+        <p>Hora fim: <input type="text" name="hora_fim" value="<?php echo $row['hora_fim'] ?>"></p>
+        <p>Valor: <input type="text" name="valor" value="<?php echo $row['valor'] ?>"></p>
         <input type="hidden" name="id" value="<?php echo $row['id_curso'] ?>">
         <p><input type="submit" class="botao_funcionario" value="Alterar"></p>
     </form>

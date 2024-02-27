@@ -12,8 +12,6 @@
             $nomeCurso = $row['nome'];
         }
     }
-    $sql = "SELECT * FROM aluno";
-    $result = mysqli_query($link, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -41,7 +39,7 @@
 
     <div class="container-admin">
     <h2>Alunos</h2>
-    <p><a href="create.php?i=<?php echo $idAluno; ?>" class="incluir">Incluir</a></p>
+    <p><a href="create.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>" class="incluir">Incluir</a></p>
     <table border="0" class="tabela-admin">
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->
@@ -56,7 +54,18 @@
             <td><center>senha</center></td>
             <td colspan="4"><center>Ações</center></td>
         </tr>
-        <?php while($row = mysqli_fetch_array($result)){?>
+        <?php
+        $sql_2 = "SELECT * FROM aluno_has_turma";
+        $result_2 = mysqli_query($link, $sql_2);
+        while($row = mysqli_fetch_array($result_2)){
+            if($idTurma == $row['turma_id']){
+                $alunoTurma = $row['aluno_id'];
+
+            $sql_3 = "SELECT * FROM aluno";
+            $result_3 = mysqli_query($link, $sql_3);
+            while($row = mysqli_fetch_array($result_3)){
+                if($alunoTurma == $row['id']){
+                        ?>
         <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
             <td><?php echo($row['nome'])?></td>
@@ -68,11 +77,14 @@
             <td><?php echo($row['cpf'])?></td>
             <td><?php echo($row['login'])?></td>
             <td><?php echo($row['senha'])?></td>
-            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.' class="crud_link">Exibir</a>')?></td>
-            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.' class="crud_link">Alterar</a>')?></td>
-            <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.' class="crud_link">Excluir</a>')?></td>
+            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.' class="crud_link">Exibir</a>')?></td>
+            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.' class="crud_link">Alterar</a>')?></td>
+            <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.' class="crud_link">Excluir</a>')?></td>
         </tr>
-        <?php } ?>
+        <?php }
+            }
+        }
+    } ?>
     </table>
     </div>
 </div>
