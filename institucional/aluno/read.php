@@ -38,7 +38,7 @@
     </header>
     
     <div class="container-admin">
-        <h2>Detalhes do Aluno</h2>
+        <h2>Detalhes</h2>
         <p>Nome: <?php echo($row['nome']) ?></p>
         <p>Sobrenome: <?php echo($row['sobrenome']) ?></p>
         <p>Sexo: <?php echo($row['sexo']) ?></p>

@@ -1,7 +1,18 @@
 <?php 
         require_once "../../../util/config.php";
+
+        
         $idAluno = $_GET['i'];
         $idCurso = $_GET['c'];
+        
+        $sql_1 = "SELECT * FROM curso";
+        $result_1 = mysqli_query($link, $sql_1);
+        while($row = mysqli_fetch_array($result_1)){
+            if($idCurso == $row['id_curso']){
+                $nomeCurso = $row['nome'];
+            }
+        }
+
         if($_GET['id']){
             $id = $_GET['id'];
             $sql = "SELECT * FROM turma WHERE id = ?";
@@ -13,18 +24,26 @@
         }
         if($_SERVER['REQUEST_METHOD'] == "POST"){        
             $codigo = $_POST["codigo"];
+            $sala = $_POST["sala"];
             $id = $_POST["id"];
-            $sql = "UPDATE turma SET codigo = ? WHERE id = ?";
+            $sql = "UPDATE turma SET codigo = ?, sala = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "si", $codigo, $id);
+            
 
-            if (mysqli_stmt_execute($stmt)) {
-                echo "Registro atualizado com sucesso.";
+            if ($stmt) {
+                mysqli_stmt_bind_param($stmt, "ssi", $codigo, $sala, $id);
+                if (mysqli_stmt_execute($stmt)) {
+                    echo "Curso cadastrado com sucesso!";
+                } else {
+                    echo "Erro ao cadastrar o curso: " . mysqli_error($link);
+                }
+        
+                mysqli_stmt_close($stmt);
             } else {
-                echo "Erro na atualização: " . mysqli_error($link);
+                echo "Erro na preparação da declaração: " . mysqli_error($link);
             }
-    
-            mysqli_stmt_close($stmt);
+        
+            mysqli_close($link);
         }
     ?>
     <!DOCTYPE html>
@@ -51,9 +70,12 @@
     </main>
 </header>
 <div class="container-admin">
-    <h2>Alterar Turmas</h2>
-    <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>">
-        <p>Turma: <input type="text" name="nome" value="<?php echo $row['codigo'] ?>"></p>
+<h2>Curso "<?php echo $nomeCurso ?>"</h2>
+    <h3>Alterar Turma</h3>
+    <br>
+    <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>&c=<?php echo $idCurso ?>">
+        <p>Turma: <input type="text" name="codigo" value="<?php echo $row['codigo'] ?>"></p>
+        <p>Sala: <input type="text" name="sala" value="<?php echo $row['sala'] ?>"></p>
         <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
         <p><input type="submit" class="botao_funcionario" value="Alterar"></p>
     </form>

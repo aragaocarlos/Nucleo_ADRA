@@ -53,17 +53,17 @@
         <?php while($row = mysqli_fetch_array($result)){?>
         <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['nome'])?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['sigla'])?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['descricao'])?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['area'])?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['ch'])?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['periodo'])?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['curso_inicio'])?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['curso_fim'])?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['hora_inicio'])?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['hora_fim'])?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso'])?>" class="crud_curso"><?php echo($row['valor'])?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['nome']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['sigla']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['descricao']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['area']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['ch']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['periodo']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['curso_inicio']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['curso_fim']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['hora_inicio']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['hora_fim']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['valor']);?></a></td>
             </div>
             <td><?php echo('<a href="read.php?id='.$row['id_curso'].'&i='.$idAluno.'" class="crud_link">Exibir</a>')?></td>
             <td><?php echo('<a href="update.php?id='.$row['id_curso'].'&i='.$idAluno.'" class="crud_link">Alterar</a>')?></td>
@@ -71,6 +71,9 @@
         </tr>
         <?php } ?>
     </table>
+    </div>
+    <div class="voltar">
+        <p><a href='../administrador.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
     </div>
 </div>
 

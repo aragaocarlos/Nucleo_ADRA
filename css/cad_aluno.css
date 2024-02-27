@@ -213,6 +213,15 @@ form select{
     margin-top: 5px;
 }
 
+#sexo{
+    margin-top: 5px;
+}
+
+#pcd{
+    margin-top: 5px;
+    font-size: 17px;
+}
+
 .crud_link{
     color: white;
     padding: 20px;
@@ -231,4 +240,18 @@ form select{
 .crud_curso{
     text-decoration: none;
     color: black;
+}
+
+.voltar a{
+    display:flex;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(61, 61, 61);
+}
+
+.voltar a:hover{
+    color: rgb(0, 0, 0);
 }

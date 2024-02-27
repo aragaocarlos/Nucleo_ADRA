@@ -77,3 +77,17 @@ input[type="submit"]:hover {
     text-decoration: none;
     color: black;
 }
+
+.voltar a{
+    display:flex;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(61, 61, 61);
+}
+
+.voltar a:hover{
+    color: rgb(0, 0, 0);
+}

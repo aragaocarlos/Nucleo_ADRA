@@ -23,6 +23,21 @@ while($row = mysqli_fetch_array($result_1)){
     }
 }
 
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+	$aluno = $_POST['aluno'];
+    $turma = $idTurma;
+
+	$sql = "INSERT INTO aluno_has_turma (aluno_id, turma_id) VALUES(?, ?)";
+	$stmt = mysqli_prepare($link, $sql);
+	mysqli_stmt_bind_param($stmt, "ii", $aluno, $turma);
+
+    if (mysqli_stmt_execute($stmt)) {
+        "Curso cadastrado com sucesso!";
+    } else {
+        "Erro ao cadastrar o curso: " . mysqli_error($link);
+    }
+}
+
 ?>
     
     
@@ -60,7 +75,7 @@ while($row = mysqli_fetch_array($result_1)){
                 <form method = "POST">
                     <div class = "cad">
                     <div class="input-selecao">
-                        <select name="sexo">
+                        <select name="aluno">
                         <?php
                             $sql_end_3 = "SELECT * FROM aluno";
                             $result_3 = mysqli_query($link, $sql_end_3);
@@ -76,6 +91,9 @@ while($row = mysqli_fetch_array($result_1)){
 
                     
                     </div>
+                    <div class="voltar">
+        <p><a href='index.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a></p>
+    </div>
                 </form>
             </div>
         </div>   

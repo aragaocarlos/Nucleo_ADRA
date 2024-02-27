@@ -12,6 +12,14 @@
             $nomeCurso = $row['nome'];
         }
     }
+
+    $sql_3 = "SELECT * FROM turma";
+    $result_3 = mysqli_query($link, $sql_3);
+    while($row = mysqli_fetch_array($result_3)){
+        if($idTurma == $row['id']){
+            $turma = $row['codigo'];
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -38,13 +46,14 @@
     </header>
 
     <div class="container-admin">
-    <h2>Alunos</h2>
+    <h2>Curso "<?php echo $nomeCurso?>" - Turma "<?php echo $turma?>"</h2>
+    <h3>Alunos</h3>
+    <br>
     <p><a href="create.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>" class="incluir">Incluir</a></p>
     <table border="0" class="tabela-admin">
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->
             <td><center>Nome</center></td>
-            <td><center>Sobrenome</center></td>
             <td><center>Sexo</center></td>
             <td><center>Email</center></td>
             <td><center>Nascimento</center></td>
@@ -68,8 +77,7 @@
                         ?>
         <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
-            <td><?php echo($row['nome'])?></td>
-            <td><?php echo($row['sobrenome'])?></td>
+            <td><?php echo($row['nome_completo'])?></td>
             <td><?php echo($row['sexo'])?></td>
             <td><?php echo($row['email'])?></td>
             <td><?php echo($row['nascimento'])?></td>
@@ -77,15 +85,18 @@
             <td><?php echo($row['cpf'])?></td>
             <td><?php echo($row['login'])?></td>
             <td><?php echo($row['senha'])?></td>
-            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.' class="crud_link">Exibir</a>')?></td>
-            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.' class="crud_link">Alterar</a>')?></td>
-            <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.' class="crud_link">Excluir</a>')?></td>
+            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.'" class="crud_link">Exibir</a>')?></td>
+            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.'" class="crud_link">Alterar</a>')?></td>
+            <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.'" class="crud_link">Excluir</a>')?></td>
         </tr>
         <?php }
             }
         }
     } ?>
     </table>
+    </div>
+    <div class="voltar">
+        <p><a href='../index.php?i=<?php echo $idAluno; ?>&c=<?php echo($idCurso)?>'>Voltar</a></p>
     </div>
 </div>
 

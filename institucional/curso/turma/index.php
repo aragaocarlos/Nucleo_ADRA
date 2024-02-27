@@ -37,12 +37,15 @@
     </header>
 
 <div class="container-admin">
-    <h2>Curso: <?php echo $nomeCurso ?></h2>
-    <p><a href="create.php?i=<?php echo $idAluno; ?>" class="incluir">Incluir</a></p>
+    <h2>Curso "<?php echo $nomeCurso?>"</h2>
+    <h3>Turmas</h3>
+    <br>
+    <p><a href="create.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>" class="incluir">Incluir</a></p>
     <table border="0" class="tabela-admin">
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->
             <td><center>Turma</center></td>
+            <td><center>Sala</center></td>
             <td colspan="4"><center>Ações</center></td>
         </tr>
         <?php 
@@ -54,6 +57,7 @@
             <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
                 <td><a href="./aluno/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($idCurso)?>&t=<?php echo($row['id'])?>" class="crud_curso"><?php echo($row['codigo'])?></a></td>
+                <td><a href="./aluno/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($idCurso)?>&t=<?php echo($row['id'])?>" class="crud_curso"><?php echo($row['sala'])?></a></td>
             </div>
             <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'&c='.$idCurso.'" class="crud_link">Exibir</a>')?></td>
             <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.'&c='.$idCurso.'" class="crud_link">Alterar</a>')?></td>
@@ -62,6 +66,9 @@
         <?php  }
         } ?>
     </table>
+    </div>
+    <div class="voltar">
+        <p><a href='../index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
     </div>
 </div>
 

@@ -37,34 +37,51 @@
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->
             <td><center>Nome</center></td>
-            <td><center>Sobrenome</center></td>
             <td><center>Sexo</center></td>
             <td><center>Email</center></td>
             <td><center>Nascimento</center></td>
             <td><center>RG</center></td>
             <td><center>CPF</center></td>
-            <td><center>login</center></td>
-            <td><center>senha</center></td>
+            <td><center>PCD</center></td>
+            <td><center>Tipo PCD</center></td>
+            <td><center>Login</center></td>
+            <td><center>Senha</center></td>
+            <td><center>Endereço</center></td>
             <td colspan="4"><center>Ações</center></td>
         </tr>
         <?php while($row = mysqli_fetch_array($result)){?>
         <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
-            <td><?php echo($row['nome'])?></td>
-            <td><?php echo($row['sobrenome'])?></td>
+            <td><?php echo($row['nome_completo'])?></td>
             <td><?php echo($row['sexo'])?></td>
             <td><?php echo($row['email'])?></td>
             <td><?php echo($row['nascimento'])?></td>
             <td><?php echo($row['rg'])?></td>
             <td><?php echo($row['cpf'])?></td>
+            <td><?php
+             if($row['pcd'] == 1){
+                echo "Sim";
+             }else{
+                echo "Não";
+             }
+             ?></td>
+            <td><?php echo($row['pcd_desc'])?></td>
             <td><?php echo($row['login'])?></td>
             <td><?php echo($row['senha'])?></td>
-            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.' class="crud_link">Exibir</a>')?></td>
-            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.' class="crud_link">Alterar</a>')?></td>
-            <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.' class="crud_link">Excluir</a>')?></td>
+            <!-- EDITAR ENDEREÇOS -->
+            <td><?php
+            $idEndereco = $row['endereco_id'];
+            echo('<a href="./endereco/index.php?id='.$idEndereco.'&i='.$idAluno.'" class="crud_link">Exibir</a>')
+            ?></td>
+            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'" class="crud_link">Exibir</a>')?></td>
+            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.'" class="crud_link">Alterar</a>')?></td>
+            <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.'" class="crud_link">Excluir</a>')?></td>
         </tr>
         <?php } ?>
     </table>
+    <div class="voltar">
+        <p><a href='../administrador.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+    </div>
     </div>
 </div>
 

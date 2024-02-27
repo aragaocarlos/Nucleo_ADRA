@@ -18,6 +18,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$stmt_end = mysqli_prepare($link, $sql_end_1);
 	mysqli_stmt_bind_param($stmt_end, "sssssss", $logradouro, $numero, $complemento, $bairro, $cep, $cidade, $estado);
 
+    if (mysqli_stmt_execute($stmt_end)) {
+        "Curso cadastrado com sucesso!";
+    } else {
+        "Erro ao cadastrar o curso: " . mysqli_error($link);
+    }
+
     // Compara endereço cadastrado com o banco de dados para obter id
     $sql_end_2 = "SELECT * FROM endereco";
     $result = mysqli_query($link, $sql_end_2);
@@ -34,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 	$nome = $partes[0];
 	$sobrenome = $partes[$ultimo_valor];
-	$sexo = $_POST["sexo"];
+	$genero = $_POST["genero"];
 	$email = $_POST["email"];
 	$nascimento = $_POST["nascimento"];
 	$rg = $_POST["rg"]; 
@@ -44,13 +50,25 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$login = $_POST["login"];
 	$senha = $_POST["senha"];
 
-	$sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, nascimento, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	$stmt_aluno = mysqli_prepare($link, $sql_aluno);
-	mysqli_stmt_bind_param($stmt_aluno, "ssssssssisssi", $nome_completo, $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
-	
-	
+    $sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, nascimento, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt_aluno = mysqli_prepare($link, $sql_aluno);
+    
+    if ($stmt_aluno) {
+        mysqli_stmt_bind_param($stmt_aluno, "ssssssssisssi", $nome_completo, $nome, $sobrenome, $genero, $email, $nascimento, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
+    
+        if (mysqli_stmt_execute($stmt_aluno)) {
+            echo "Aluno cadastrado com sucesso!";
+        } else {
+            echo "Erro ao cadastrar o aluno: " . mysqli_error($link);
+        }
+    
+        mysqli_stmt_close($stmt_aluno);
+    } else {
+        echo "Erro na preparação da declaração: " . mysqli_error($link);
+    }
+    
+    mysqli_close($link);
 }
-
 ?>
     
     
@@ -88,11 +106,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 <form method = "POST">
                     <div class = "cad">
                     <div class = "input-cad"><input type = "text" name = "nome_completo" placeholder = "Nome completo"></div>
-                    <div class="input-selecao">
-                        <select name="sexo">
-                            <option value="masculino">Masculino</option>
-                            <option value="feminino">Feminino</option>
-                        </select>
+                    <label for="genero">Gênero</label>
+                    <select class="input-selecao" id="genero" name="genero">
+                        <option value="M">Masculino</option>
+                        <option value="F">Feminino</option>
+                        <option value="N">Não binário</option>
+                    </select><br><br>
                     </div>
                   
                     <div class = "input-cad"><input type = "email" name = "email" placeholder = "Informe seu email"></div>
@@ -103,14 +122,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     <div class = "input-cad"><input type = "cpf" name = "cpf" placeholder = "Digite o seu CPF"></div>                  
                     </div>
                  <br>
-                    <label for="radio">Possui alguma deficiência? (PCD)</label>
-                    <div class = "radio"><input type="radio" name = "pcd" value="sim">
-                    <label for="sim">Sim</label><br>
-                    <div class = "radio"><input type="radio" name = "pcd" value="nao">
-                    <label for="nao">Não</label><br>
-                    </div>
+                    <label for="PCD">PCD?</label>
+                    <select class="input-selecao" id="pcd" name="pcd">
+                    <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select><br>
                     <div class = "input-end"><input type = "text" name = "pcd_desc" placeholder = "Descreva se sim"></div>
-                 <br>
+                 <br><br>
                     <div class ="texto">Endereço</div>
                     <div class = "end">
                     <div class = "input-end"><input type = "text" name = "logradouro" placeholder = "Logradouro"></div> 
@@ -129,6 +147,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
                     
                     </div>
+                    <div class="voltar">
+    <p><a href='index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+</div>
                 </form>
             </div>
         </div>   

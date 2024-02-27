@@ -1,7 +1,41 @@
 <?php
-    require_once "../../util/config.php";
 
-    $idAluno = $_GET['i'];
+session_start();
+require_once "../../util/config.php";
+
+$idAluno = $_GET['i'];
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $nome = $_POST['nome'];
+    $sigla = $_POST['sigla'];
+    $descricao = $_POST['descricao'];
+    $area = $_POST['area'];
+    $ch = $_POST['ch'];
+    $periodo = $_POST['periodo'];
+    $curso_inicio = $_POST['curso_inicio'];
+    $curso_fim = $_POST['curso_fim'];
+    $horario_inicio = $_POST['horario_inicio'];
+    $horario_fim = $_POST['horario_fim'];
+    $valor = $_POST['valor'];
+
+    $sql = "INSERT INTO curso (nome, sigla, descricao, area, ch, periodo, curso_inicio, curso_fim, hora_inicio, hora_fim, valor) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+    $stmt = mysqli_prepare($link, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "ssssisssssd", $nome, $sigla, $descricao, $area, $ch, $periodo, $curso_inicio, $curso_fim, $horario_inicio, $horario_fim, $valor);
+        if (mysqli_stmt_execute($stmt)) {
+            echo "Curso cadastrado com sucesso!";
+        } else {
+            echo "Erro ao cadastrar o curso: " . mysqli_error($link);
+        }
+
+        mysqli_stmt_close($stmt);
+    } else {
+        echo "Erro na preparação da declaração: " . mysqli_error($link);
+    }
+
+    mysqli_close($link);
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +72,7 @@
                     <div class = "input-cad"><input type="text" id="nome" name="nome" placeholder = "Nome do Curso"></div>
                     <div class = "input-cad"><input type="text" id="sigla" name="sigla" placeholder = "Sigla"></div>
                     <div class = "input-cad"><input type="text" id="descricao" name="descricao" placeholder = "Descrição"></div>
+                    <div class = "input-cad"><input type="text" id="area" name="area" placeholder = "Área"></div>
                     <div class = "input-cad"><input type="number" id="ch" name="ch" placeholder="Carga Horária"></div>
                     <br>
                     <label for="periodo">Período:</label>
@@ -63,10 +98,13 @@
                 
                     <button type="submit" id="botao-cadastrar">Cadastrar</button>
                     </div>
+                    <div class="voltar">
+        <p><a href='index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+    </div>
                 </form>
         </div>
         </div>
-</div> 
+</div>
 </div>
 </body>
 </html>
