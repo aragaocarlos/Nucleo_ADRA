@@ -44,6 +44,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$email = $_POST["email"];
     $telefone = $_POST["telefone"];
 	$nascimento = $_POST["nascimento"];
+
+    $dataNascimento = new DateTime($_POST['nascimento']);
+    $dataAtual = new DateTime();
+    $diferenca = $dataAtual->diff($dataNascimento);
+    $idade = $diferenca->y;
+
 	$rg = $_POST["rg"]; 
 	$cpf = $_POST["cpf"]; 
 	$pcd = $_POST["pcd"];
@@ -51,11 +57,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$login = $_POST["login"];
 	$senha = $_POST["senha"];
 
-    $sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, telefone, nascimento, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, telefone, nascimento, idade, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_aluno = mysqli_prepare($link, $sql_aluno);
     
     if ($stmt_aluno) {
-        mysqli_stmt_bind_param($stmt_aluno, "sssssssssisssi", $nome_completo, $nome, $sobrenome, $genero, $email, $nascimento, $telefone, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
+        mysqli_stmt_bind_param($stmt_aluno, "sssssssississsi", $nome_completo, $nome, $sobrenome, $genero, $email, $telefone, $nascimento, $idade, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
     
         if (mysqli_stmt_execute($stmt_aluno)) {
             echo "Aluno cadastrado com sucesso!";
@@ -80,6 +86,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Aluno</title>
     <link rel="stylesheet" type="text/css" href="../../css/cad_aluno.css" />
+    <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
 </head>
 <body>
     <header>
@@ -111,7 +118,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     <select class="input-selecao" id="genero" name="genero">
                         <option value="M">Masculino</option>
                         <option value="F">Feminino</option>
-                        <option value="N">Não binário</option>
+                        <option value="N">Outro gênero</option>
                     </select><br><br>
                     </div>
                   

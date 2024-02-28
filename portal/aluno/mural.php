@@ -4,18 +4,19 @@
     require_once "../../util/config.php";
     $idCurso = $_GET['c'];
     $idTurma = $_GET['t'];
-    $sql = "SELECT * FROM curso";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
+
+    $sql_1 = "SELECT * FROM curso";
+    $result_1 = mysqli_query($link, $sql_1);
+    while($row = mysqli_fetch_array($result_1)){
         if($row['id_curso'] == $idCurso){
             $nomeCurso = $row['nome'];
         }
     }
 
     $idAluno = $_GET['i'];
-    $sql = "SELECT * FROM aluno";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
+    $sql_2 = "SELECT * FROM aluno";
+    $result_2 = mysqli_query($link, $sql_2);
+    while($row = mysqli_fetch_array($result_2)){
         if($row['id'] == $idAluno){
             $nomeAluno = $row['nome'];
             $sobrenomeAluno = $row['sobrenome'];
@@ -54,6 +55,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mural</title>
     <link rel="stylesheet" href="../../css/mural.css">
+    <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
 </head>
 <body>
 <header>

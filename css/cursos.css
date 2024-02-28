@@ -37,15 +37,25 @@ header{
     align-items: center;
 }
 
-.perfil{
+#perfil{
     cursor: pointer;
     width: 48px;
     height: 48px;
     background-image: url("../imagens/perfil-branco.png");
 }
 
-.perfil:hover{
+#perfil:hover{
     background-image: url("../imagens/perfil-branco-selecionado.png");
+}
+
+.opcoes-nav{
+    display: flex;
+    gap: 50px;
+    height: 10vh;
+}
+
+.opcao-nav:hover{
+    border-bottom: 4px solid white;
 }
 
 .container-titulo{

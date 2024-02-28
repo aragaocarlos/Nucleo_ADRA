@@ -46,6 +46,7 @@
     <title>Mural</title>
     <link rel="stylesheet" href="../css/mural.css">
     <link rel="stylesheet" href="../css/administrador.css">
+    <link rel="icon" href="../imagens/nucleo-adra-icone.png" >
 </head>
 <body>
 <header>
@@ -56,8 +57,10 @@
                     <img src="../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
+                <a href="usuario.php?i=<?php echo $idAluno; ?>">
                 <div id="perfil" class="opcoes-nav">
                 </div>
+                </a>
             </div>
         </main>
     </header>

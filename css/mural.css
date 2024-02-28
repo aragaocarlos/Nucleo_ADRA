@@ -46,10 +46,6 @@ main div{
     height: 10vh;
 }
 
-.opcao-nav{
-    height: 10vh;
-}
-
 .opcao-nav:hover{
     border-bottom: 4px solid white;
 }
@@ -584,4 +580,21 @@ p{
 
 .voltar a:hover{
     color: rgb(0, 0, 0);
+}
+
+.info_data_container{
+    margin-top: 20px;
+    
+}
+
+.info_data_titulo{
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.info_caixa{
+    display: flex;
+    gap: 50px;
+    font-size: 15px;
 }

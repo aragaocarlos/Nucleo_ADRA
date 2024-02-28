@@ -32,6 +32,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área Institucional</title>
     <link rel="stylesheet" type="text/css" href="./css/login-estilo.css" />
+    <link rel="icon" href="./imagens/nucleo-adra-icone.png" >
 </head>
 <body>
     <div class="fundo">
@@ -44,8 +45,8 @@
             <div class="formulario">
             <form action="" method="POST">
                 <div class="login">
-                    <div class="input-login"><input type="text" name="login" placeholder="Informe seu e-mail"></div>
-                    <div class="input-login"><input type="password" name="senha" placeholder="Senha"></div>
+                    <div class="input-login"><input type="text" name="login" placeholder="Insira seu login"></div>
+                    <div class="input-login"><input type="password" name="senha" placeholder="Insira sua senha"></div>
                     <button type="submit" id="botao-login">Entrar</button>
                 </div>
                     <?php

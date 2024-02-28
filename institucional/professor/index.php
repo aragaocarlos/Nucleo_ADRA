@@ -2,6 +2,7 @@
     require_once "../../util/config.php";
 
     $idAluno = $_GET['i'];
+
     $sql = "SELECT * FROM professor";
     $result = mysqli_query($link, $sql);
 
@@ -14,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professores</title>
     <link rel="stylesheet" href="../../css/mural.css">
+    <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
 </head>
 <body>
 <header>
@@ -33,6 +35,7 @@
 <div class="container-admin">
     <h2>Professores</h2>
     <p><a href="create.php?i=<?php echo $idAluno; ?>" class="incluir">Incluir</a></p>
+    
     <table border="0" class="tabela-admin">
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->

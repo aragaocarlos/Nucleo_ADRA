@@ -19,6 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turmas</title>
     <link rel="stylesheet" href="../../css/cursos.css">
+    <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
 </head>
 <body>
     <header>
@@ -30,6 +31,7 @@
                 <a href="usuario.php?c=#&i=<?php echo $idAluno; ?>&t=#">
                 <div id="perfil" class="opcoes-nav">
                 </div>
+                </a>
                 </a>
             </div>
         </main>
@@ -50,6 +52,7 @@
                     $id_turma = $row['id'];
                     $codigo_turma = $row['codigo'];
                     $id_curso = $row['curso_id_curso'];
+                    $sala = $row['sala'];
                 
         ?>
             <!-- INTEGRAÇÃO COM BANCO DE DADOS AQUI -->
@@ -97,24 +100,7 @@
                             }
                     ?>
                         Professor: <?php echo $nome_professor; }?>
-                    </div>
-                    <?php          
-                        $sql_2 = "SELECT * FROM sala_has_turma";
-                        $result_2 = mysqli_query($link, $sql_2);
-                        while($row = mysqli_fetch_array($result_2)){
-                            if($row['turma_id'] == $id_turma){
-                                $sala_id = $row['sala_id'];
-                                $sql_3 = "SELECT * FROM sala";
-                                $result_3 = mysqli_query($link, $sql_3);
-                                while($row = mysqli_fetch_array($result_3)){
-                                    if($row['id'] == $sala_id){
-                                        $sala = $row['tipo'];
-                                    }
-                                }
-                            }
-                        }
-                        ?>
-                    
+                    </div>   
                     <div class="area">
                         <!-- CÓDIGO DA TURMA -->
                         <div class="area-texto-turma">Turma <?php echo $codigo_turma; ?></div>

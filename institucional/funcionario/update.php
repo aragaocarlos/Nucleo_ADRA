@@ -38,6 +38,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Alteração de Funcionários</title>
         <link rel="stylesheet" href="../../css/mural.css">
+        <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
     </head>
     <body>
 <header>
