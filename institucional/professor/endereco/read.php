@@ -2,10 +2,9 @@
     require_once "../../../util/config.php";
 
     $idAluno = $_GET['i'];
-    $idCurso = $_GET['c'];
     if($_GET['id']){
         $id = $_GET['id'];
-        $sql = "SELECT * FROM turma WHERE id = ?";
+        $sql = "SELECT * FROM endereco WHERE id = ?";
         $stmt = mysqli_prepare($link, $sql);
         mysqli_stmt_bind_param($stmt, "i", $id);
         mysqli_stmt_execute($stmt);
@@ -20,14 +19,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Curso</title>
+    <title>Detalhe do Aluno</title>
     <link rel="stylesheet" href="../../../css/mural.css">
 </head>
 <body>
     <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../../administrador.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
@@ -39,11 +38,17 @@
     </header>
     
     <div class="container-admin">
-        <h2>Detalhes da Turma</h2>
-        <p>Turma: <?php echo($row['codigo']) ?></p>
+        <h2>Detalhes</h2>
+        <p>Logradouro: <?php echo($row['logradouro']) ?></p>
+        <p>Número: <?php echo($row['numero']) ?></p>
+        <p>Complemento: <?php echo($row['complemento']) ?></p>
+        <p>Bairro: <?php echo($row['bairro']) ?></p>
+        <p>CEP <?php echo($row['cep']) ?></p>
+        <p>Cidade: <?php echo($row['cidade']) ?></p>
+        <p>Estado: <?php echo($row['estado']) ?></p>
     </div>
     <div class="voltar">
-        <p><a href='index.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>'>Voltar</a></p>
+        <p><a href='index.php?i=<?php echo $idAluno; ?>&id=<?php echo $id; ?>'>Voltar</a></p>
     </div>
 </body>
 </html>

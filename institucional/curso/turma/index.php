@@ -25,7 +25,7 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+                <a href="../../administrador.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>

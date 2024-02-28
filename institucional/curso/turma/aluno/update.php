@@ -35,15 +35,16 @@
             $sobrenome = $_POST["sobrenome"];
             $sexo = $_POST["sexo"];
             $email = $_POST["email"];
+            $telefone = $_POST["telefone"];
             $nascimento = $_POST["nascimento"];
             $rg = $_POST["rg"];
             $cpf = $_POST["cpf"];
             $login = $_POST["login"];
             $senha = $_POST["senha"];
             $id = $_POST["id"];
-            $sql = "UPDATE aluno SET nome = ?, sobrenome = ?, sexo = ?, email = ?, nascimento = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
+            $sql = "UPDATE aluno SET nome = ?, sobrenome = ?, sexo = ?, email = ?, nascimento = ?, telefone = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "sssssssssi", $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $login, $senha, $id);
+            mysqli_stmt_bind_param($stmt, "sssssssssi", $nome, $sobrenome, $sexo, $email, $nascimento, $telefone, $rg, $cpf, $login, $senha, $id);
 
             if (mysqli_stmt_execute($stmt)) {
                 echo "Registro atualizado com sucesso.";
@@ -67,7 +68,7 @@
 <header>
     <main>
         <div class="cabecalho-conteudo">
-            <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../../../administrador.php?i=<?php echo $idAluno; ?>">
             <div id="logo" class="opcoes-nav">
                 <img src="../../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
             </div>
@@ -86,6 +87,7 @@
         <p>Sobrenome: <input type="text" name="sobrenome" value="<?php echo $row['sobrenome'] ?>"></p>
         <p>Sexo: <input type="text" name="sexo" value="<?php echo $row['sexo'] ?>"></p>
         <p>Email: <input type="text" name="email" value="<?php echo $row['email'] ?>"></p>
+        <p>Telefone: <input type="text" name="telefone" value="<?php echo $row['telefone'] ?>"></p>
         <p>Nascimento: <input type="text" name="nascimento" value="<?php echo $row['nascimento'] ?>"></p>
         <p>RG: <input type="text" name="rg" value="<?php echo $row['rg'] ?>"></p>
         <p>CPF: <input type="text" name="cpf" value="<?php echo $row['cpf'] ?>"></p>

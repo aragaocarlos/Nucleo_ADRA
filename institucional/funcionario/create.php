@@ -1,18 +1,33 @@
 <?php
-    require_once "../../util/config.php";
 
-    $idAluno = $_GET['i'];
+session_start();
+require_once "../../util/config.php";
 
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
-        $nome = $_POST["nome"];
-        $login = $_POST["login"];
-        $senha =  $_POST["senha"];
-    
-        $sql = "INSERT INTO administracao (nome, login, senha) VALUES (?, ?, ?)";
-        $stmt = mysqli_prepare($link, $sql);
+$idAluno = $_GET['i'];
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $nome = $_POST["nome"];
+    $login = $_POST["login"];
+    $senha =  $_POST["senha"];
+
+    $sql = "INSERT INTO administracao (nome, login, senha) VALUES (?, ?, ?)";
+    $stmt = mysqli_prepare($link, $sql);
+
+    if ($stmt) {
         mysqli_stmt_bind_param($stmt, "sss", $nome, $login, $senha);
+        if (mysqli_stmt_execute($stmt)) {
+            echo "Funcionário cadastrado com sucesso!";
+        } else {
+            echo "Erro ao cadastrar o funcionário: " . mysqli_error($link);
+        }
+
+        mysqli_stmt_close($stmt);
+    } else {
+        echo "Erro na preparação da declaração: " . mysqli_error($link);
     }
 
+    mysqli_close($link);
+}
 ?>
 
 <!DOCTYPE html>
@@ -51,8 +66,9 @@
                     <div class = "input-end"><input type = "text" name = "senha" placeholder = "Senha"></div> 
                     <!-- Botão de salvar -->
                     <button type="submit" id="botao-cadastrar">Cadastrar</button>
-
-                    
+                    </div>
+                    <div class="voltar">
+                        <p><a href='index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
                     </div>
                 </form>
             </div>

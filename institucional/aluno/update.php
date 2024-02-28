@@ -11,19 +11,26 @@
             $row = mysqli_fetch_array($result);
         }
         if($_SERVER['REQUEST_METHOD'] == "POST"){        
-            $nome = $_POST["nome"];
-            $sobrenome = $_POST["sobrenome"];
+            $nome_completo = $_POST["nome_completo"];
+
+            // Divide nome completo em nome e sobrenome
+            $partes = explode(' ', $nome_completo);
+            $ultimo_valor = count($partes)-1;
+
+            $nome = $partes[0];
+            $sobrenome = $partes[$ultimo_valor];
             $sexo = $_POST["sexo"];
             $email = $_POST["email"];
+            $telefone = $_POST["telefone"];
             $nascimento = $_POST["nascimento"];
             $rg = $_POST["rg"];
             $cpf = $_POST["cpf"];
             $login = $_POST["login"];
             $senha = $_POST["senha"];
             $id = $_POST["id"];
-            $sql = "UPDATE aluno SET nome = ?, sobrenome = ?, sexo = ?, email = ?, nascimento = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
+            $sql = "UPDATE aluno SET nome_completo = ?, nome = ?, sobrenome = ?, sexo = ?, email = ?, telefone = ?, nascimento = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "sssssssssi", $nome, $sobrenome, $sexo, $email, $nascimento, $rg, $cpf, $login, $senha, $id);
+            mysqli_stmt_bind_param($stmt, "sssssssssssi", $nome_completo, $nome, $sobrenome, $sexo, $email, $telefone, $nascimento, $rg, $cpf, $login, $senha, $id);
 
             if (mysqli_stmt_execute($stmt)) {
                 echo "Registro atualizado com sucesso.";
@@ -60,10 +67,10 @@
 <div class="container-admin">
     <h2>Alteração de Alunos</h2>
     <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>">
-        <p>Nome: <input type="text" name="nome" value="<?php echo $row['nome'] ?>"></p>
-        <p>Sobrenome: <input type="text" name="sobrenome" value="<?php echo $row['sobrenome'] ?>"></p>
+        <p>Nome: <input type="text" name="nome_completo" value="<?php echo $row['nome_completo'] ?>"></p>
         <p>Sexo: <input type="text" name="sexo" value="<?php echo $row['sexo'] ?>"></p>
         <p>Email: <input type="text" name="email" value="<?php echo $row['email'] ?>"></p>
+        <p>Telefone: <input type="text" name="telefone" value="<?php echo $row['telefone'] ?>"></p>
         <p>Nascimento: <input type="text" name="nascimento" value="<?php echo $row['nascimento'] ?>"></p>
         <p>RG: <input type="text" name="rg" value="<?php echo $row['rg'] ?>"></p>
         <p>CPF: <input type="text" name="cpf" value="<?php echo $row['cpf'] ?>"></p>

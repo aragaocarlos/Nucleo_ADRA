@@ -5,20 +5,30 @@
             $id = $_GET['id'];
             $sql = "SELECT * FROM professor WHERE id_professor = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "s", $id);
+            mysqli_stmt_bind_param($stmt, "i", $id);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $row = mysqli_fetch_array($result);
         }
         if($_SERVER['REQUEST_METHOD'] == "POST"){        
-            $nome = $_POST["nome"];
-            $sobrenome = $_POST["sobrenome"];
+            $nome_completo = $_POST["nome_completo"];
+
+            // Divide nome completo em nome e sobrenome
+            $partes = explode(' ', $nome_completo);
+            $ultimo_valor = count($partes)-1;
+
+            $nome = $partes[0];
+            $sobrenome = $partes[$ultimo_valor];
+            $sexo = $_POST["sexo"];
             $email = $_POST["email"];
+            $telefone = $_POST["telefone"];
             $nascimento = $_POST["nascimento"];
+            $login = $_POST["login"];
+            $senha = $_POST["senha"];
             $id = $_POST["id"];
-            $sql = "UPDATE professor SET nome = ?, sobrenome = ?, email = ?, nascimento = ? WHERE id_professor = ?";
+            $sql = "UPDATE professor SET nome_completo = ?, nome = ?, sobrenome = ?, sexo = ?, email = ?, telefone = ?, nascimento = ?, login = ?, senha = ? WHERE id_professor = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "ssssi", $nome, $sobrenome, $email, $nascimento, $id);
+            mysqli_stmt_bind_param($stmt, "sssssssssi", $nome_completo, $nome, $sobrenome, $sexo, $email, $telefone, $nascimento, $login, $senha, $id);
 
             if (mysqli_stmt_execute($stmt)) {
                 echo "Registro atualizado com sucesso.";
@@ -35,7 +45,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Alteração de Funcionários</title>
+        <title>Alterar Professores</title>
         <link rel="stylesheet" href="../../css/mural.css">
     </head>
     <body>
@@ -53,12 +63,15 @@
     </main>
 </header>
 <div class="container-admin">
-    <h2>Alteração de Funcionários</h2>
+    <h2>Alteração de Professores</h2>
     <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>">
-        <p>Nome: <input type="text" name="nome" value="<?php echo $row['nome'] ?>"></p>
-        <p>Sobrenome: <input type="text" name="sobrenome" value="<?php echo $row['sobrenome'] ?>"></p>
+        <p>Nome: <input type="text" name="nome_completo" value="<?php echo $row['nome_completo'] ?>"></p>
+        <p>Sexo: <input type="text" name="sexo" value="<?php echo $row['sexo'] ?>"></p>
         <p>Email: <input type="text" name="email" value="<?php echo $row['email'] ?>"></p>
+        <p>Telefone: <input type="text" name="telefone" value="<?php echo $row['telefone'] ?>"></p>
         <p>Nascimento: <input type="text" name="nascimento" value="<?php echo $row['nascimento'] ?>"></p>
+        <p>Login: <input type="text" name="login" value="<?php echo $row['login'] ?>"></p>
+        <p>Senha: <input type="text" name="senha" value="<?php echo $row['senha'] ?>"></p>
         <input type="hidden" name="id" value="<?php echo $row['id_professor'] ?>">
         <p><input type="submit" class="botao_funcionario" value="Alterar"></p>
     </form>

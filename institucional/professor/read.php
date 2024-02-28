@@ -39,10 +39,13 @@
     
     <div class="container-admin">
         <h2>Detalhes do Professor</h2>
-        <p>Nome: <?php echo($row['nome']) ?></p>
-        <p>Sobrenome: <?php echo($row['sobrenome']) ?></p>
+        <p>Nome: <?php echo($row['nome_completo']) ?></p>
+        <p>Gênero: <?php echo($row['sexo']) ?></p>
         <p>Email: <?php echo($row['email']) ?></p>
+        <p>Telefone: <?php echo($row['telefone']) ?></p>
         <p>Nascimento: <?php echo($row['nascimento']) ?></p>
+        <p>Login: <?php echo($row['login']) ?></p>
+        <p>Senha: <?php echo($row['senha']) ?></p>
     </div>
     <div class="voltar">
         <p><a href='index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>

@@ -19,7 +19,7 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../administrador.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
@@ -37,24 +37,38 @@
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->
             <td><center>Nome</center></td>
-            <td><center>Sobrenome</center></td>
+            <td><center>Sexo</center></td>
             <td><center>Email</center></td>
+            <td><center>Telefone</center></td>
             <td><center>Nascimento</center></td>
+            <td><center>Login</center></td>
+            <td><center>Senha</center></td>
+            <td><center>Endereço</center></td>
             <td colspan="4"><center>Ações</center></td>
         </tr>
         <?php while($row = mysqli_fetch_array($result)){?>
         <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor'])?>" class="crud_curso"><?php echo($row['nome'])?></td></a>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor'])?>" class="crud_curso"><?php echo($row['sobrenome'])?></td></a>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor'])?>" class="crud_curso"><?php echo($row['email'])?></td></a>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor'])?>" class="crud_curso"><?php echo($row['nascimento'])?></td></a>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['nome_completo'])?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['sexo'])?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['email'])?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['telefone'])?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['nascimento'])?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['login'])?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['senha'])?></a></td>
+            <td><?php
+            $idEndereco = $row['endereco_id'];
+            echo('<a href="./endereco/index.php?id='.$idEndereco.'&i='.$idAluno.'" class="crud_link">Exibir</a>')
+            ?></td>
             <td><?php echo('<a href="read.php?id='.$row['id_professor'].'&i='.$idAluno.'" class="crud_link">Exibir</a>')?></td>
             <td><?php echo('<a href="update.php?id='.$row['id_professor'].'&i='.$idAluno.'" class="crud_link">Alterar</a>')?></td>
             <td><?php echo('<a href="delete.php?id='.$row['id_professor'].'&i='.$idAluno.'" class="crud_link">Excluir</a>')?></td>
         </tr>
         <?php } ?>
     </table>
+    <div class="voltar">
+        <p><a href='../administrador.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+    </div>
     </div>
 </div>
 

@@ -34,7 +34,7 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../../administrador.php?i=<?php echo $idAluno; ?>">
+                <a href="../../../administrador.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
@@ -56,6 +56,7 @@
             <td><center>Nome</center></td>
             <td><center>Sexo</center></td>
             <td><center>Email</center></td>
+            <td><center>Telefone</center></td>
             <td><center>Nascimento</center></td>
             <td><center>RG</center></td>
             <td><center>CPF</center></td>
@@ -80,6 +81,7 @@
             <td><?php echo($row['nome_completo'])?></td>
             <td><?php echo($row['sexo'])?></td>
             <td><?php echo($row['email'])?></td>
+            <td><?php echo($row['telefone'])?></td>
             <td><?php echo($row['nascimento'])?></td>
             <td><?php echo($row['rg'])?></td>
             <td><?php echo($row['cpf'])?></td>

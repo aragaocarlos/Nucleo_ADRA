@@ -1,11 +1,12 @@
 <?php 
         require_once "../../util/config.php";
         $idAluno = $_GET['i'];
+        $idAluno = $_GET['i'];
         if($_GET['id']){
             $id = $_GET['id'];
             $sql = "SELECT * FROM administracao WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "s", $id);
+            mysqli_stmt_bind_param($stmt, "i", $id);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $row = mysqli_fetch_array($result);
@@ -15,18 +16,19 @@
             $login = $_POST["login"];
             $senha = $_POST["senha"];
             $id = $_POST["id"];
+        
             $sql = "UPDATE administracao SET nome = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
             mysqli_stmt_bind_param($stmt, "sssi", $nome, $login, $senha, $id);
-
-        if (mysqli_stmt_execute($stmt)) {
-            echo "Registro atualizado com sucesso.";
-        } else {
-            echo "Erro na atualização: " . mysqli_error($link);
+        
+            if (mysqli_stmt_execute($stmt)) {
+                echo "Registro atualizado com sucesso.";
+            } else {
+                echo "Erro na atualização: " . mysqli_error($link);
+            }
+    
+            mysqli_stmt_close($stmt);
         }
-
-        mysqli_stmt_close($stmt);
-}
     ?>
     <!DOCTYPE html>
     <html lang="pt-br">

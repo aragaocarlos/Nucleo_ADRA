@@ -42,6 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$sobrenome = $partes[$ultimo_valor];
 	$genero = $_POST["genero"];
 	$email = $_POST["email"];
+    $telefone = $_POST["telefone"];
 	$nascimento = $_POST["nascimento"];
 	$rg = $_POST["rg"]; 
 	$cpf = $_POST["cpf"]; 
@@ -50,11 +51,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$login = $_POST["login"];
 	$senha = $_POST["senha"];
 
-    $sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, nascimento, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, telefone, nascimento, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_aluno = mysqli_prepare($link, $sql_aluno);
     
     if ($stmt_aluno) {
-        mysqli_stmt_bind_param($stmt_aluno, "ssssssssisssi", $nome_completo, $nome, $sobrenome, $genero, $email, $nascimento, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
+        mysqli_stmt_bind_param($stmt_aluno, "sssssssssisssi", $nome_completo, $nome, $sobrenome, $genero, $email, $nascimento, $telefone, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
     
         if (mysqli_stmt_execute($stmt_aluno)) {
             echo "Aluno cadastrado com sucesso!";
@@ -115,9 +116,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     </div>
                   
                     <div class = "input-cad"><input type = "email" name = "email" placeholder = "Informe seu email"></div>
-                    <div class = "input-cad" id="telefone"><input type = "telefone" name = "telefone" placeholder = "Telefone"></div> 
                     <label class="nascimento">Data de nascimento:</label>
                     <div class = "input-cad" id="nascimento"><input type = "date" name = "nascimento" placeholder = "Data de nascimento"></div> 
+                    <div class = "input-cad" id="telefone"><input type = "telefone" name = "telefone" placeholder = "Telefone"></div> 
                     <div class = "input-cad"><input type = "rg" name = "rg" placeholder = "Digite o seu RG"></div> 
                     <div class = "input-cad"><input type = "cpf" name = "cpf" placeholder = "Digite o seu CPF"></div>                  
                     </div>

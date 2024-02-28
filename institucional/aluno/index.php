@@ -40,6 +40,7 @@
             <td><center>Sexo</center></td>
             <td><center>Email</center></td>
             <td><center>Nascimento</center></td>
+            <td><center>Telefone</center></td>
             <td><center>RG</center></td>
             <td><center>CPF</center></td>
             <td><center>PCD</center></td>
@@ -56,6 +57,7 @@
             <td><?php echo($row['sexo'])?></td>
             <td><?php echo($row['email'])?></td>
             <td><?php echo($row['nascimento'])?></td>
+            <td><?php echo($row['telefone'])?></td>
             <td><?php echo($row['rg'])?></td>
             <td><?php echo($row['cpf'])?></td>
             <td><?php
@@ -68,7 +70,6 @@
             <td><?php echo($row['pcd_desc'])?></td>
             <td><?php echo($row['login'])?></td>
             <td><?php echo($row['senha'])?></td>
-            <!-- EDITAR ENDEREÇOS -->
             <td><?php
             $idEndereco = $row['endereco_id'];
             echo('<a href="./endereco/index.php?id='.$idEndereco.'&i='.$idAluno.'" class="crud_link">Exibir</a>')

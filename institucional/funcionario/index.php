@@ -53,6 +53,9 @@
         </tr>
         <?php } ?>
     </table>
+    <div class="voltar">
+        <p><a href='../administrador.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+    </div>
     </div>
 </div>
 
