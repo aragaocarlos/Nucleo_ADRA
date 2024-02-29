@@ -43,7 +43,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mural</title>
+    <title>Menu de Seleção</title>
     <link rel="stylesheet" href="../css/mural.css">
     <link rel="stylesheet" href="../css/administrador.css">
     <link rel="icon" href="../imagens/nucleo-adra-icone.png" >
@@ -66,6 +66,16 @@
     </header>
 
 <div class="container-geral">
+    <div class="container-pesquisa">
+    <form action="" method="POST">
+        <div class="container-input">
+            <input type="text" name="pesquisa" placeholder="Insira sua pesquisa">
+        </div>
+        <div class="container-lupa">
+            <button type="submit"><img src="../../imagens/lupa.png"></button>
+        </div>
+        </form>
+    </div>
     <div class="container-titulo">
         <div class="titulo">
             Menu de Seleção

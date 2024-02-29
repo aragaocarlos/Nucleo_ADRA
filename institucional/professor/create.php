@@ -44,14 +44,20 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$email = $_POST["email"];
     $telefone = $_POST["telefone"];
 	$nascimento = $_POST["nascimento"];
+
+    $dataNascimento = new DateTime($_POST['nascimento']);
+    $dataAtual = new DateTime();
+    $diferenca = $dataAtual->diff($dataNascimento);
+    $idade = $diferenca->y;
+
 	$login = $_POST["login"];
 	$senha = $_POST["senha"];
 
-    $sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, telefone, nascimento, login, senha, endereco_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, telefone, nascimento, idade, login, senha, endereco_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_aluno = mysqli_prepare($link, $sql_aluno);
     
     if ($stmt_aluno) {
-        mysqli_stmt_bind_param($stmt_aluno, "sssssssssi", $nome_completo, $nome, $sobrenome, $genero, $email, $nascimento, $telefone, $login, $senha, $endereco_id);
+        mysqli_stmt_bind_param($stmt_aluno, "ssssssisssi", $nome_completo, $nome, $sobrenome, $genero, $email, $nascimento, $idade, $telefone, $login, $senha, $endereco_id);
     
         if (mysqli_stmt_execute($stmt_aluno)) {
             echo "Aluno cadastrado com sucesso!";
