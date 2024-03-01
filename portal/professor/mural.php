@@ -174,20 +174,18 @@
                         $comentarioNome = $row['nome'] . ' ' . $row['sobrenome'];
                         $comentarioData = $row['data'];
                         $comentarioConteudo = $row['texto'];
-                }
-            }
             ?>
             <div class="container_comentarios">
+                <!--
                 <?php
-                    if($comentario_contador > 1){
+                    //if($comentario_contador > 1){
                 ?>
                 <div class="comentarios"><a href="#">
-                    Mostrar todos os <?php echo $comentario_contador ?> comentários
-                </a></div>
+                    Mostrar todos os <?php //echo $comentario_contador ?> comentários
+                </a></div> -->
                 <?php
-                }
+                //}
                 ?>
-                <?php if($comentario_contador >= 1){ ?>
                 <div class="comentario_feito">
                     <div class="comentarios_foto-aluno">
                         <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
@@ -206,7 +204,8 @@
                         </div>
                     </div>
                 </div>
-                <?php } ?>
+<?php                 }
+            } ?>
                 <div class="comentarios_input">
                         <div class="comentarios_perfil-aluno">
                         <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">

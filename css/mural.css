@@ -543,15 +543,18 @@ p{
     border: 1px solid rgb(206, 206, 206);
     padding: 20px;
     border-radius: 10px;
+    width: 1000px;
 }
 
 .post a{
     text-decoration: none;
     color: #000000;
+    width: 1000px;
 }
 
 .post:hover{
     background-color: rgb(248, 248, 248);
+    width: 1000px;
 }
 
 .cabecalho{
