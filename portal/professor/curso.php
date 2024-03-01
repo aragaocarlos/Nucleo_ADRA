@@ -1,13 +1,13 @@
 <?php
     require_once "../../util/config.php";
-    $idAluno = $_GET['i'];
+    $idProfessor = $_GET['i'];
 
-        $sql = "SELECT * FROM aluno";
+        $sql = "SELECT * FROM professor";
         $result = mysqli_query($link, $sql);
         while($row = mysqli_fetch_array($result)){
-            if($row['id'] == $idAluno){
-                $idAluno = $row['id'];
-                $nomeAluno = $row['nome'];
+            if($row['id_professor'] == $idProfessor){
+                $idProfessor = $row['id_professor'];
+                $nomeProfessor = $row['nome'] . ' ' . $row['sobrenome'];
             }
         }
 ?>
@@ -28,9 +28,10 @@
                 <div class="logo">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
-                <a href="usuario.php?c=#&i=<?php echo $idAluno; ?>&t=#">
+                <a href="usuario.php?c=#&i=<?php echo $idProfessor; ?>">
                 <div id="perfil" class="opcoes-nav">
                 </div>
+                </a>
                 </a>
             </div>
         </main>
@@ -45,25 +46,29 @@
     <div class="container-geral">
         <div class="container-curso">
         <?php
-                $sql_1 = "SELECT * FROM turma";
-                $result_1 = mysqli_query($link, $sql_1);
-                while($row = mysqli_fetch_array($result_1)){
-                    $id_turma = $row['id'];
-                    $codigo_turma = $row['codigo'];
-                    $id_curso = $row['curso_id_curso'];
-                
+            $sql_turma = "SELECT * FROM professor_turma";
+            $result_turma = mysqli_query($link, $sql_turma);
+            while($row = mysqli_fetch_array($result_turma)){
+                if($row['professor_id'] == $idProfessor){
+                    $idTurma = $row['turma_id'];
+                    $sql_1 = "SELECT * FROM turma";
+                    $result_1 = mysqli_query($link, $sql_1);
+                    while($row = mysqli_fetch_array($result_1)){
+                        if($row['id'] == $idTurma){
+                        $codigo_turma = $row['codigo'];
+                        $id_curso = $row['curso_id_curso'];
+                        $sala = $row['sala'];
         ?>
-            <!-- INTEGRAÇÃO COM BANCO DE DADOS AQUI -->
-            <div class="curso"><a href="mural.php?c=<?php echo $row['curso_id_curso']; ?>&i=<?php echo $idAluno; ?>&t=<?php echo $id_turma; ?>">
+            <div class="curso"><a href="mural.php?c=<?php echo $row['curso_id_curso']; ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
                 
                 <div class="conteudo-curso">
                     <!-- NOME DO CURSO -->
                         <div class="nome-curso">
                         <?php 
-                        $sql = "SELECT * FROM curso";
-                        $result = mysqli_query($link, $sql);
-                        while($row = mysqli_fetch_array($result)){
-                            if ($id_curso == $row['id_curso']){
+                        $sql_2 = "SELECT * FROM curso";
+                        $result_2 = mysqli_query($link, $sql_2);
+                        while($row = mysqli_fetch_array($result_2)){
+                            if ($row['id_curso'] == $id_curso){
                                 $nome_curso = $row['nome'];
                                 $dias_curso = $row['descricao'];
                                 $hora_curso = $row['hora_inicio'];
@@ -82,40 +87,8 @@
                     </div>
                     <!-- PROFESSOR DA TURMA -->
                     <div class="descricao-curso">
-                    <?php 
-                        $sql_5 = "SELECT * FROM professor_turma";
-                        $result_5 = mysqli_query($link, $sql_5);
-                        while($row = mysqli_fetch_array($result_5)){
-                            if ($id_turma == $row['turma_id']){
-                                $id_professor = $row['professor_id'];
-                            }
-                            $sql_6 = "SELECT * FROM professor";
-                            $result_6 = mysqli_query($link, $sql_6);
-                            while($row = mysqli_fetch_array($result_6)){
-                                if ($id_professor == $row['id_professor']){
-                                    $nome_professor = $row['nome'] . ' ' . $row['sobrenome'];
-                                }
-                            }
-                    ?>
-                        Professor: <?php echo $nome_professor; }?>
-                    </div>
-                    <?php          
-                        $sql_2 = "SELECT * FROM sala_has_turma";
-                        $result_2 = mysqli_query($link, $sql_2);
-                        while($row = mysqli_fetch_array($result_2)){
-                            if($row['turma_id'] == $id_turma){
-                                $sala_id = $row['sala_id'];
-                                $sql_3 = "SELECT * FROM sala";
-                                $result_3 = mysqli_query($link, $sql_3);
-                                while($row = mysqli_fetch_array($result_3)){
-                                    if($row['id'] == $sala_id){
-                                        $sala = $row['tipo'];
-                                    }
-                                }
-                            }
-                        }
-                        ?>
-                    
+                        Professor: <?php echo $nomeProfessor; }?>
+                    </div>   
                     <div class="area">
                         <!-- CÓDIGO DA TURMA -->
                         <div class="area-texto-turma">Turma <?php echo $codigo_turma; ?></div>
@@ -125,8 +98,9 @@
                 </div>
             </div></a>
         <?php
-                        
+                        }
                 }
+            }      
         ?>
         </div>
     </div>

@@ -9,6 +9,10 @@ body{
     background-attachment: fixed;
 }
 
+*:focus {
+    outline: none;
+}
+
 header{
     height: 10vh;
     display: flex;

@@ -28,7 +28,7 @@
                 <div class="logo">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
-                <a href="usuario.php?c=#&i=<?php echo $idAluno; ?>&t=#">
+                <a href="usuario.php?c=#&i=<?php echo $idAluno; ?>">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -46,16 +46,20 @@
     <div class="container-geral">
         <div class="container-curso">
         <?php
-                $sql_1 = "SELECT * FROM turma";
-                $result_1 = mysqli_query($link, $sql_1);
-                while($row = mysqli_fetch_array($result_1)){
-                    $id_turma = $row['id'];
-                    $codigo_turma = $row['codigo'];
-                    $id_curso = $row['curso_id_curso'];
-                    $sala = $row['sala'];
-                
+            $sql_turma = "SELECT * FROM aluno_has_turma";
+            $result_turma = mysqli_query($link, $sql_1);
+            while($row = mysqli_fetch_array($result_1)){
+                if($row['aluno_id'] == $idAluno){
+                    $idTurma = $row['turma_id'];
+                    $sql_1 = "SELECT * FROM turma";
+                    $result_1 = mysqli_query($link, $sql_1);
+                    while($row = mysqli_fetch_array($result_1)){
+                        if($row['id'] == $idTurma){
+                        $id_turma = $row['id'];
+                        $codigo_turma = $row['codigo'];
+                        $id_curso = $row['curso_id_curso'];
+                        $sala = $row['sala'];
         ?>
-            <!-- INTEGRAÇÃO COM BANCO DE DADOS AQUI -->
             <div class="curso"><a href="mural.php?c=<?php echo $row['curso_id_curso']; ?>&i=<?php echo $idAluno; ?>&t=<?php echo $id_turma; ?>">
                 
                 <div class="conteudo-curso">
@@ -110,8 +114,10 @@
                 </div>
             </div></a>
         <?php
-                        
+                        }
                 }
+            }      
+        }
         ?>
         </div>
     </div>

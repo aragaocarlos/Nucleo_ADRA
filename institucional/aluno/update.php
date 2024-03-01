@@ -60,8 +60,10 @@
                 <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
             </div>
             </a>
-            <div id="perfil" class="opcoes-nav">
-            </div>
+            <a href="../usuario.php?i=<?php echo $idAluno; ?>">
+                <div id="perfil" class="opcoes-nav">
+                </div>
+                </a>
         </div>
     </main>
 </header>

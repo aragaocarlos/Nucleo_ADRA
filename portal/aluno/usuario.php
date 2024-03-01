@@ -16,7 +16,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mural</title>
+    <title>Usuário</title>
     <link rel="stylesheet" href="../../css/mural.css">
 </head>
 <body>
@@ -38,9 +38,9 @@
         <div class="container-geral">
             <div class="espaco"></div>
             <div class="container-usuario">
-                <div class="container-perfil">
+            <div class="container-perfil">
                     <div class="icone-foto">
-                        <div class="icone-camera"></div>
+                        <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg">
                     </div>
                 </div>
                 <div class="informacoes-titulo">

@@ -4,6 +4,10 @@ body{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+*:focus {
+    outline: none;
+}
+
 .area{
     flex: wrap;
     width: 600px;

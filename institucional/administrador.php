@@ -72,7 +72,7 @@
             <input type="text" name="pesquisa" placeholder="Insira sua pesquisa">
         </div>
         <div class="container-lupa">
-            <button type="submit"><img src="../../imagens/lupa.png"></button>
+            <button type="submit"><img src="../imagens/lupa.png"></button>
         </div>
         </form>
     </div>

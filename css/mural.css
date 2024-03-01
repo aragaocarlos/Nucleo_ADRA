@@ -5,6 +5,10 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+*:focus {
+    outline: none;
+}
+
 body{
     background: url("../imagens/Professor-icone-branco.png") no-repeat center center fixed;
     background-size: cover;
@@ -46,6 +50,10 @@ main div{
     height: 10vh;
 }
 
+.opcao-nav{
+    height: 10vh;
+}
+
 .opcao-nav:hover{
     border-bottom: 4px solid white;
 }
@@ -62,11 +70,12 @@ main a{
     cursor: pointer;
     width: 48px;
     height: 48px;
-    background-image: url("../imagens/perfil-branco.png");
 }
 
-#perfil:hover{
-    background-image: url("../imagens/perfil-branco-selecionado.png");
+#perfil img{
+    width: 48px;
+    height: 48px;
+    border-radius: 50px;
 }
 
 .container{
@@ -195,72 +204,6 @@ main a{
     color: rgb(255, 255, 255);
 }
 
-.post{
-    margin: 20px 0;
-    background-color: white;
-    border: 1px solid rgb(206, 206, 206);
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.post a{
-    text-decoration: none;
-    color: #000000;
-}
-
-.post:hover{
-    background-color: rgb(248, 248, 248);
-}
-
-.cabecalho{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.foto-aluno{
-    background-color: #bebebe;
-    border-radius: 50px;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.foto-aluno img{
-    width: 35px;
-    height: 35px;
-}
-
-.nome-aluno{
-    font-size: 18px;
-    font-weight: 500;
-    color: #000000;
-}
-
-.conteudo-post{
-    margin: 10px 0;
-}
-
-.data{
-    color:#8a8989;
-    font-size: 15px;;
-}
-
-.comentarios{
-    cursor: pointer;
-    margin-top: 20px;
-    background-color:#bebebe;
-    padding: 10px;
-    border-radius: 5px;
-    color:#444444;
-}
-
-.comentarios:hover{
-    background-color:rgb(139, 139, 139);
-}
-
 .container-avaliacao{
     width: 1000px;
     display: flex;
@@ -359,20 +302,16 @@ table td{
 .icone-foto{
     height: 200px;
     width: 200px;
+}
+
+.icone-foto img{
+    height: 200px;
+    width: 200px;
     border-radius: 100px;
-    background: url(../imagens/Professor.jpg) no-repeat center center fixed;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
 }
 
 .icone-foto:hover{
     cursor: pointer;
-}
-
-.icone-camera{
-    background: url(../imagens/camera.png);
 }
 
 .informacoes-titulo{
@@ -584,7 +523,6 @@ p{
 
 .info_data_container{
     margin-top: 20px;
-    
 }
 
 .info_data_titulo{
@@ -597,4 +535,174 @@ p{
     display: flex;
     gap: 50px;
     font-size: 15px;
+}
+
+.post{
+    margin: 20px 0;
+    background-color: white;
+    border: 1px solid rgb(206, 206, 206);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.post a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.post:hover{
+    background-color: rgb(248, 248, 248);
+}
+
+.cabecalho{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.foto-aluno{
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.foto-aluno img{
+    border-radius: 50px;
+    width: 48px;
+    height: 48px;
+}
+
+.nome-aluno{
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.conteudo-post{
+    margin: 10px 0;
+}
+
+.data{
+    color:#8a8989;
+    font-size: 15px;;
+}
+
+.container_comentarios{
+    margin-top: 20px;
+    border-top: 1px solid rgb(206, 206, 206);
+    padding: 5px;
+}
+
+.comentarios{
+    cursor: pointer;
+    margin: 20px 0;
+    background-color:#bebebe;
+    padding: 10px;
+    border-radius: 5px;
+    color:#444444;
+}
+
+.comentarios:hover{
+    background-color:rgb(139, 139, 139);
+}
+
+.comentario_feito{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comentarios_container-nome{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comentarios_foto-aluno{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comentarios_foto-aluno img{
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+}
+
+.comentarios_nome-aluno{
+    font-size: 15px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.comentarios_conteudo-post{
+    margin: 10px 0;
+}
+
+.comentarios_data{
+    color:#8a8989;
+    font-size: 13px;;
+}
+
+.comentarios_perfil-aluno{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comentarios_perfil-aluno img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+
+.comentarios_input{
+    margin-top: 15px;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+
+.comentarios_input form{
+    display: flex;
+    gap: 10px;
+}
+
+.comentarios_container-input{
+    width: 835px;
+    height: 35px;
+    background-color: white;
+    border: 1px solid rgb(187, 187, 187);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.comentarios_container-input input{
+    width: 815px;
+    background-color: white;
+    border: none;
+    font-size: 15px;
+}
+
+.comentarios_input button{
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comentarios_input button img{
+    width: 30px;
+    height: 30px;
 }

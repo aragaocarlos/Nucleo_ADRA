@@ -46,9 +46,9 @@
                     </div>
                 </a>
                 </div>
-                <a href="usuario.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
-                <div id="perfil" class="opcoes-nav">
-                </div>
+                <a href="usuario.php?i=<?php echo $idAluno; ?>">
+                    <div id="perfil" class="opcoes-nav">
+                    </div>
                 </a>
             </div>
         </main>

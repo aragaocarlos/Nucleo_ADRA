@@ -61,7 +61,7 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="cursos.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
@@ -89,7 +89,7 @@
                     </div>
                 </a>
                 </div>
-                <a href="usuario.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="usuario.php?i=<?php echo $idAluno; ?>">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -131,31 +131,72 @@
             <div class="post-alinhamento">
                 <div class="cabecalho">
                     <div class="foto-aluno">
-                        <img src="./imagens/perfil-branco.png" alt="">
+                        <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
                     </div>
                     <div class="container-nome">
                         <div class="nome-aluno">
+                            Nome do Aluno
                         <?php echo $row['nome']; ?>
                         <?php echo $row['sobrenome']; ?>
                         </div>
                         <div class="tipo-aluno">
+                        Professor
                         <?php echo $row['cargo']; ?>
                         </div>
                     </div>
                 </div>
                 <div class="conteudo-post">
+                    Lorem Ipsum Lorrem Ipsem Lorem Ipsum Lorrem Ipsem Lorem Ipsum Lorrem Ipsem
                     <p><?php echo $row['conteudo']; ?></p>
                 </div>
                 <div class="data">
+                    2023-09-01
                     <?php echo $row['horario']; ?>
                 </div>
             </div>
-            <!--
-            <div class="comentarios">
-                Mostrar todos os comentários
+            
+            <div class="container_comentarios">
+                <div class="comentarios"><a href="#">
+                    Mostrar todos os comentários
+                </a></div>
+                <div class="comentario_feito">
+                    <div class="comentarios_foto-aluno">
+                        <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
+                    </div>
+                    <div class="comentarios_container-texto">
+                        <div class="comentarios_container-nome">
+                            <div class="comentarios_nome-aluno">
+                                Nome do Aluno
+                            <?php echo $row['nome']; ?>
+                            <?php echo $row['sobrenome']; ?>
+                            </div>
+                            <div class="comentarios_data">
+                                2023-09-01
+                                <?php echo $row['horario']; ?>
+                            </div>
+                        </div>
+                        <div class="comentarios_conteudo">
+                            TEXTO TEXTO TEXTO
+                            <?php echo $row['cargo']; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="comentarios_input">
+                        <div class="comentarios_perfil-aluno">
+                            <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
+                        </div>
+                            <form action="" method="POST">
+                                <div class="comentarios_container-input">
+                                    <input type="text" name="pesquisa" placeholder="Insira sua pesquisa">
+                                </div>
+                                <div class="comentarios_container-enviar">
+                                    <button type="submit"><img src="../../imagens/enviar.png"></button>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+                </div>
             </div>
-                -->
-            </a></div>
         <?php }
                 }
         ?>

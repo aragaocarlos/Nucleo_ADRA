@@ -4,10 +4,10 @@
     
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
-    $sql = "SELECT * FROM disciplina";
+    $sql = "SELECT * FROM curso";
     $result = mysqli_query($link, $sql);
     while($row = mysqli_fetch_array($result)){
-        if($idCurso == $row['id_dis']){
+        if($row['id_curso'] == $idCurso){
             $nomeCurso = $row['nome'];
         }
     }
@@ -65,9 +65,9 @@
                     </div>
                 </a>
                 </div>
-                <a href="usuario.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
-                <div id="perfil" class="opcoes-nav">
-                </div>
+                <a href="usuario.php?i=<?php echo $idAluno; ?>">
+                    <div id="perfil" class="opcoes-nav">
+                    </div>
                 </a>
             </div>
         </main>

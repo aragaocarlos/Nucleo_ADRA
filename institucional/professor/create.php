@@ -93,8 +93,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
+                <a href="../usuario.php?i=<?php echo $idAluno; ?>">
                 <div id="perfil" class="opcoes-nav">
                 </div>
+                </a>
             </div>
         </main>
     </header>

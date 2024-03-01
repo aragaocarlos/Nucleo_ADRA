@@ -5,6 +5,10 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+*:focus {
+    outline: none;
+}
+
 body{
     background: url("../imagens/Professor-icone-branco.png") no-repeat center center fixed;
     background-size: cover;

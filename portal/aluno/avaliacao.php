@@ -32,7 +32,7 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="cursos.php?i=<?php echo $idAluno?>">
+                <a href="curso.php?i=<?php echo $idAluno?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
@@ -60,7 +60,7 @@
                     </div>
                 </a>
                 </div>
-                <a href="usuario.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="usuario.php?i=<?php echo $idAluno; ?>">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
