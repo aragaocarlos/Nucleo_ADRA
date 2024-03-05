@@ -103,7 +103,7 @@
                                 }
                             }
                     ?>
-                        Professor: <?php echo $nome_professor; }?>
+                        Professor: <?php echo $nome_professor; ?>
                     </div>   
                     <div class="area">
                         <!-- CÓDIGO DA TURMA -->
@@ -114,6 +114,7 @@
                 </div>
             </div></a>
         <?php
+        }
                         }
                 }
             }      

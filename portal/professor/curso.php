@@ -87,7 +87,7 @@
                     </div>
                     <!-- PROFESSOR DA TURMA -->
                     <div class="descricao-curso">
-                        Professor: <?php echo $nomeProfessor; }?>
+                        Professor: <?php echo $nomeProfessor; ?>
                     </div>   
                     <div class="area">
                         <!-- CÓDIGO DA TURMA -->
@@ -98,6 +98,7 @@
                 </div>
             </div></a>
         <?php
+                            }
                         }
                 }
             }      

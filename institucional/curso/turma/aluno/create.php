@@ -27,14 +27,24 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$aluno = $_POST['aluno'];
     $turma = $idTurma;
 
+    $sql_avaliacao = "INSERT INTO avaliacao (aluno_id) VALUES(?)";
+	$stmt_avaliacao = mysqli_prepare($link, $sql_avaliacao);
+	mysqli_stmt_bind_param($stmt_avaliacao, "i", $aluno);
+
+    if (mysqli_stmt_execute($stmt_avaliacao)) {
+        "Curso cadastrado com sucesso!";
+    } else {
+        "Erro ao cadastrar o curso: " . mysqli_error($link);
+    }
+
 	$sql = "INSERT INTO aluno_has_turma (aluno_id, turma_id) VALUES(?, ?)";
 	$stmt = mysqli_prepare($link, $sql);
 	mysqli_stmt_bind_param($stmt, "ii", $aluno, $turma);
 
     if (mysqli_stmt_execute($stmt)) {
-        "Curso cadastrado com sucesso!";
+        echo "Aluno matriculado com sucesso!";
     } else {
-        "Erro ao cadastrar o curso: " . mysqli_error($link);
+        echo "Erro ao cadastrar o curso: " . mysqli_error($link);
     }
 }
 

@@ -2,29 +2,9 @@
     session_start();
     require_once "../../util/config.php";
 
+    $idProfessor = $_GET['i'];
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
-    $sql = "SELECT * FROM curso";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
-        if($row['id_curso'] == $idCurso){
-            $nomeCurso = $row['nome'];
-        }
-    }
-
-
-    $idAluno = $_GET['i'];
-    $sql = "SELECT * FROM aluno";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
-        if($row['id'] == $idAluno){
-            $nomeAluno = $row['nome'];
-            $sobrenomeAluno = $row['sobrenome'];
-        }
-    }
-
-    $sql = "SELECT * FROM avaliacao";
-    $result = mysqli_query($link, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -40,27 +20,27 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="curso.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php?i=<?php echo $idProfessor; ?>">
                 <div id="logo" class="opcoes-nav">
-                    <img src="./imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                    <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
-                <a href="mural.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="mural.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="mural-texto">
                             Mural
                         </div>
                     </div>
                 </a>
-                <a href="lista_atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="lista_atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
                     </div>
                 </div>
                 </a>
-                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="notas-texto">
                             Avaliação
@@ -68,7 +48,7 @@
                     </div>
                 </a>
                 </div>
-                <a href="usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="usuario.php?i=<?php echo $idProfessor; ?>">
                     <div id="perfil" class="opcoes-nav">
                     </div>
                 </a>
@@ -91,22 +71,66 @@
                 
             </tr>
             <?php
-            while($row = mysqli_fetch_array($result)){
-                if($row['turma_id'] == $idTurma){
+    $sql_turma = "SELECT * FROM aluno_has_turma";
+    $result_turma = mysqli_query($link, $sql_turma);
+    while($row = mysqli_fetch_array($result_turma)){  
+        if($row['turma_id'] == $idTurma){
+            $idAluno = $row['aluno_id'];
+        $sql_aluno = "SELECT * FROM aluno";
+        $result_aluno = mysqli_query($link, $sql_aluno);
+        while($row = mysqli_fetch_array($result_aluno)){
+            if($row['id'] == $idAluno){
+            $nomeAluno = $row['nome_completo'];
+            $avaliando = $row['id'];
             ?>
             <tr class="tabela-linha">
-                <td><?php echo $row['aluno_id'];?></td>
-                <td><?php echo $row['n1'];?></td>
-                <td><?php echo $row['n2'];?></td>
-                <td><?php echo $row['n3']; ?></td>
-                <td><?php echo $row['faltas']; ?></td>
-                <td><?php echo $row['situacao'];?></td>
-                <td><?php echo('<a href="update_avaliacao.php?id='.$row['id'].'c='.$idCurso.'&i='.$idAluno.'&t='.$idTurma.'">Alterar</a>')?></td>
+                <td><?php echo $nomeAluno; ?></td>
+                <?php
+                    $sql_avaliacao = "SELECT * FROM avaliacao";
+                    $result_avaliacao = mysqli_query($link, $sql_avaliacao);
+                    while($row = mysqli_fetch_array($result_avaliacao)){
+                        if($row['aluno_id'] == $avaliando){
+                ?>
+                <td><?php
+                if($row['n1'] != null){
+                    echo $row['n1'];
+                } else{
+                    echo 'Pendente';
+                }?></td>
+                <td><?php
+                if($row['n2'] != null){
+                    echo $row['n2'];
+                } else{
+                    echo 'Pendente';
+                }?></td>
+                <td><?php
+                if($row['n3'] != null){
+                    echo $row['n3'];
+                } else{
+                    echo 'Pendente';
+                }?></td>
+                <td><?php
+                if($row['faltas'] != null){
+                    echo $row['faltas'];
+                } else{
+                    echo 'Pendente';
+                }?></td>
+                <td><?php
+                if($row['situacao'] != null){
+                    echo $row['situacao'];
+                } else{
+                    echo 'Aguardando processamento';
+                }?></td>
+                <td><?php echo('<a href="update_avaliacao.php?id='.$row['id'].'&i='.$idProfessor.'&a='.$row['aluno_id'].'&c='.$idCurso.'&t='.$idTurma.'" class="crud_link">Avaliar</a>')?></td>
             </tr>
             <?php
+                                }
+                            }
+                        }
                     }
                 }
-    ?>
+            }
+        ?>
         </table>
     </div>
 

@@ -1,8 +1,19 @@
 <?php 
         require_once "../../util/config.php";
+        $idProfessor = $_GET['i'];
         $idTurma = $_GET['t'];
         $idCurso = $_GET['c'];
-        $idAluno = $_GET['i'];
+        if($_GET['a']){
+            $idAluno = $_GET['a'];
+            $sql_aluno = "SELECT * FROM aluno";
+            $result_aluno = mysqli_query($link, $sql_aluno);
+            while($row = mysqli_fetch_array($result_aluno)){
+                if($row['id'] == $idAluno){
+                    $nomeAluno = $row['nome_completo'];
+                }
+            }
+        }
+
         if($_GET['id']){
             $id = $_GET['id'];
             $sql = "SELECT * FROM avaliacao WHERE id = ?";
@@ -12,28 +23,25 @@
             $result = mysqli_stmt_get_result($stmt);
             $row = mysqli_fetch_array($result);
         }
+
         if($_SERVER['REQUEST_METHOD'] == "POST"){        
-            $nome = $_POST["nome"];
-            $sigla = $_POST["sigla"];
-            $descricao = $_POST["descricao"];
-            $area = $_POST["area"];
-            $ch = $_POST["ch"];
-            $periodo = $_POST["periodo"];
-            $curso_inicio = $_POST["curso_inicio"];
-            $curso_fim = $_POST["curso_fim"];
-            $hora_inicio = $_POST["hora_inicio"];
-            $hora_fim = $_POST["hora_fim"];
-            $valor = $_POST["valor"];
-            $id = $_POST["id_curso"];
-            $sql = "UPDATE produtos SET nome = ?, sigla = ?, descricao = ?, area = ?, ch = ?, periodo = ?, curso_inicio = ?, curso_fim = ?, hora_inicio = ?, hora_fim = ?, valor = ? WHERE id_curso = ?";
+            $n1 = $_POST["n1"];
+            $n2 = $_POST["n2"];
+            $n3 = $_POST["n3"];
+            $faltas = $_POST["faltas"];
+            $situacao = $_POST["situacao"];
+            $id = $_POST["id"];
+            $sql = "UPDATE avaliacao SET n1 = ?, n2 = ?, n3 = ?, faltas = ?, situacao = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "sssssissss", $nome, $sigla, $descricao, $area, $ch, $periodo, $curso_inicio, $curso_fim, $hora_inicio, $hora_fim, $valor);
-            if(mysqli_stmt_execute($stmt)){
-                header('location: index.php');
-                exit;
+            mysqli_stmt_bind_param($stmt, "dddisi", $n1, $n2, $n3, $faltas, $situacao, $id);
+    
+            if (mysqli_stmt_execute($stmt)) {
+                echo "Registro atualizado com sucesso.";
             } else {
-                echo "Ocorreu um erro";
+                echo "Erro na atualização: " . mysqli_error($link);
             }
+    
+            mysqli_stmt_close($stmt);
         }
     ?>
     <!DOCTYPE html>
@@ -43,19 +51,19 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Alterar Cursos</title>
-        <link rel="stylesheet" href="./css/mural.css">
+        <link rel="stylesheet" href="../../css/mural.css">
         <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
     </head>
     <body>
 <header>
     <main>
         <div class="cabecalho-conteudo">
-            <a href="../../institucional/administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../../institucional/administrador.php?i=<?php echo $idProfessor; ?>">
             <div id="logo" class="opcoes-nav">
                 <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
             </div>
             </a>
-            <a href="usuario.php?i=<?php echo $idAluno; ?>">
+            <a href="usuario.php?i=<?php echo $idProfessor; ?>">
                 <div id="perfil" class="opcoes-nav">
                 </div>
             </a>
@@ -63,24 +71,21 @@
     </main>
 </header>
 <div class="container-admin">
-    <h2>Alterar Cursos</h2>
-    <form method="post" action="update.php">
-        <p>Nome: <input type="text" name="nome" value="<?php echo $row['nome'] ?>"></p>
-        <p>sigla: <input type="text" name="sigla" value="<?php echo $row['sigla'] ?>"></p>
-        <p>descricao: <input type="text" name="descricao" value="<?php echo $row['descricao'] ?>"></p>
-        <p>area: <input type="text" name="area" value="<?php echo $row['area'] ?>"></p>
-        <p>ch: <input type="text" name="ch" value="<?php echo $row['ch'] ?>"></p>
-        <p>periodo: <input type="text" name="periodo" value="<?php echo $row['periodo'] ?>"></p>
-        <p>curso_inicio: <input type="text" name="curso_inicio" value="<?php echo $row['curso_inicio'] ?>"></p>
-        <p>curso_fim: <input type="text" name="curso_fim" value="<?php echo $row['curso_fim'] ?>"></p>
-        <p>hora_inicio: <input type="text" name="hora_inicio" value="<?php echo $row['hora_inicio'] ?>"></p>
-        <input type="hidden" name="id" value="<?php echo $row['id_curso'] ?>">
-        <p><input type="submit" class="botao_funcionario" value="Alterar"></p>
+    <h2>Fazer avaliação</h2>
+    <h3>Aluno: <?php echo $nomeAluno ?></h3>
+    <form method="post" action="">
+        <p>N1: <input type="text" name="n1" value="<?php echo $row['n1'] ?>"></p>
+        <p>N2: <input type="text" name="n2" value="<?php echo $row['n2'] ?>"></p>
+        <p>N3: <input type="text" name="n3" value="<?php echo $row['n3'] ?>"></p>
+        <p>Faltas: <input type="text" name="faltas" value="<?php echo $row['faltas'] ?>"></p>
+        <p>Situação: <input type="text" name="situacao" value="<?php echo $row['situacao'] ?>"></p>
+        <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+        <p><input type="submit" class="botao_funcionario" value="Salvar"></p>
     </form>
 
 </div>
 <div class="voltar">
-    <p><a href='../../index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+    <p><a href='avaliacao.php?i=<?php echo $idProfessor; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a></p>
 </div>
     </body>
     </html>

@@ -41,6 +41,16 @@
                 echo "<p>Não foi possível excluir</p>";
             }
 
+            $sql_avaliacao = "DELETE FROM avaliacao WHERE aluno_id = ?";
+            $stmt_avaliacao = mysqli_prepare($link, $sql_avaliacao);
+            mysqli_stmt_bind_param($stmt_avaliacao, "i", $id);
+            
+            if (mysqli_stmt_execute($stmt_avaliacao)) {
+                "<p>Registro Excluido</p>";
+            } else {
+                "<p>Não foi possível excluir</p>";
+            }
+
             // Reset foreign key constraint
             $sqlResetFK = "SET foreign_key_checks = 1";
             mysqli_query($link, $sqlResetFK);
