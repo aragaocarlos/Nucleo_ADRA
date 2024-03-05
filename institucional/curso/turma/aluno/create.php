@@ -27,9 +27,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$aluno = $_POST['aluno'];
     $turma = $idTurma;
 
-    $sql_avaliacao = "INSERT INTO avaliacao (aluno_id) VALUES(?)";
+    $sql_avaliacao = "INSERT INTO avaliacao (aluno_id, turma_id) VALUES(?,?)";
 	$stmt_avaliacao = mysqli_prepare($link, $sql_avaliacao);
-	mysqli_stmt_bind_param($stmt_avaliacao, "i", $aluno);
+	mysqli_stmt_bind_param($stmt_avaliacao, "ii", $aluno, $turma);
 
     if (mysqli_stmt_execute($stmt_avaliacao)) {
         "Curso cadastrado com sucesso!";
