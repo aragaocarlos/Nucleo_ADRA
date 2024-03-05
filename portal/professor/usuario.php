@@ -1,14 +1,14 @@
 <?php
-    session_start();
-    date_default_timezone_set('America/Sao_Paulo');
-    require_once "../../util/config.php";
+session_start();
+date_default_timezone_set('America/Sao_Paulo');
+require_once "../../util/config.php";
 
-    $idProfessor = $_GET['i'];
+$idProfessor = $_GET['i'];
 
-    $sql = "SELECT * FROM professor";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
-        if($row['id_professor'] == $idProfessor){
+$sql = "SELECT * FROM professor";
+$result = mysqli_query($link, $sql);
+while ($row = mysqli_fetch_array($result)) {
+    if ($row['id_professor'] == $idProfessor) {  
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +28,6 @@
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                    <div id="perfil" class="opcoes-nav">
-                    </div>
             </div>
         </main>
     </header>
@@ -38,11 +36,27 @@
         <div class="container-geral">
             <div class="espaco"></div>
             <div class="container-usuario">
+
                 <div class="container-perfil">
                     <div class="icone-foto">
-                        <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg">
+                        <?php
+                        if (!empty($row['imagem'])) {
+                            // Exibe a imagem armazenada no banco de dados
+                            echo '<img src="data:image;base64,' . $row['imagem'] . '" alt="Imagem do Perfil">';
+                        } else {
+                            // Se não houver imagem no banco de dados, pode exibir uma imagem padrão ou mensagem
+                            echo '<img src="../../imagens/perfil-branco.png" alt="Imagem Padrão">';
+                        }
+                        ?>
                     </div>
                 </div>
+                <div class="upload_arquivo">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file">
+                        <input type="submit" name="acao" value="Enviar" />
+                    </form>
+                </div>
+
                 <div class="informacoes-titulo">
                     <div class="post-titulo">
                         Informações Básicas

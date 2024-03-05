@@ -1,15 +1,6 @@
 <?php
     require_once "../../util/config.php";
     $idAluno = $_GET['i'];
-
-        $sql = "SELECT * FROM aluno";
-        $result = mysqli_query($link, $sql);
-        while($row = mysqli_fetch_array($result)){
-            if($row['id'] == $idAluno){
-                $idAluno = $row['id'];
-                $nomeAluno = $row['nome'];
-            }
-        }
 ?>
 
 <!DOCTYPE html>

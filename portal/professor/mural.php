@@ -148,15 +148,26 @@
                     </div>
                     <div class="container-nome">
                         <div class="nome-aluno">
+                            Nome Sobrenome
                         <?php echo $row['nome']; ?>
                         <?php echo $row['sobrenome']; ?>
                         </div>
                         <div class="tipo-aluno">
+                            Aluno
                         <?php echo $row['cargo']; ?>
                         </div>
                     </div>
+                    <div class="post_icone">
+                        <button><div class="editar">
+                            <img src="../../imagens/editar.png" alt="">
+                        </div></button>
+                        <button><div class="excluir">
+                            <img src="../../imagens/excluir.png" alt="">
+                        </div></button>
+                    </div>
                 </div>
                 <div class="conteudo-post">
+                    DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
                     <p><?php echo $row['conteudo']; ?></p>
                 </div>
                 <div class="data">
@@ -165,26 +176,36 @@
                 </div>
             </div>
             <?php
-            $comentario_contador = 0;
-            $sql_comentario = "SELECT * FROM comentario";
-            $result_comentario = mysqli_query($link, $sql_comentario);
-            while($row = mysqli_fetch_array($result_comentario)){
-                if($row['post_id'] == $idPost){
-                    $comentario_contador += 1;
-                        $comentarioNome = $row['nome'] . ' ' . $row['sobrenome'];
-                        $comentarioData = $row['data'];
-                        $comentarioConteudo = $row['texto'];
+            
+        // Inicializa as variáveis de comentário antes do loop interno
+        $comentario_contador = 0;
+        $idComentario = null;
+        $comentarioNome = null;
+        $comentarioData = null;
+        $comentarioConteudo = null;
+
+        // Loop interno para comentários
+        $sql_comentario = "SELECT * FROM comentario WHERE post_id = $idPost";
+        $result_comentario = mysqli_query($link, $sql_comentario);
+
+        while ($row_comentario = mysqli_fetch_array($result_comentario)) {
+            $comentario_contador += 1;
+            $idComentario = $row_comentario['id'];
+            $comentarioNome = $row_comentario['nome'] . ' ' . $row_comentario['sobrenome'];
+            $comentarioData = $row_comentario['data'];
+            $comentarioConteudo = $row_comentario['texto'];
+        }
             ?>
             <div class="container_comentarios">
-                <!--
                 <?php
-                    //if($comentario_contador > 1){
+                    if($comentario_contador > 1){
                 ?>
                 <div class="comentarios"><a href="#">
-                    Mostrar todos os <?php //echo $comentario_contador ?> comentários
-                </a></div> -->
+                    Mostrar todos os <?php echo $comentario_contador; ?> comentários
+                </a></div>
                 <?php
-                //}
+                }
+                if($idComentario != null){
                 ?>
                 <div class="comentario_feito">
                     <div class="comentarios_foto-aluno">
@@ -193,26 +214,36 @@
                     <div class="comentarios_container-texto">
                         <div class="comentarios_container-nome">
                             <div class="comentarios_nome-aluno">
-                            <?php echo $comentarioNome ?>
+                                Nome Sobrenome <?php echo 
+                            $comentarioNome; ?>
                             </div>
                             <div class="comentarios_data">
-                                <?php echo $comentarioData ?>
+                                Data
+                                <?php echo $comentarioData; ?>
                             </div>
                         </div>
                         <div class="comentarios_conteudo">
-                            <?php echo $comentarioConteudo ?>
+                            DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+                            <?php echo $comentarioConteudo; ?>
                         </div>
                     </div>
+                    <div class="comentarios_post_icone">
+                        <button><div class="editar">
+                            <img src="../../imagens/editar.png" alt="">
+                        </div></button>
+                        <button><div class="excluir">
+                            <img src="../../imagens/excluir.png" alt="">
+                        </div></button>
+                    </div>
                 </div>
-<?php                 }
-            } ?>
+                <?php } ?>
                 <div class="comentarios_input">
                         <div class="comentarios_perfil-aluno">
-                        <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
+                            <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
                         </div>
                             <form action="" method="POST">
                                 <div class="comentarios_container-input">
-                                    <input type="text" name="pesquisa" placeholder="Insira sua pesquisa">
+                                    <input type="text" name="comentario_texto" placeholder="Insira seu comentário">
                                 </div>
                                 <div class="comentarios_container-enviar">
                                     <button type="submit"><img src="../../imagens/enviar.png"></button>
@@ -220,8 +251,9 @@
                             </form>
                         </div>
                 </div>
+                
             </div>
-    </div>
+        </div>
     <?php
             }
         }

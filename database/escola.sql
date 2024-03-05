@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 28/02/2024 às 23:47
+-- Tempo de geração: 02/03/2024 às 00:08
 -- Versão do servidor: 8.2.0
 -- Versão do PHP: 8.2.13
 
@@ -156,10 +156,21 @@ CREATE TABLE IF NOT EXISTS `comentario` (
   `id` int NOT NULL AUTO_INCREMENT,
   `turma_id` int NOT NULL,
   `post_id` int NOT NULL,
+  `nome` varchar(15) NOT NULL,
+  `sobrenome` varchar(15) NOT NULL,
+  `data` date NOT NULL,
   `comentario_id` int DEFAULT NULL,
   `texto` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `comentario`
+--
+
+INSERT INTO `comentario` (`id`, `turma_id`, `post_id`, `nome`, `sobrenome`, `data`, `comentario_id`, `texto`) VALUES
+(1, 3, 21, 'Luiz Carlos', 'Aragão', '2024-03-13', NULL, 'DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD'),
+(2, 3, 21, 'Simone', 'Amaral', '2024-03-13', NULL, 'DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
 
 -- --------------------------------------------------------
 
@@ -278,7 +289,20 @@ CREATE TABLE IF NOT EXISTS `post` (
   `horario` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `turma` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `post`
+--
+
+INSERT INTO `post` (`id`, `nome`, `sobrenome`, `cargo`, `conteudo`, `anexo`, `horario`, `turma`) VALUES
+(20, 'Simone', 'Amaral', 'Professor', 'wwwwwwwwww', NULL, '01/03 20:34', 3),
+(21, 'Simone', 'Amaral', 'Professor', '111111111', NULL, '01/03 20:36', 3),
+(22, 'Simone', 'Amaral', 'Professor', '111111111', NULL, '01/03 20:38', 3),
+(23, 'Simone', 'Amaral', 'Professor', '111111111', NULL, '01/03 20:40', 3),
+(24, 'Simone', 'Amaral', 'Professor', '111111111', NULL, '01/03 20:42', 3),
+(25, 'Simone', 'Amaral', 'Professor', '111111111', NULL, '01/03 20:43', 3),
+(26, 'Simone', 'Amaral', 'Professor', '111111111', NULL, '01/03 20:43', 3);
 
 -- --------------------------------------------------------
 
