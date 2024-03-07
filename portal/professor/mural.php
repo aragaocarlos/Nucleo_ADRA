@@ -175,7 +175,8 @@
                         <?php echo $row['cargo']; ?>
                         </div>
                     </div>
-                    <?php if($row['aluno_id'] == $idProfessor){?>
+                    <?php 
+                    if($row['aluno_id'] == $idProfessor){?>
                     <div class="post_icone">
                         <!--<button><div class="editar">
                             <img src="../../imagens/editar.png" alt="">
@@ -222,6 +223,7 @@
         while ($row_comentario = mysqli_fetch_array($result_comentario)) {
             $comentario_contador += 1;
             $idComentario = $row_comentario['id'];
+            $idProfessorComentario = $row_comentario['aluno_id'];
             $comentarioNome = $row_comentario['nome'] . ' ' . $row_comentario['sobrenome'];
             $comentarioData = $row_comentario['data'];
             $comentarioConteudo = $row_comentario['texto'];
@@ -271,7 +273,7 @@
                             <?php echo $comentarioConteudo; ?>
                         </div>
                     </div>
-                    <?php if($row['aluno_id'] == $idProfessor){?>
+                    <?php if($idProfessorComentario == $idProfessor){?>
                     <div class="comentarios_post_icone">
                         <!--<button><div class="editar">
                             <img src="../../imagens/editar.png" alt="">
