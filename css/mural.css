@@ -79,10 +79,8 @@ main a{
 }
 
 .container{
-    display: inline-block;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
@@ -148,6 +146,10 @@ main a{
     justify-content: center;
 }
 
+.anexo:hover{
+    background-color: #197469;
+}
+
 .anexo img{
     width: 80%;
 }
@@ -178,7 +180,7 @@ main a{
 }
 
 .aba-atividade:hover{
-    background-color: #218f82;
+    background-color: #197469;
 }
 
 .icone-atividade{
@@ -552,10 +554,9 @@ p{
     width: 1000px;
 }
 
-.post a{
+.comentarios a{
     text-decoration: none;
-    color: #000000;
-    width: 1000px;
+    color:#000000;
 }
 
 .post:hover{
@@ -783,4 +784,16 @@ p{
 
 .upload_arquivo button:hover{
     background-color: #197469;
+}
+
+.situacao_verde{
+    background-color: rgb(161, 236, 161);
+}
+
+.situacao_vermelho{
+    background-color: rgb(236, 161, 161);
+}
+
+.situacao_azul{
+    background-color: rgb(161, 215, 236);
 }

@@ -54,13 +54,13 @@
         <?php while($row = mysqli_fetch_array($result)){?>
         <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['nome_completo'])?></a></td>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['sexo'])?></a></td>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['email'])?></a></td>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['telefone'])?></a></td>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['nascimento'])?></a></td>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['login'])?></a></td>
-            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['senha'])?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['nome_completo']);?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['sexo']);?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['email']);?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['telefone']);?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo(date("d/m/Y", strtotime($row['nascimento'])));?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['login']);?></a></td>
+            <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&p=<?php echo($row['id_professor']);?>" class="crud_curso"><?php echo($row['senha']);?></a></td>
             <td><?php
             $idEndereco = $row['endereco_id'];
             echo('<a href="./endereco/index.php?id='.$idEndereco.'&i='.$idAluno.'" class="crud_link">Exibir</a>')

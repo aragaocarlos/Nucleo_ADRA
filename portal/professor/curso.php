@@ -28,7 +28,7 @@
                 <div class="logo">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
-                <a href="usuario.php?c=#&i=<?php echo $idProfessor; ?>">
+                <a href="usuario.php?i=<?php echo $idProfessor ?>">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>

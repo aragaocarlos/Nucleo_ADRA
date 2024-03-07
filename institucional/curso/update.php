@@ -17,8 +17,8 @@
             $area = $_POST["area"];
             $ch = $_POST["ch"];
             $periodo = $_POST["periodo"];
-            $curso_inicio = $_POST["curso_inicio"];
-            $curso_fim = $_POST["curso_fim"];
+            $curso_inicio = date("Y-m-d", strtotime($_POST["curso_inicio"]));
+            $curso_fim = date("Y-m-d", strtotime($_POST["curso_fim"]));
             $hora_inicio = $_POST["hora_inicio"];
             $hora_fim = $_POST["hora_fim"];
             $valor = $_POST["valor"];
@@ -74,8 +74,8 @@
         <p>Área: <input type="text" name="area" value="<?php echo $row['area'] ?>"></p>
         <p>Carga Horária: <input type="text" name="ch" value="<?php echo $row['ch'] ?>"></p>
         <p>Período: <input type="text" name="periodo" value="<?php echo $row['periodo'] ?>"></p>
-        <p>Curso início: <input type="text" name="curso_inicio" value="<?php echo $row['curso_inicio'] ?>"></p>
-        <p>Curso fim: <input type="text" name="curso_fim" value="<?php echo $row['curso_fim'] ?>"></p>
+        <p>Curso início: <input type="text" name="curso_inicio" value="<?php echo(date("d/m/Y", strtotime($row['curso_inicio']))) ?>"></p>
+        <p>Curso fim: <input type="text" name="curso_fim" value="<?php echo(date("d/m/Y", strtotime($row['curso_fim']))) ?>"></p>
         <p>Hora início: <input type="text" name="hora_inicio" value="<?php echo $row['hora_inicio'] ?>"></p>
         <p>Hora fim: <input type="text" name="hora_fim" value="<?php echo $row['hora_fim'] ?>"></p>
         <p>Valor: <input type="text" name="valor" value="<?php echo $row['valor'] ?>"></p>

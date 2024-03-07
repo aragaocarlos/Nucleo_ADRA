@@ -173,15 +173,15 @@
                         ?>
         <tr class="tabela-linha">
             <!--<td><?php //echo($row['id'])?></td>-->
-            <td><?php echo($row['nome_completo'])?></td>
-            <td><?php echo($row['sexo'])?></td>
-            <td><?php echo($row['email'])?></td>
-            <td><?php echo($row['telefone'])?></td>
-            <td><?php echo($row['nascimento'])?></td>
-            <td><?php echo($row['rg'])?></td>
-            <td><?php echo($row['cpf'])?></td>
-            <td><?php echo($row['login'])?></td>
-            <td><?php echo($row['senha'])?></td>
+            <td><?php echo($row['nome_completo']);?></td>
+            <td><?php echo($row['sexo']);?></td>
+            <td><?php echo($row['email']);?></td>
+            <td><?php echo($row['telefone']);?></td>
+            <td><?php echo(date("d/m/Y", strtotime($row['nascimento'])));?></td>
+            <td><?php echo($row['rg']);?></td>
+            <td><?php echo($row['cpf']);?></td>
+            <td><?php echo($row['login']);?></td>
+            <td><?php echo($row['senha']);?></td>
             <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.'" class="crud_link">Exibir</a>')?></td>
             <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.'" class="crud_link">Alterar</a>')?></td>
             <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.'&t='.$idTurma.'&c='.$idCurso.'" class="crud_link">Excluir</a>')?></td>

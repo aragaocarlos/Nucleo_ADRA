@@ -62,8 +62,8 @@
                 <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['area']);?></a></td>
                 <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['ch']);?></a></td>
                 <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['periodo']);?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['curso_inicio']);?></a></td>
-                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['curso_fim']);?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo(date("d/m/Y", strtotime($row['curso_inicio'])));?></a></td>
+                <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo(date("d/m/Y", strtotime($row['curso_fim'])));?></a></td>
                 <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['hora_inicio']);?></a></td>
                 <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['hora_fim']);?></a></td>
                 <td><a href="./turma/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($row['id_curso']);?>" class="crud_curso"><?php echo($row['valor']);?></a></td>

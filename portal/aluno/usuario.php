@@ -41,6 +41,7 @@
             <div class="container-perfil">
                     <div class="icone-foto">
                         <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg">
+                        <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
                     </div>
                 </div>
                 <div class="informacoes-titulo">
@@ -61,7 +62,7 @@
                     </div>
                     <div class="informacoes-nascimento">
                         <div class="informacoes-texto">
-                            Nascimento: <?php echo $row['nascimento']; ?>
+                            Nascimento: <?php echo(date("d/m/Y", strtotime($row['nascimento']))); ?>
                         </div>
                     </div>
                     <div class="informacoes-genero">

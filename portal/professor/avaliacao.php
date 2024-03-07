@@ -115,12 +115,27 @@
                 } else{
                     echo 'Pendente';
                 }?></td>
-                <td><?php
+
+                <?php
                 if($row['situacao'] != null){
-                    echo $row['situacao'];
+                    $situacaoExibir = $row['situacao'];
                 } else{
-                    echo 'Aguardando processamento';
-                }?></td>
+                    $situacaoExibir = 'Aguardando processamento';
+                }
+                
+                switch ($row['situacao']) {
+                    case 'APROVADO':
+                        $situacaoClasse = 'situacao_verde';
+                    case 'REPROVADO':
+                        $situacaoClasse = 'situacao_vermelho';
+                    case 'Aguardando processamento':
+                        $situacaoClasse = 'situacao_azul';
+                }	
+                ?>
+
+                <td class="<?php echo $situacaoClasse;?>"><?php
+                echo $situacaoExibir;
+                ?></td>
                 <td><?php echo('<a href="update_avaliacao.php?id='.$row['id'].'&i='.$idProfessor.'&a='.$row['aluno_id'].'&c='.$idCurso.'&t='.$idTurma.'" class="crud_link">Avaliar</a>')?></td>
             </tr>
             <?php

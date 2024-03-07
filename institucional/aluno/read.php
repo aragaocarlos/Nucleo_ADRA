@@ -47,6 +47,7 @@
         <p>Sexo: <?php echo($row['sexo']) ?></p>
         <p>Email: <?php echo($row['email']) ?></p>
         <p>Nascimento: <?php echo($row['nascimento']) ?></p>
+        <p>Idade: <?php echo($row['idade']) ?></p>
         <p>Telefone: <?php echo($row['telefone']) ?></p>
         <p>RG: <?php echo($row['rg']) ?></p>
         <p>CPF: <?php echo($row['cpf']) ?></p>

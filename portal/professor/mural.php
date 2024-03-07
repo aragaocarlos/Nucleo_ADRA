@@ -5,6 +5,25 @@
     $idCurso = $_GET['c'];
     $idTurma = $_GET['t'];
 
+    function traduzNomeMes($nomeMesIngles) {
+        $mesesTraduzidos = array(
+            'January' => 'janeiro',
+            'February' => 'fevereiro',
+            'March' => 'março',
+            'April' => 'abril',
+            'May' => 'maio',
+            'June' => 'junho',
+            'July' => 'julho',
+            'August' => 'agosto',
+            'September' => 'setembro',
+            'October' => 'outubro',
+            'November' => 'novembro',
+            'December' => 'dezembro'
+        );
+
+        return $mesesTraduzidos[$nomeMesIngles];
+    }
+
     $sql_1 = "SELECT * FROM curso";
     $result_1 = mysqli_query($link, $sql_1);
     while($row = mysqli_fetch_array($result_1)){
@@ -33,11 +52,11 @@
         $horario = date('d/m H:i');
         $turma = $idTurma;
 
-        $sql = "INSERT INTO post (nome, sobrenome, cargo, conteudo, horario, turma) VALUES(?,?,?,?,?,?)";
+        $sql = "INSERT INTO post (aluno_id, nome, sobrenome, cargo, conteudo, horario, turma) VALUES(?,?,?,?,?,?,?)";
         
         $stmt = mysqli_prepare($link, $sql);
         
-        mysqli_stmt_bind_param($stmt, "sssssi", $nome, $sobrenome, $cargo, $conteudo, $horario, $turma);
+        mysqli_stmt_bind_param($stmt, "isssssi", $idProfessor, $nome, $sobrenome, $cargo, $conteudo, $horario, $turma);
 
         if(mysqli_stmt_execute($stmt)){
             $_SESSION['msg'] = " Post enviado";
@@ -133,6 +152,7 @@
                 </div>
             </div></a>
         </div>
+
         <?php
                 $sql = "SELECT * FROM post";
                 $result = mysqli_query($link, $sql);
@@ -140,7 +160,7 @@
                     if ($idTurma == $row['turma']){
                         $idPost = $row['id'];
         ?>
-        <div class="post"><a href="post.php?p=<?php echo $row['id'] ?>&c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
+        <div class="post">
             <div class="post-alinhamento">
                 <div class="cabecalho">
                     <div class="foto-aluno">
@@ -148,31 +168,42 @@
                     </div>
                     <div class="container-nome">
                         <div class="nome-aluno">
-                            Nome Sobrenome
                         <?php echo $row['nome']; ?>
                         <?php echo $row['sobrenome']; ?>
                         </div>
                         <div class="tipo-aluno">
-                            Aluno
                         <?php echo $row['cargo']; ?>
                         </div>
                     </div>
+                    <?php if($row['aluno_id'] == $idProfessor){?>
                     <div class="post_icone">
-                        <button><div class="editar">
+                        <!--<button><div class="editar">
                             <img src="../../imagens/editar.png" alt="">
-                        </div></button>
-                        <button><div class="excluir">
-                            <img src="../../imagens/excluir.png" alt="">
-                        </div></button>
+                        </div></button>-->
+                        <div class="excluir"><?php echo '<a href="./post/excluir.php?id='.$idPost.'&i='.$idProfessor.'&t='.$idTurma.'&c='.$idCurso.'"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
                     </div>
+                    <?php } ?>
                 </div>
                 <div class="conteudo-post">
-                    DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
                     <p><?php echo $row['conteudo']; ?></p>
                 </div>
                 <div class="data">
-                    2023-09-01
-                    <?php echo $row['horario']; ?>
+                    <?php
+                    // Cria um objeto DateTime usando a data original e o formato
+                    $dataObj = DateTime::createFromFormat('d/m H:i', $row['horario']);
+
+                    // Obtém o dia e o mês da data no formato desejado
+                    $dia = $dataObj->format('d');
+                    $mes = $dataObj->format('F'); // 'F' retorna o nome completo do mês em inglês
+
+                    // Traduz o nome do mês para português (ou outro idioma, se necessário)
+                    $mesTraduzido = traduzNomeMes($mes);
+
+                    // Formata a data no novo formato
+                    $dataFormatoNovo = $dia . ' de ' . $mesTraduzido;
+
+                    echo $dataFormatoNovo;
+                    ?>
                 </div>
             </div>
             <?php
@@ -200,7 +231,7 @@
                 <?php
                     if($comentario_contador > 1){
                 ?>
-                <div class="comentarios"><a href="#">
+                <div class="comentarios"><a href="post.php?p=<?php echo $row['id'] ?>&c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
                     Mostrar todos os <?php echo $comentario_contador; ?> comentários
                 </a></div>
                 <?php
@@ -214,36 +245,56 @@
                     <div class="comentarios_container-texto">
                         <div class="comentarios_container-nome">
                             <div class="comentarios_nome-aluno">
-                                Nome Sobrenome <?php echo 
+                            <?php echo 
                             $comentarioNome; ?>
                             </div>
                             <div class="comentarios_data">
-                                Data
-                                <?php echo $comentarioData; ?>
+                                <?php
+                                // Cria um objeto DateTime usando a data original e o formato
+                                $dataObj = DateTime::createFromFormat('Y-m-d', $comentarioData);
+
+                                // Obtém o dia e o mês da data no formato desejado
+                                $dia = $dataObj->format('d');
+                                $mes = $dataObj->format('F'); // 'F' retorna o nome completo do mês em inglês
+            
+                                // Traduz o nome do mês para português (ou outro idioma, se necessário)
+                                $mesTraduzido = traduzNomeMes($mes);
+            
+                                // Formata a data no novo formato
+                                $dataFormatoNovo = $dia . ' de ' . $mesTraduzido;
+            
+                                echo $dataFormatoNovo;                    
+                                ?>
                             </div>
                         </div>
                         <div class="comentarios_conteudo">
-                            DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
                             <?php echo $comentarioConteudo; ?>
                         </div>
                     </div>
+                    <?php if($row['aluno_id'] == $idProfessor){?>
                     <div class="comentarios_post_icone">
-                        <button><div class="editar">
+                        <!--<button><div class="editar">
                             <img src="../../imagens/editar.png" alt="">
-                        </div></button>
-                        <button><div class="excluir">
-                            <img src="../../imagens/excluir.png" alt="">
-                        </div></button>
+                        </div></button>-->
+                        <div class="excluir"><?php echo '<a href="./comentario/excluir.php?id='.$idComentario.'&i='.$idProfessor.'&t='.$idTurma.'&c='.$idCurso.'"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
                     </div>
+                        <?php
+                        }?>
                 </div>
-                <?php } ?>
+                                <?php }?>
                 <div class="comentarios_input">
                         <div class="comentarios_perfil-aluno">
                             <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
                         </div>
-                            <form action="" method="POST">
+                            <form action="./comentario/postar.php" method="POST">
                                 <div class="comentarios_container-input">
                                     <input type="text" name="comentario_texto" placeholder="Insira seu comentário">
+                                    <input type="hidden" name="idPost" value="<?php echo $idPost; ?>">
+                                    <input type="hidden" name="idTurma" value="<?php echo $idTurma; ?>">
+                                    <input type="hidden" name="nome" value="<?php echo $nomeProfessor; ?>">
+                                    <input type="hidden" name="sobrenome" value="<?php echo $sobrenomeProfessor; ?>">
+                                    <input type="hidden" name="idCurso" value="<?php echo $idCurso; ?>">
+                                    <input type="hidden" name="idProfessor" value="<?php echo $idProfessor ; ?>">
                                 </div>
                                 <div class="comentarios_container-enviar">
                                     <button type="submit"><img src="../../imagens/enviar.png"></button>
@@ -251,15 +302,12 @@
                             </form>
                         </div>
                 </div>
-                
             </div>
-        </div>
-    <?php
-            }
+            <?php
         }
-        ?>
-</div>
-
-
+    }
+    ?>
+        </div>
+    </div>
 </body>
 </html>

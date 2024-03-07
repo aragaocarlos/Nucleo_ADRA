@@ -29,7 +29,14 @@
             $n2 = $_POST["n2"];
             $n3 = $_POST["n3"];
             $faltas = $_POST["faltas"];
-            $situacao = $_POST["situacao"];
+
+            $mediaNota = ($_POST["n1"] + $_POST["n2"] + $_POST["n3"])/3;
+            if($mediaNota >= 7){
+                $situacao = "APROVADO";
+            }else{
+                $situacao = "REPROVADO";
+            }
+
             $id = $_POST["id"];
             $sql = "UPDATE avaliacao SET n1 = ?, n2 = ?, n3 = ?, faltas = ?, situacao = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
@@ -78,7 +85,6 @@
         <p>N2: <input type="text" name="n2" value="<?php echo $row['n2'] ?>"></p>
         <p>N3: <input type="text" name="n3" value="<?php echo $row['n3'] ?>"></p>
         <p>Faltas: <input type="text" name="faltas" value="<?php echo $row['faltas'] ?>"></p>
-        <p>Situação: <input type="text" name="situacao" value="<?php echo $row['situacao'] ?>"></p>
         <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
         <p><input type="submit" class="botao_funcionario" value="Salvar"></p>
     </form>

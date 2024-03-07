@@ -18,6 +18,7 @@ while ($row = mysqli_fetch_array($result)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuário</title>
     <link rel="stylesheet" href="../../css/mural.css">
+    <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
 </head>
 <body>
 <header>
@@ -41,8 +42,17 @@ while ($row = mysqli_fetch_array($result)) {
                     <div class="icone-foto">
                         <?php
                         if (!empty($row['imagem'])) {
-                            // Exibe a imagem armazenada no banco de dados
-                            echo '<img src="data:image;base64,' . $row['imagem'] . '" alt="Imagem do Perfil">';
+                                    // Decodifica o texto em base64
+                                    $imagemDecodificada = base64_decode($row['imagem']);
+
+                                    // Determina o tipo de conteúdo da imagem
+                                    $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+
+                                    // Gera um URI de dados para a imagem
+                                    $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+
+                                    // Exibe a imagem usando a tag <img>
+                                    echo "<img src='$imagemDataUri' alt='Imagem Decodificada'>";
                         } else {
                             // Se não houver imagem no banco de dados, pode exibir uma imagem padrão ou mensagem
                             echo '<img src="../../imagens/perfil-branco.png" alt="Imagem Padrão">';
@@ -51,9 +61,12 @@ while ($row = mysqli_fetch_array($result)) {
                     </div>
                 </div>
                 <div class="upload_arquivo">
-                    <form action="" method="post" enctype="multipart/form-data">
-                        <input type="file" name="file">
-                        <input type="submit" name="acao" value="Enviar" />
+                    <form method="post" action="./imagem/update.php" enctype="multipart/form-data">
+                        <label for="imagem">Selecione uma imagem:</label>
+                        <input type="file" name="imagem" id="imagem" accept="image/*" required>
+                        <input type="hidden" name="idProfessor" value="<?php echo $idProfessor; ?>">
+                        <br>
+                        <button type="submit">Enviar</button>
                     </form>
                 </div>
 
@@ -75,7 +88,7 @@ while ($row = mysqli_fetch_array($result)) {
                     </div>
                     <div class="informacoes-nascimento">
                         <div class="informacoes-texto">
-                            Nascimento: <?php echo $row['nascimento']; ?>
+                            Nascimento: <?php echo(date("d/m/Y", strtotime($row['nascimento']))); ?>
                         </div>
                     </div>
                 </div>
