@@ -52,21 +52,20 @@ while ($row = mysqli_fetch_array($result)) {
                                     $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
 
                                     // Exibe a imagem usando a tag <img>
-                                    echo "<img src='$imagemDataUri' alt='Imagem Decodificada'>";
+                                    echo "<img src='$imagemDataUri' alt=''>";
                         } else {
-                            // Se não houver imagem no banco de dados, pode exibir uma imagem padrão ou mensagem
-                            echo '<img src="../../imagens/perfil-branco.png" alt="Imagem Padrão">';
+                            echo '<img src="../../imagens/perfil-branco-200px.png" alt="">';
                         }
                         ?>
                     </div>
                 </div>
                 <div class="upload_arquivo">
                     <form method="post" action="./imagem/update.php" enctype="multipart/form-data">
-                        <label for="imagem">Selecione uma imagem:</label>
+                        <label for="imagem">Atualize sua imagem:</label>
                         <input type="file" name="imagem" id="imagem" accept="image/*" required>
                         <input type="hidden" name="idProfessor" value="<?php echo $idProfessor; ?>">
                         <br>
-                        <button type="submit">Enviar</button>
+                        <button type="submit">Salvar</button>
                     </form>
                 </div>
 

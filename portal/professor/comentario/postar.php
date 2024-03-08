@@ -12,12 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     $sobrenome = $_POST["sobrenome"];
     $comentario_texto = $_POST["comentario_texto"];
     $horario = date('y-m-d');
+    $imagem = $_POST["imagem64Professor"];
 
-    $sql = "INSERT INTO comentario (aluno_id, post_id, turma_id, nome, sobrenome, texto, data) VALUES(?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO comentario (aluno_id, post_id, turma_id, nome, sobrenome, texto, data, imagem) VALUES(?,?,?,?,?,?,?,?)";
     
     $stmt = mysqli_prepare($link, $sql);
     
-    mysqli_stmt_bind_param($stmt, "iiissss", $idProfessor, $idPost, $idTurma, $nome, $sobrenome, $comentario_texto, $horario);
+    mysqli_stmt_bind_param($stmt, "iiisssss", $idProfessor, $idPost, $idTurma, $nome, $sobrenome, $comentario_texto, $horario, $imagem);
 
     if(mysqli_stmt_execute($stmt)){
         $_SESSION['msg'] = " Post enviado";

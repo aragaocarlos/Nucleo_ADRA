@@ -44,6 +44,26 @@
         }
     }
 
+    $sql_perfil = "SELECT * FROM professor";
+    $result_perfil = mysqli_query($link, $sql_perfil);
+    while ($row = mysqli_fetch_array($result_perfil)) {
+        if($row['id_professor'] == $idProfessor){
+            $imagem64Professor = $row['imagem'];
+            if (!empty($row['imagem'])) {
+                        // Decodifica o texto em base64
+                        $imagemDecodificada = base64_decode($row['imagem']);
+
+                        // Determina o tipo de conteúdo da imagem
+                        $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+
+                        // Gera um URI de dados para a imagem
+                        $imagemDataUriProfessor = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+            } else {
+                $imagemDataUriProfessor = "../../imagens/perfil.png";
+            }
+            }
+        }
+
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
         $nome = $nomeProfessor;
         $sobrenome = $sobrenomeProfessor;
@@ -51,12 +71,13 @@
         $conteudo = $_POST["conteudo"];
         $horario = date('d/m H:i');
         $turma = $idTurma;
+        $imagem = $imagem64Professor;
 
-        $sql = "INSERT INTO post (aluno_id, nome, sobrenome, cargo, conteudo, horario, turma) VALUES(?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO post (aluno_id, nome, sobrenome, cargo, conteudo, horario, turma, imagem) VALUES(?,?,?,?,?,?,?,?)";
         
         $stmt = mysqli_prepare($link, $sql);
         
-        mysqli_stmt_bind_param($stmt, "isssssi", $idProfessor, $nome, $sobrenome, $cargo, $conteudo, $horario, $turma);
+        mysqli_stmt_bind_param($stmt, "isssssis", $idProfessor, $nome, $sobrenome, $cargo, $conteudo, $horario, $turma, $imagem);
 
         if(mysqli_stmt_execute($stmt)){
             $_SESSION['msg'] = " Post enviado";
@@ -110,7 +131,9 @@
                 </div>
                 <a href="usuario.php?i=<?php echo $idProfessor; ?>">
                     <div id="perfil" class="opcoes-nav">
-                        <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
+                    <?php
+                        echo "<img src='$imagemDataUriProfessor' alt=''>";
+                        ?>
                     </div>
                 </a>
             </div>
@@ -154,17 +177,33 @@
         </div>
 
         <?php
-                $sql = "SELECT * FROM post";
+                $sql = "SELECT * FROM post ORDER BY horario DESC";
                 $result = mysqli_query($link, $sql);
                 while($row = mysqli_fetch_array($result)){
                     if ($idTurma == $row['turma']){
                         $idPost = $row['id'];
+                        $idProfessorPost = $row['aluno_id'];
         ?>
         <div class="post">
             <div class="post-alinhamento">
                 <div class="cabecalho">
                     <div class="foto-aluno">
-                        <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
+                        <?php
+                        if (!empty($row['imagem'])) {
+                            $imagem64Professor = $row['imagem'];
+                            // Decodifica o texto em base64
+                            $imagemDecodificada = base64_decode($row['imagem']);
+    
+                            // Determina o tipo de conteúdo da imagem
+                            $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+    
+                            // Gera um URI de dados para a imagem
+                            $imagemDataUriPost = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+                        } else {
+                            $imagemDataUriPost = "../../imagens/perfil.png";
+                        }
+                        echo "<img src='$imagemDataUriPost' alt=''>";        
+                        ?>
                     </div>
                     <div class="container-nome">
                         <div class="nome-aluno">
@@ -175,7 +214,7 @@
                         <?php echo $row['cargo']; ?>
                         </div>
                     </div>
-                    <?php if($row['aluno_id'] == $idProfessor){?>
+                    <?php if($idProfessorPost == $idProfessor){?>
                     <div class="post_icone">
                         <!--<button><div class="editar">
                             <img src="../../imagens/editar.png" alt="">
@@ -225,6 +264,20 @@
             $comentarioNome = $row_comentario['nome'] . ' ' . $row_comentario['sobrenome'];
             $comentarioData = $row_comentario['data'];
             $comentarioConteudo = $row_comentario['texto'];
+            $idProfessorComentario = $row_comentario['aluno_id'];
+            if (!empty($row['imagem'])) {
+                $imagem64Professor = $row['imagem'];
+                // Decodifica o texto em base64
+                $imagemDecodificada = base64_decode($row['imagem']);
+
+                // Determina o tipo de conteúdo da imagem
+                $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+
+                // Gera um URI de dados para a imagem
+                $imagemDataUriComentario = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+            } else {
+                $imagemDataUriComentario = "../../imagens/perfil.png";
+            }
         }
             ?>
             <div class="container_comentarios">
@@ -240,7 +293,7 @@
                 ?>
                 <div class="comentario_feito">
                     <div class="comentarios_foto-aluno">
-                        <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
+                        <?php echo "<img src='$imagemDataUriComentario' alt=''>"; ?>
                     </div>
                     <div class="comentarios_container-texto">
                         <div class="comentarios_container-nome">
@@ -271,7 +324,7 @@
                             <?php echo $comentarioConteudo; ?>
                         </div>
                     </div>
-                    <?php if($row['aluno_id'] == $idProfessor){?>
+                    <?php if($idProfessorComentario == $idProfessor){?>
                     <div class="comentarios_post_icone">
                         <!--<button><div class="editar">
                             <img src="../../imagens/editar.png" alt="">
@@ -284,7 +337,7 @@
                                 <?php }?>
                 <div class="comentarios_input">
                         <div class="comentarios_perfil-aluno">
-                            <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg" alt="">
+                            <?php echo "<img src='$imagemDataUriProfessor' alt=''>"; ?>
                         </div>
                             <form action="./comentario/postar.php" method="POST">
                                 <div class="comentarios_container-input">
@@ -294,7 +347,8 @@
                                     <input type="hidden" name="nome" value="<?php echo $nomeProfessor; ?>">
                                     <input type="hidden" name="sobrenome" value="<?php echo $sobrenomeProfessor; ?>">
                                     <input type="hidden" name="idCurso" value="<?php echo $idCurso; ?>">
-                                    <input type="hidden" name="idProfessor" value="<?php echo $idProfessor ; ?>">
+                                    <input type="hidden" name="idProfessor" value="<?php echo $idProfessor; ?>">
+                                    <input type="hidden" name="imagem64Professor" value="<?php echo $imagem64Professor ?>">
                                 </div>
                                 <div class="comentarios_container-enviar">
                                     <button type="submit"><img src="../../imagens/enviar.png"></button>

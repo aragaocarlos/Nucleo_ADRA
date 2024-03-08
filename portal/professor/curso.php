@@ -29,8 +29,31 @@
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 <a href="usuario.php?i=<?php echo $idProfessor ?>">
-                <div id="perfil" class="opcoes-nav">
-                </div>
+                    <div id="perfil" class="opcoes-nav">
+                    <?php
+                $sql_perfil = "SELECT * FROM professor";
+                $result_perfil = mysqli_query($link, $sql_perfil);
+                while ($row = mysqli_fetch_array($result_perfil)) {
+                    if($row['id_professor'] == $idProfessor){
+                        if (!empty($row['imagem'])) {
+                                    // Decodifica o texto em base64
+                                    $imagemDecodificada = base64_decode($row['imagem']);
+
+                                    // Determina o tipo de conteúdo da imagem
+                                    $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+
+                                    // Gera um URI de dados para a imagem
+                                    $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+
+                                    // Exibe a imagem usando a tag <img>
+                                    echo "<img src='$imagemDataUri' alt=''>";
+                        } else {
+                            echo '<img src="../../imagens/perfil-branco-200px.png" alt="">';
+                        }
+                        }
+                    }
+                        ?>
+                    </div>
                 </a>
                 </a>
             </div>

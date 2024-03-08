@@ -1,5 +1,8 @@
 <?php
-    $idAluno = $_GET['i'];
+    session_start();
+    require_once "../../util/config.php";
+        
+    $idProfessor = $_GET['i'];
     $idCurso = $_GET['c'];
     $idTurma = $_GET['t'];
 ?>
@@ -18,27 +21,27 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="curso.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php?i=<?php echo $idProfessor; ?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
-                <a href="mural.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="mural.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="mural-texto">
                             Mural
                         </div>
                     </div>
                 </a>
-                <a href="lista_atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="lista_atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
                     </div>
                 </div>
                 </a>
-                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="notas-texto">
                             Avaliação
@@ -46,8 +49,31 @@
                     </div>
                 </a>
                 </div>
-                <a href="usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="usuario.php?i=<?php echo $idProfessor; ?>">
                     <div id="perfil" class="opcoes-nav">
+                    <?php
+                    $sql_perfil = "SELECT * FROM professor";
+                    $result_perfil = mysqli_query($link, $sql_perfil);
+                    while ($row = mysqli_fetch_array($result_perfil)) {
+                        if($row['id_professor'] == $idProfessor){
+                            if (!empty($row['imagem'])) {
+                                        // Decodifica o texto em base64
+                                        $imagemDecodificada = base64_decode($row['imagem']);
+
+                                        // Determina o tipo de conteúdo da imagem
+                                        $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+
+                                        // Gera um URI de dados para a imagem
+                                        $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+
+                                        // Exibe a imagem usando a tag <img>
+                                        echo "<img src='$imagemDataUri' alt=''>";
+                            } else {
+                                echo '<img src="../../imagens/perfil-branco-200px.png" alt="">';
+                            }
+                            }
+                        }
+                        ?>
                     </div>
                 </a>
             </div>

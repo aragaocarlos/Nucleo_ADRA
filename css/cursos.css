@@ -43,13 +43,16 @@ header{
 
 #perfil{
     cursor: pointer;
+    overflow: hidden; 
     width: 48px;
     height: 48px;
-    background-image: url("../imagens/perfil-branco.png");
+    border-radius: 100%;
 }
 
-#perfil:hover{
-    background-image: url("../imagens/perfil-branco-selecionado.png");
+#perfil img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
 .opcoes-nav{
