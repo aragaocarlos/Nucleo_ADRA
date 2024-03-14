@@ -1,41 +1,28 @@
 <?php
     session_start();
-    date_default_timezone_set('America/Sao_Paulo');
     require_once "../util/config.php";
 
+    $idAdmin = $_GET['i'];
 
-    $idAluno = $_GET['i'];
-    $sql = "SELECT * FROM aluno";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
-        if($row['id'] == $idAluno){
-            $nomeAluno = $row['nome'];
-            $sobrenomeAluno = $row['sobrenome'];
-            $cargoAluno = 'Aluno';
-            $email = $row['email'];
+    $sql_perfil = "SELECT * FROM administracao";
+    $result_perfil = mysqli_query($link, $sql_perfil);
+    while ($row = mysqli_fetch_array($result_perfil)) {
+        if($row['id'] == $idAdmin){
+            $imagem64 = $row['imagem'];
+            if (!empty($row['imagem'])) {
+                        // Decodifica o texto em base64
+                        $imagemDecodificada = base64_decode($row['imagem']);
+
+                        // Determina o tipo de conteúdo da imagem
+                        $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+
+                        // Gera um URI de dados para a imagem
+                        $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+            } else {
+                $imagemDataUri = "../imagens/perfil-branco.png";
+            }
+            }
         }
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] == "POST"){
-        $nome = $nomeAluno;
-        $sobrenome = $sobrenomeAluno;
-        $cargo = $cargoAluno;
-        $conteudo = $_POST["conteudo"];
-        $horario = date('d/m H:i');
-
-        $sql = "INSERT INTO post (nome, sobrenome, cargo, conteudo, horario) VALUES(?,?,?,?,?)";
-        
-        $stmt = mysqli_prepare($link, $sql);
-        
-        mysqli_stmt_bind_param($stmt, "sssss", $nome, $sobrenome, $cargo, $conteudo, $horario);
-
-        if(mysqli_stmt_execute($stmt)){
-            $_SESSION['msg'] = " Post enviado";
-        }else{
-            $_SESSION['msg'] = " Tente novamente mais tarde";
-        }
-    
-    }
 ?>
 
 <!DOCTYPE html>
@@ -52,20 +39,24 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="administrador.php?i=<?php echo $idAluno; ?>">
+                <a href="administrador.php?i=<?php echo $idAdmin; ?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="usuario.php?i=<?php echo $idAluno; ?>">
-                <div id="perfil" class="opcoes-nav">
-                </div>
+                <a href="usuario.php?i=<?php echo $idAdmin; ?>">
+                    <div id="perfil" class="opcoes-nav">
+                    <?php
+                        echo "<img src='$imagemDataUri' alt=''>";
+                        ?>
+                    </div>
                 </a>
             </div>
         </main>
     </header>
 
 <div class="container-geral">
+    <!--
     <div class="container-pesquisa">
     <form action="" method="POST">
         <div class="container-input">
@@ -76,6 +67,7 @@
         </div>
         </form>
     </div>
+    -->
     <div class="container-titulo">
         <div class="titulo">
             Menu de Seleção
@@ -83,24 +75,24 @@
     </div>
     <div class="container-botoes">
         <div class="dois_botoes">
-            <a href="./funcionario/index.php?&i=<?php echo $idAluno; ?>">
+            <a href="./funcionario/index.php?&i=<?php echo $idAdmin; ?>">
                 <div class="botao-texto">
                     Funcionários
                 </div>
             </a>
-            <a href="./curso/index.php?&i=<?php echo $idAluno; ?>">
+            <a href="./curso/index.php?&i=<?php echo $idAdmin; ?>">
                 <div class="botao-texto">
                     Cursos
                 </div>
             </a>
         </div>
         <div class="dois_botoes">
-            <a href="./professor/index.php?&i=<?php echo $idAluno; ?>">
+            <a href="./professor/index.php?&i=<?php echo $idAdmin; ?>">
                 <div class="botao-texto">
                     Professores
                 </div>
             </a>
-            <a href="./aluno/index.php?&i=<?php echo $idAluno; ?>">
+            <a href="./aluno/index.php?&i=<?php echo $idAdmin; ?>">
                 <div class="botao-texto">
                     Alunos
                 </div>

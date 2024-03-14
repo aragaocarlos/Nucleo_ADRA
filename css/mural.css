@@ -561,9 +561,13 @@ p{
     width: 1000px;
 }
 
-.comentarios a{
-    text-decoration: none;
-    color:#000000;
+.post_pagina{
+    margin: 40px 0;
+    background-color: white;
+    border: 1px solid rgb(206, 206, 206);
+    padding: 20px;
+    border-radius: 10px;
+    width: 1000px;
 }
 
 .post:hover{
@@ -588,6 +592,11 @@ p{
 
 .comentarios:hover{
     background-color:rgb(139, 139, 139);
+}
+
+.comentarios_link{
+    text-decoration: none;
+    color:#444444;
 }
 
 .comentario_feito{
@@ -719,6 +728,22 @@ p{
 .conteudo-post{
     word-wrap: break-word;
     margin: 10px 0;
+}
+
+.post_anexo{
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+.post_anexo img{
+    max-width: 100%;
+    max-height: 500px; 
+    width: auto; 
+    height: auto;
+    display: block;
 }
 
 .data{

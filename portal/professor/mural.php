@@ -51,13 +51,13 @@
             $imagem64Professor = $row['imagem'];
             if (!empty($row['imagem'])) {
                         // Decodifica o texto em base64
-                        $imagemDecodificada = base64_decode($row['imagem']);
+                        $imagemDecode = base64_decode($row['imagem']);
 
                         // Determina o tipo de conteúdo da imagem
-                        $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+                        $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecode, FILEINFO_MIME_TYPE);
 
                         // Gera um URI de dados para a imagem
-                        $imagemDataUriProfessor = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+                        $imagemDataUriProfessor = "data:$tipoConteudo;base64," . base64_encode($imagemDecode);
             } else {
                 $imagemDataUriProfessor = "../../imagens/perfil.png";
             }
@@ -71,14 +71,40 @@
         $conteudo = $_POST["conteudo"];
         $horario = date('d/m H:i');
         $turma = $idTurma;
-        $imagem = $imagem64Professor;
+        $perfilProfessor = $imagem64Professor;
+        $base64Imagem = "";
 
-        $sql = "INSERT INTO post (aluno_id, nome, sobrenome, cargo, conteudo, horario, turma, imagem) VALUES(?,?,?,?,?,?,?,?)";
+    // Verifica se um arquivo foi enviado
+    if (isset($_FILES["imagem"]["error"]) && $_FILES["imagem"]["error"] == UPLOAD_ERR_OK) {
+        // Caminho temporário do arquivo
+        $caminhoTemp = $_FILES["imagem"]["tmp_name"];
+
+        // Lê os dados binários da imagem
+        $imagemBinaria = file_get_contents($caminhoTemp);
+
+        // Cria uma imagem a partir dos dados binários
+        $imagemOriginal = imagecreatefromstring($imagemBinaria);
+
+        // Redimensiona a imagem para uma largura máxima de 800 pixels (ajuste conforme necessário)
+        $larguraOriginal = imagesx($imagemOriginal);
+        $alturaOriginal = imagesy($imagemOriginal);
+        $novaLargura = 800;
+        $novaAltura = round(($alturaOriginal / $larguraOriginal) * $novaLargura);
+
+        $imagemRedimensionada = imagescale($imagemOriginal, $novaLargura, $novaAltura);
+
+        // Converte a imagem redimensionada para base64
+        ob_start();
+        imagejpeg($imagemRedimensionada, null, 50);
+        $base64Imagem = base64_encode(ob_get_clean());
+    }
+        
+        $sql = "INSERT INTO post (aluno_id, anexo, nome, sobrenome, cargo, conteudo, horario, turma, imagem) VALUES(?,?,?,?,?,?,?,?,?)";
         
         $stmt = mysqli_prepare($link, $sql);
         
-        mysqli_stmt_bind_param($stmt, "isssssis", $idProfessor, $nome, $sobrenome, $cargo, $conteudo, $horario, $turma, $imagem);
-
+        mysqli_stmt_bind_param($stmt, "issssssis", $idProfessor, $base64Imagem, $nome, $sobrenome, $cargo, $conteudo, $horario, $turma, $perfilProfessor);
+        
         if(mysqli_stmt_execute($stmt)){
             $_SESSION['msg'] = " Post enviado";
         }else{
@@ -147,15 +173,15 @@
                 <?php echo $nomeCurso; ?>
             </div>
         </div>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
         <div class="container-caixa">
             <div class="container-alinhamento">
                 <div class="caixa-texto">
-                    <textarea name="conteudo" id="" cols="30" rows="10" placeholder="Escreva uma mensagem para a turma"></textarea>
+                    <textarea name="conteudo" id="" cols="30" rows="10" placeholder="Escreva uma mensagem para a turma" required></textarea>
                 </div>
                 <div class="caixa-base">
-                    <a href=""><div class="anexo">
-                        <img src="../../imagens/paper-clip-branco.png" alt="">
+                <div class="anexo">
+                        <input type="file" name="imagem" id="imagem" accept="image/*">
                     </div></a>
                     <div class="publicar">
                         <button type="submit">Publicar</button>
@@ -192,13 +218,13 @@
                         if (!empty($row['imagem'])) {
                             $imagem64Professor = $row['imagem'];
                             // Decodifica o texto em base64
-                            $imagemDecodificada = base64_decode($row['imagem']);
+                            $imagemDecode = base64_decode($row['imagem']);
     
                             // Determina o tipo de conteúdo da imagem
-                            $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+                            $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecode, FILEINFO_MIME_TYPE);
     
                             // Gera um URI de dados para a imagem
-                            $imagemDataUriPost = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+                            $imagemDataUriPost = "data:$tipoConteudo;base64," . base64_encode($imagemDecode);
                         } else {
                             $imagemDataUriPost = "../../imagens/perfil.png";
                         }
@@ -214,12 +240,7 @@
                         <?php echo $row['cargo']; ?>
                         </div>
                     </div>
-<<<<<<< HEAD
                     <?php if($idProfessorPost == $idProfessor){?>
-=======
-                    <?php 
-                    if($row['aluno_id'] == $idProfessor){?>
->>>>>>> 030205d3aa4590ede0b2a9fd186e96f3cd11ecf4
                     <div class="post_icone">
                         <!--<button><div class="editar">
                             <img src="../../imagens/editar.png" alt="">
@@ -230,6 +251,25 @@
                 </div>
                 <div class="conteudo-post">
                     <p><?php echo $row['conteudo']; ?></p>
+                </div>
+                <div class="post_anexo">
+                    <?php
+                        if (!empty($row['anexo'])) {
+                            // Decodifica o texto em base64
+                            $imagemDecodificada = base64_decode($row['anexo']);
+
+                            // Determina o tipo de conteúdo da imagem
+                            $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+
+                            // Gera um URI de dados para a imagem
+                            $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+
+                            // Exibe a imagem usando a tag <img>
+                            echo "<img src='$imagemDataUri' alt=''>";
+                } else {
+                    echo '<img src="../../imagens/perfil-branco-200px.png" alt="">';
+                }
+                ?>
                 </div>
                 <div class="data">
                     <?php
@@ -258,11 +298,11 @@
         $comentarioNome = null;
         $comentarioData = null;
         $comentarioConteudo = null;
+        $cargoComentario = null;
 
         // Loop interno para comentários
         $sql_comentario = "SELECT * FROM comentario WHERE post_id = $idPost";
         $result_comentario = mysqli_query($link, $sql_comentario);
-
         while ($row_comentario = mysqli_fetch_array($result_comentario)) {
             $comentario_contador += 1;
             $idComentario = $row_comentario['id'];
@@ -270,18 +310,48 @@
             $comentarioNome = $row_comentario['nome'] . ' ' . $row_comentario['sobrenome'];
             $comentarioData = $row_comentario['data'];
             $comentarioConteudo = $row_comentario['texto'];
-            $idProfessorComentario = $row_comentario['aluno_id'];
-            if (!empty($row['imagem'])) {
-                $imagem64Professor = $row['imagem'];
-                // Decodifica o texto em base64
-                $imagemDecodificada = base64_decode($row['imagem']);
-
-                // Determina o tipo de conteúdo da imagem
-                $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
-
-                // Gera um URI de dados para a imagem
-                $imagemDataUriComentario = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
-            } else {
+            $cargoComentario = $row_comentario['cargo'];
+            if($cargoComentario == 'Professor'){
+                $sql_professor = "SELECT * FROM professor";
+                $result_professor = mysqli_query($link, $sql_professor);
+                while($row = mysqli_fetch_array($result_professor)){
+                    if($row['id_professor'] == $idProfessorComentario){
+                        if (!empty($row['imagem'])) {
+                            $imagem64Professor = $row['imagem'];
+                            // Decodifica o texto em base64
+                            $imagemDecode = base64_decode($row['imagem']);
+    
+                            // Determina o tipo de conteúdo da imagem
+                            $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecode, FILEINFO_MIME_TYPE);
+    
+                            // Gera um URI de dados para a imagem
+                            $imagemDataUriComentario = "data:$tipoConteudo;base64," . base64_encode($imagemDecode);
+                        } else {
+                            $imagemDataUriComentario = "../../imagens/perfil.png";
+                        }
+                    }
+                }
+            } elseif($cargoComentario == 'Aluno'){
+                $sql_aluno = "SELECT * FROM aluno";
+                $result_aluno = mysqli_query($link, $sql_aluno);
+                while($row = mysqli_fetch_array($result_aluno)){
+                    if($row['id'] == $idProfessorComentario){
+                        if (!empty($row['imagem'])) {
+                            $imagem64Professor = $row['imagem'];
+                            // Decodifica o texto em base64
+                            $imagemDecode = base64_decode($row['imagem']);
+    
+                            // Determina o tipo de conteúdo da imagem
+                            $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecode, FILEINFO_MIME_TYPE);
+    
+                            // Gera um URI de dados para a imagem
+                            $imagemDataUriComentario = "data:$tipoConteudo;base64," . base64_encode($imagemDecode);
+                        } else {
+                            $imagemDataUriComentario = "../../imagens/perfil.png";
+                        }
+                    }
+                }
+            } else{
                 $imagemDataUriComentario = "../../imagens/perfil.png";
             }
         }
@@ -290,9 +360,9 @@
                 <?php
                     if($comentario_contador > 1){
                 ?>
-                <div class="comentarios"><a href="post.php?p=<?php echo $row['id'] ?>&c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
+                <a href="post.php?p=<?php echo $idPost; ?>&c=<?php echo $idCurso; ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma;?>" class="comentarios_link"><div class="comentarios">
                     Mostrar todos os <?php echo $comentario_contador; ?> comentários
-                </a></div>
+                </div></a>
                 <?php
                 }
                 if($idComentario != null){
@@ -340,7 +410,7 @@
                         <?php
                         }?>
                 </div>
-                                <?php }?>
+                <?php }?>
                 <div class="comentarios_input">
                         <div class="comentarios_perfil-aluno">
                             <?php echo "<img src='$imagemDataUriProfessor' alt=''>"; ?>
@@ -354,7 +424,7 @@
                                     <input type="hidden" name="sobrenome" value="<?php echo $sobrenomeProfessor; ?>">
                                     <input type="hidden" name="idCurso" value="<?php echo $idCurso; ?>">
                                     <input type="hidden" name="idProfessor" value="<?php echo $idProfessor; ?>">
-                                    <input type="hidden" name="imagem64Professor" value="<?php echo $imagem64Professor ?>">
+                                    <input type="hidden" name="cargo" value="Professor">
                                 </div>
                                 <div class="comentarios_container-enviar">
                                     <button type="submit"><img src="../../imagens/enviar.png"></button>

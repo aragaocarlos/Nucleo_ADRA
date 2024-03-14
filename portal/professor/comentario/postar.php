@@ -8,17 +8,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     $idCurso = $_POST["idCurso"];
     $idPost = $_POST["idPost"];
     $idTurma = $_POST["idTurma"];
+    $cargo = $_POST["cargo"];
     $nome = $_POST["nome"];
     $sobrenome = $_POST["sobrenome"];
     $comentario_texto = $_POST["comentario_texto"];
     $horario = date('y-m-d');
-    $imagem = $_POST["imagem64Professor"];
 
-    $sql = "INSERT INTO comentario (aluno_id, post_id, turma_id, nome, sobrenome, texto, data, imagem) VALUES(?,?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO comentario (aluno_id, cargo, post_id, turma_id, nome, sobrenome, texto, data) VALUES(?,?,?,?,?,?,?,?)";
     
     $stmt = mysqli_prepare($link, $sql);
     
-    mysqli_stmt_bind_param($stmt, "iiisssss", $idProfessor, $idPost, $idTurma, $nome, $sobrenome, $comentario_texto, $horario, $imagem);
+    mysqli_stmt_bind_param($stmt, "isiissss", $idProfessor, $cargo, $idPost, $idTurma, $nome, $sobrenome, $comentario_texto, $horario);
 
     if(mysqli_stmt_execute($stmt)){
         $_SESSION['msg'] = " Post enviado";
