@@ -1,6 +1,7 @@
 <?php
     require_once "../../util/config.php";
     $idAluno = $_GET['i'];
+
 ?>
 
 <!DOCTYPE html>
@@ -19,9 +20,32 @@
                 <div class="logo">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
-                <a href="usuario.php?c=#&i=<?php echo $idAluno; ?>">
-                <div id="perfil" class="opcoes-nav">
-                </div>
+                <a href="usuario.php?i=<?php echo $idAluno ?>">
+                    <div id="perfil" class="opcoes-nav">
+                    <?php
+                $sql_perfil = "SELECT * FROM aluno";
+                $result_perfil = mysqli_query($link, $sql_perfil);
+                while ($row = mysqli_fetch_array($result_perfil)) {
+                    if($row['id'] == $idAluno){
+                        if (!empty($row['imagem'])) {
+                                    // Decodifica o texto em base64
+                                    $imagemDecodificada = base64_decode($row['imagem']);
+
+                                    // Determina o tipo de conteúdo da imagem
+                                    $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+
+                                    // Gera um URI de dados para a imagem
+                                    $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+
+                                    // Exibe a imagem usando a tag <img>
+                                    echo "<img src='$imagemDataUri' alt=''>";
+                        } else {
+                            echo '<img src="../../imagens/perfil-branco-200px.png" alt="">';
+                        }
+                        }
+                    }
+                        ?>
+                    </div>
                 </a>
                 </a>
             </div>
@@ -38,32 +62,45 @@
         <div class="container-curso">
         <?php
             $sql_turma = "SELECT * FROM aluno_has_turma";
-            $result_turma = mysqli_query($link, $sql_1);
-            while($row = mysqli_fetch_array($result_1)){
+            $result_turma = mysqli_query($link, $sql_turma);
+            while($row = mysqli_fetch_array($result_turma)){
                 if($row['aluno_id'] == $idAluno){
                     $idTurma = $row['turma_id'];
                     $sql_1 = "SELECT * FROM turma";
                     $result_1 = mysqli_query($link, $sql_1);
                     while($row = mysqli_fetch_array($result_1)){
                         if($row['id'] == $idTurma){
-                        $id_turma = $row['id'];
                         $codigo_turma = $row['codigo'];
                         $id_curso = $row['curso_id_curso'];
                         $sala = $row['sala'];
         ?>
-            <div class="curso"><a href="mural.php?c=<?php echo $row['curso_id_curso']; ?>&i=<?php echo $idAluno; ?>&t=<?php echo $id_turma; ?>">
+            <div class="curso"><a href="mural.php?c=<?php echo $row['curso_id_curso']; ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
                 
                 <div class="conteudo-curso">
                     <!-- NOME DO CURSO -->
                         <div class="nome-curso">
                         <?php 
-                        $sql = "SELECT * FROM curso";
-                        $result = mysqli_query($link, $sql);
-                        while($row = mysqli_fetch_array($result)){
-                            if ($id_curso == $row['id_curso']){
+                        $sql_2 = "SELECT * FROM curso";
+                        $result_2 = mysqli_query($link, $sql_2);
+                        while($row = mysqli_fetch_array($result_2)){
+                            if ($row['id_curso'] == $id_curso){
                                 $nome_curso = $row['nome'];
                                 $dias_curso = $row['descricao'];
                                 $hora_curso = $row['hora_inicio'];
+                            }
+                        }
+                        $sql_professor = "SELECT * FROM professor_turma";
+                        $result_professor = mysqli_query($link, $sql_professor);
+                        while($row = mysqli_fetch_array($result_professor)){
+                            if($row['turma_id'] == $idTurma){
+                            $idProfessorTurma = $row['professor_id'];
+                            $sql_nome = "SELECT * FROM professor";
+                            $result_nome = mysqli_query($link, $sql_nome);
+                            while($row = mysqli_fetch_array($result_nome)){
+                                if($row['id_professor'] == $idProfessorTurma){
+                                    $nomeProfessor = $row['nome'] . ' ' . $row['sobrenome'];
+                                }
+                            }
                             }
                         }
                     ?>
@@ -79,22 +116,7 @@
                     </div>
                     <!-- PROFESSOR DA TURMA -->
                     <div class="descricao-curso">
-                    <?php 
-                        $sql_5 = "SELECT * FROM professor_turma";
-                        $result_5 = mysqli_query($link, $sql_5);
-                        while($row = mysqli_fetch_array($result_5)){
-                            if ($id_turma == $row['turma_id']){
-                                $id_professor = $row['professor_id'];
-                            }
-                            $sql_6 = "SELECT * FROM professor";
-                            $result_6 = mysqli_query($link, $sql_6);
-                            while($row = mysqli_fetch_array($result_6)){
-                                if ($id_professor == $row['id_professor']){
-                                    $nome_professor = $row['nome'] . ' ' . $row['sobrenome'];
-                                }
-                            }
-                    ?>
-                        Professor: <?php echo $nome_professor; ?>
+                        Professor: <?php echo $nomeProfessor; ?>
                     </div>   
                     <div class="area">
                         <!-- CÓDIGO DA TURMA -->
@@ -105,11 +127,10 @@
                 </div>
             </div></a>
         <?php
-        }
+                            }
                         }
                 }
             }      
-        }
         ?>
         </div>
     </div>

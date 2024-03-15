@@ -38,12 +38,38 @@
         <div class="container-geral">
             <div class="espaco"></div>
             <div class="container-usuario">
-            <div class="container-perfil">
+
+                <div class="container-perfil">
                     <div class="icone-foto">
-                        <img src="../../imagens/usuario/159158661_3884476911618851_7142528251732469605_n.jpg">
-                        <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
+                        <?php
+                        if (!empty($row['imagem'])) {
+                                    // Decodifica o texto em base64
+                                    $imagemDecodificada = base64_decode($row['imagem']);
+
+                                    // Determina o tipo de conteúdo da imagem
+                                    $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+
+                                    // Gera um URI de dados para a imagem
+                                    $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+
+                                    // Exibe a imagem usando a tag <img>
+                                    echo "<img src='$imagemDataUri' alt=''>";
+                        } else {
+                            echo '<img src="../../imagens/perfil-branco-200px.png" alt="">';
+                        }
+                        ?>
                     </div>
                 </div>
+                <div class="upload_arquivo">
+                    <form method="post" action="./imagem/update.php" enctype="multipart/form-data">
+                        <label for="imagem">Atualize sua imagem:</label>
+                        <input type="file" name="imagem" id="imagem" accept="image/*" required>
+                        <input type="hidden" name="idAluno" value="<?php echo $idAluno; ?>">
+                        <br>
+                        <button type="submit">Salvar</button>
+                    </form>
+                </div>
+
                 <div class="informacoes-titulo">
                     <div class="post-titulo">
                         Informações Básicas

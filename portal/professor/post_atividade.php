@@ -6,13 +6,6 @@
     $idAtividade = $_GET['a'];
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
-    $sql = "SELECT * FROM curso";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
-        if($row['id_curso'] == $idCurso){
-            $nomeCurso = $row['nome'];
-        }
-    }
 ?>
 
 <!DOCTYPE html>
@@ -115,7 +108,7 @@
                 </div>
                 <div class="atividade_info">
                     <p><strong>Prazo de Entrega:</strong></p>
-                    <p><?php echo $prazo ?></p>
+                    <p><?php echo(date("d/m/Y", strtotime($prazo))) ?></p>
                 </div>
                 </form>
             </div>

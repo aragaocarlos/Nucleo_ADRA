@@ -6,13 +6,6 @@
     $idAtividade = $_GET['a'];
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
-    $sql = "SELECT * FROM curso";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
-        if($row['id_curso'] == $idCurso){
-            $nomeCurso = $row['nome'];
-        }
-    }
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +23,7 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="cursos.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php?i=<?php echo $idAluno; ?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
@@ -59,8 +52,31 @@
                 </a>
                 </div>
                 <a href="usuario.php?i=<?php echo $idAluno; ?>">
-                <div id="perfil" class="opcoes-nav">
-                </div>
+                    <div id="perfil" class="opcoes-nav">
+                    <?php
+                $sql_perfil = "SELECT * FROM professor";
+                $result_perfil = mysqli_query($link, $sql_perfil);
+                while ($row = mysqli_fetch_array($result_perfil)) {
+                    if($row['id_professor'] == $idAluno){
+                        if (!empty($row['imagem'])) {
+                                    // Decodifica o texto em base64
+                                    $imagemDecodificada = base64_decode($row['imagem']);
+
+                                    // Determina o tipo de conteúdo da imagem
+                                    $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
+
+                                    // Gera um URI de dados para a imagem
+                                    $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
+
+                                    // Exibe a imagem usando a tag <img>
+                                    echo "<img src='$imagemDataUri' alt=''>";
+                        } else {
+                            echo '<img src="../../imagens/perfil-branco-200px.png" alt="">';
+                        }
+                        }
+                    }
+                        ?>
+                    </div>
                 </a>
             </div>
         </main>
@@ -92,13 +108,8 @@
                 </div>
                 <div class="atividade_info">
                     <p><strong>Prazo de Entrega:</strong></p>
-                    <p><?php echo $prazo ?></p>
+                    <p><?php echo(date("d/m/Y", strtotime($prazo))) ?></p>
                 </div>
-                <form id="atividade_sub">
-                    <label for="arquivo">Submeter Arquivo (PDF):</label>
-                    <input type="file" id="arquivo" name="arquivo" accept=".pdf" required>
-        
-                    <button type="button" onclick="submeterArquivo()">Submeter Arquivo</button>
                 </form>
             </div>
         </div>

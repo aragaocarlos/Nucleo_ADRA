@@ -5,6 +5,51 @@
     $idProfessor = $_GET['i'];
     $idCurso = $_GET['c'];
     $idTurma = $_GET['t'];
+
+    $sql_perfil = "SELECT * FROM professor";
+    $result_perfil = mysqli_query($link, $sql_perfil);
+    while ($row = mysqli_fetch_array($result_perfil)) {
+        if($row['id_professor'] == $idProfessor){
+            $imagem64Professor = $row['imagem'];
+            if (!empty($row['imagem'])) {
+                        // Decodifica o texto em base64
+                        $imagemDecode = base64_decode($row['imagem']);
+
+                        // Determina o tipo de conteúdo da imagem
+                        $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecode, FILEINFO_MIME_TYPE);
+
+                        // Gera um URI de dados para a imagem
+                        $imagemDataUriProfessor = "data:$tipoConteudo;base64," . base64_encode($imagemDecode);
+            } else {
+                $imagemDataUriProfessor = "../../imagens/perfil.png";
+            }
+            }
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $titulo = $_POST['titulo'];
+        $comando = $_POST['comando'];
+        $prazo =  $_POST['prazo'];
+        $turma = $idTurma;
+    
+        $sql = "INSERT INTO atividade (titulo, comando, prazo, turma) VALUES (?, ?, ?, ?)";
+        $stmt = mysqli_prepare($link, $sql);
+    
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "sssi", $titulo, $comando, $prazo, $turma);
+            if (mysqli_stmt_execute($stmt)) {
+                echo "Atividade cadastrada com sucesso!";
+            } else {
+                echo "Erro ao cadastrar a atividade: " . mysqli_error($link);
+            }
+    
+            mysqli_stmt_close($stmt);
+        } else {
+            echo "Erro na preparação da declaração: " . mysqli_error($link);
+        }
+    
+        mysqli_close($link);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -52,77 +97,44 @@
                 <a href="usuario.php?i=<?php echo $idProfessor; ?>">
                     <div id="perfil" class="opcoes-nav">
                     <?php
-                    $sql_perfil = "SELECT * FROM professor";
-                    $result_perfil = mysqli_query($link, $sql_perfil);
-                    while ($row = mysqli_fetch_array($result_perfil)) {
-                        if($row['id_professor'] == $idProfessor){
-                            if (!empty($row['imagem'])) {
-                                        // Decodifica o texto em base64
-                                        $imagemDecodificada = base64_decode($row['imagem']);
-
-                                        // Determina o tipo de conteúdo da imagem
-                                        $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
-
-                                        // Gera um URI de dados para a imagem
-                                        $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
-
-                                        // Exibe a imagem usando a tag <img>
-                                        echo "<img src='$imagemDataUri' alt=''>";
-                            } else {
-                                echo '<img src="../../imagens/perfil-branco-200px.png" alt="">';
-                            }
-                            }
-                        }
+                        echo "<img src='$imagemDataUriProfessor' alt=''>";
                         ?>
                     </div>
                 </a>
             </div>
         </main>
     </header>
+
     <div class="container">
         <div class="container-geral">
             <div class="post_atividade_cadastro">
                 <div class="atividade_titulo">
                     Cadastro de Atividade
                 </div>
-        <form id="atividadeForm">
+        <form method="post" action="">
             <div id="atividade_info">
                 <p>Título da Atividade:</p>
                 <p>
                     <div class="caixa-texto-atividade">
-                        <textarea name="conteudo" id="" cols="30" rows="1" placeholder="Escreva o título da atividade"></textarea>
+                        <textarea name="titulo" id="" cols="30" rows="1" placeholder="Escreva o título da atividade" required></textarea>
                     </div>
                 <p>Comando da Atividade:</p>
                 <p>
                     <div class="caixa-texto-atividade">
-                        <textarea name="conteudo" id="" cols="30" rows="7" placeholder="Escreva o comando da atividade"></textarea>
+                        <textarea name="comando" id="" cols="30" rows="7" placeholder="Escreva o comando da atividade" required></textarea>
                     </div>
                 </p>
             </div>
             <div id="atividade_info">            
                 <p><strong>Prazo de Entrega:</strong></p>
-                <p><input type="datetime-local" id="prazo" name="prazo" required></p>
+                <p><input type = "date" name = "prazo" required></p>
             </div>
             <div id="atividade_sub">
-                <button type="button" onclick="cadastrarAtividade()">Cadastrar Atividade</button>
+                <button type="submit">Cadastrar Atividade</button>
             </div>
         </form>
             </div>
         </div>
     </div>
-
-    <script>
-        function cadastrarAtividade() {
-        var comando = document.getElementById("comando").value;
-        var prazo = document.getElementById("prazo").value;
-
-        // Aqui você pode processar os dados, como enviá-los para o servidor
-
-        alert("Atividade cadastrada:\nComando: " + comando + "\nPrazo de Entrega: " + prazo);
-
-        // Limpar o formulário após a submissão
-        document.getElementById("atividadeForm").reset();
-        }
-    </script>
 </body>
 </html>

@@ -59,7 +59,7 @@
                         // Gera um URI de dados para a imagem
                         $imagemDataUriProfessor = "data:$tipoConteudo;base64," . base64_encode($imagemDecode);
             } else {
-                $imagemDataUriProfessor = "../../imagens/perfil.png";
+                $imagemDataUriAluno = "../../imagens/perfil-branco.png";
             }
             }
         }

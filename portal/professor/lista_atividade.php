@@ -4,23 +4,25 @@
     
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
-    $sql = "SELECT * FROM curso";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
-        if($row['id_curso'] == $idCurso){
-            $nomeCurso = $row['nome'];
-        }
-    }
-
-
     $idProfessor = $_GET['i'];
-    $sql = "SELECT * FROM professor";
-    $result = mysqli_query($link, $sql);
-    while($row = mysqli_fetch_array($result)){
-        if($row['id_professor'] == $idProfessor){
-            $nomeAluno = $row['nome'];
-            $sobrenomeAluno = $row['sobrenome'];
-        }
+
+    function traduzNomeMes($nomeMesIngles) {
+        $mesesTraduzidos = array(
+            'January' => 'jan',
+            'February' => 'fev',
+            'March' => 'mar',
+            'April' => 'abr',
+            'May' => 'mai',
+            'June' => 'jun',
+            'July' => 'jul',
+            'August' => 'ago',
+            'September' => 'set',
+            'October' => 'out',
+            'November' => 'nov',
+            'December' => 'dez'
+        );
+
+        return $mesesTraduzidos[$nomeMesIngles];
     }
 ?>
 
@@ -112,7 +114,22 @@
                 <?php echo $row['titulo'] ?>
             </div>
             <div class="data-atividades">
-                <?php echo $row['prazo'] ?>
+            <?php
+                    // Cria um objeto DateTime usando a data original e o formato
+                    $dataObj = DateTime::createFromFormat('Y-m-d', $row['prazo']);
+
+                    // Obtém o dia e o mês da data no formato desejado
+                    $dia = $dataObj->format('d');
+                    $mes = $dataObj->format('F'); // 'F' retorna o nome completo do mês em inglês
+
+                    // Traduz o nome do mês para português (ou outro idioma, se necessário)
+                    $mesTraduzido = traduzNomeMes($mes);
+
+                    // Formata a data no novo formato
+                    $dataFormatoNovo = $dia . ' ' . $mesTraduzido;
+
+                    echo $dataFormatoNovo;
+                    ?>
             </div>
         </div>
         <?php

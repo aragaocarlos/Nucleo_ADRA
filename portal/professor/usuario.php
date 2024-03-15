@@ -171,7 +171,7 @@ while ($row = mysqli_fetch_array($result)) {
             }
             ?>
             <div class="sair">
-                <a href="../aluno.php">
+                <a href="../professor.php">
                     <div class="botao-sair">Sair</div>
                 </a>
             </div>
