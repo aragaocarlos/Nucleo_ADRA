@@ -6,6 +6,24 @@
     $idAtividade = $_GET['a'];
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
+
+    // Verificar a data de entrega da atividade
+$sql = "SELECT prazo FROM atividade WHERE id = $idAtividade";
+$result = mysqli_query($link, $sql);
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $prazo = $row['prazo'];
+
+    // Verificar se a data de entrega já passou
+    if (strtotime($prazo) < strtotime(date('Y-m-d'))) {
+        $anexoBloqueado = true; // Define como true se a data de entrega já passou
+    } else {
+        $anexoBloqueado = false; // Define como false se a data de entrega ainda não passou
+    }
+} else {
+    // Lidar com o erro ao buscar a data de entrega
+    $anexoBloqueado = true; // Definir como true por padrão em caso de erro
+}
 ?>
 
 <!DOCTYPE html>
@@ -109,6 +127,14 @@
                 <div class="atividade_info">
                     <p><strong>Prazo de Entrega:</strong></p>
                     <p><?php echo(date("d/m/Y", strtotime($prazo))) ?></p>
+                </div>
+                <div class="caixa-base">
+                <div class="anexo-atividade">
+                        <input type="file" name="pdf" id="pdf" accept="image/*">
+                    </div></a>
+                    <div class="publicar">
+                        <button type="submit">Publicar</button>
+                    </div>
                 </div>
                 </form>
             </div>
