@@ -1,7 +1,8 @@
 <?php
     require_once "../../../util/config.php";
+    session_start();
 
-    $idAluno = $_GET['i'];
+    $idAdmin = $_SESSION['idAdmin'];
     $idCurso = $_GET['c'];
 
     $sql_1 = "SELECT * FROM curso";
@@ -26,12 +27,12 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../../administrador.php?i=<?php echo $idAluno; ?>">
+                <a href="../../administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../../usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="../../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -43,7 +44,7 @@
     <h2>Curso "<?php echo $nomeCurso?>"</h2>
     <h3>Turmas</h3>
     <br>
-    <p><a href="create.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>" class="incluir">Incluir</a></p>
+    <p><a href="create.php" class="incluir">Incluir</a></p>
     <table border="0" class="tabela-admin">
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->
@@ -58,20 +59,19 @@
             while($row = mysqli_fetch_array($result)){
                 if($idCurso == $row['curso_id_curso']){?>
             <tr class="tabela-linha">
-            <!--<td><?php //echo($row['id'])?></td>-->
-                <td><a href="./aluno/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($idCurso)?>&t=<?php echo($row['id'])?>" class="crud_curso"><?php echo($row['codigo'])?></a></td>
-                <td><a href="./aluno/index.php?i=<?php echo $idAluno; ?>&c=<?php echo($idCurso)?>&t=<?php echo($row['id'])?>" class="crud_curso"><?php echo($row['sala'])?></a></td>
+                <td><a href="./aluno/index.php?c=<?php echo($idCurso) ?>&t=<?php echo($row['id'])?>" class="crud_curso"><?php echo($row['codigo'])?></a></td>
+                <td><a href="./aluno/index.php?c=<?php echo($idCurso) ?>&t=<?php echo($row['id'])?>" class="crud_curso"><?php echo($row['sala'])?></a></td>
             </div>
-            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'&c='.$idCurso.'" class="crud_link">Exibir</a>')?></td>
-            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.'&c='.$idCurso.'" class="crud_link">Alterar</a>')?></td>
-            <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.'&c='.$idCurso.'" class="crud_link">Excluir</a>')?></td>
+            <td><?php echo('<a href="read.php?c='.$idCurso.'&id='.$row['id'].'" class="crud_link">Exibir</a>')?></td>
+            <td><?php echo('<a href="update.php?c='.$idCurso.'&id='.$row['id'].'" class="crud_link">Alterar</a>')?></td>
+            <td><?php echo('<a href="delete.php?c='.$idCurso.'&id='.$row['id'].'" class="crud_link">Excluir</a>')?></td>
         </tr>
         <?php  }
         } ?>
     </table>
     </div>
     <div class="voltar">
-        <p><a href='../index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+        <p><a href='../index.php'>Voltar</a></p>
     </div>
 </div>
 

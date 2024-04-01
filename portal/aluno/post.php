@@ -13,7 +13,7 @@
         }
     }
 
-    $idAluno = $_GET['i'];
+    $idAluno = $_SESSION['idAluno'];
     $sql = "SELECT * FROM aluno";
     $result = mysqli_query($link, $sql);
     while($row = mysqli_fetch_array($result)){
@@ -73,27 +73,27 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="curso.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
-                <a href="mural.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>">
+                <a href="mural.php?c=<?php echo $idCurso ?>">
                     <div class="opcao-nav">
                         <div class="mural-texto">
                             Mural
                         </div>
                     </div>
                 </a>
-                <a href="atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>">
+                <a href="atividade.php?c=<?php echo $idCurso ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
                     </div>
                 </div>
                 </a>
-                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>">
+                <a href="avaliacao.php?c=<?php echo $idCurso ?>">
                     <div class="opcao-nav">
                         <div class="notas-texto">
                             Avaliação
@@ -101,7 +101,7 @@
                     </div>
                 </a>
                 </div>
-                <a href="usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="usuario.php">
                     <div id="perfil" class="opcoes-nav">
                     </div>
                 </a>

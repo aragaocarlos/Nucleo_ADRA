@@ -1,6 +1,7 @@
 <?php
     require_once "../../util/config.php";
-    $idProfessor = $_GET['i'];
+    session_start();
+    $idProfessor = $_SESSION['idProfessor'];
 
         $sql = "SELECT * FROM professor";
         $result = mysqli_query($link, $sql);
@@ -28,7 +29,7 @@
                 <div class="logo">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
-                <a href="usuario.php?i=<?php echo $idProfessor ?>">
+                <a href="usuario.php">
                     <div id="perfil" class="opcoes-nav">
                     <?php
                 $sql_perfil = "SELECT * FROM professor";
@@ -82,7 +83,7 @@
                         $id_curso = $row['curso_id_curso'];
                         $sala = $row['sala'];
         ?>
-            <div class="curso"><a href="mural.php?c=<?php echo $row['curso_id_curso']; ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
+            <div class="curso"><a href="mural.php?c=<?php echo $row['curso_id_curso']; ?>&t=<?php echo $idTurma; ?>">
                 
                 <div class="conteudo-curso">
                     <!-- NOME DO CURSO -->

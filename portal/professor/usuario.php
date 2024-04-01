@@ -3,7 +3,7 @@ session_start();
 date_default_timezone_set('America/Sao_Paulo');
 require_once "../../util/config.php";
 
-$idProfessor = $_GET['i'];
+$idProfessor = $_SESSION['idProfessor'];
 
 $sql = "SELECT * FROM professor";
 $result = mysqli_query($link, $sql);
@@ -24,7 +24,7 @@ while ($row = mysqli_fetch_array($result)) {
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="curso.php?i=<?php echo $idProfessor; ?>">
+                <a href="curso.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
@@ -170,11 +170,9 @@ while ($row = mysqli_fetch_array($result)) {
                 }
             }
             ?>
-            <div class="sair">
-                <a href="../professor.php">
-                    <div class="botao-sair">Sair</div>
-                </a>
-            </div>
+            <form action="usuario_logout.php" method="post">
+                <button type="submit" class="sair"><div class="botao-sair">Sair</div></button>
+            </form>
         </div>
     </div>
 </body>

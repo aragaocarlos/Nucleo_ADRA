@@ -1,7 +1,8 @@
 <?php
     require_once "../../util/config.php";
+    session_start();
 
-    $idAluno = $_GET['i'];
+    $idAdmin = $_SESSION['idAdmin'];
     $sql = "SELECT * FROM aluno";
     $result = mysqli_query($link, $sql);
 
@@ -19,13 +20,20 @@
     $result_info = mysqli_query($link, $sql_info);
     while($row = mysqli_fetch_array($result_info)){
         $info_total += 1;
-        if($row['idade'] <= 17){
+
+        $nascimento = date("Y-m-d", strtotime($row['nascimento']));
+        $dataNascimento = new DateTime($nascimento);
+        $dataAtual = new DateTime();
+        $diferenca = $dataAtual->diff($dataNascimento);
+        $idade = $diferenca->y;
+
+        if($idade <= 17){
             $info_17 += 1;
         }
-        if($row['idade'] >= 18 && $row['idade'] <= 59){
+        if($idade >= 18 && $idade <= 59){
             $info_18_59 += 1;
         }
-        if($row['idade'] >= 60){
+        if($idade >= 60){
             $info_60 += 1;
         }
         if($row['sexo'] == 'M'){
@@ -60,12 +68,12 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-            <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -75,16 +83,13 @@
 
 <div class="container-admin">
     <h2>Alunos</h2>
-    <p><a href="create.php?i=<?php echo $idAluno; ?>" class="incluir">Incluir</a></p>
+    <p><a href="create.php" class="incluir">Incluir</a></p>
     
     <div class="info_data_container">
         <div class="info_data_titulo">
             Quantidade de alunos
         </div>
         <div class="info_caixa">
-            <div class="total">
-                Total: <?php echo $info_total ?>
-            </div>
             <div class="info_17">
                 Até 17 anos: <?php echo $info_17 ?>
             </div>
@@ -94,6 +99,8 @@
             <div class="info_60">
                 Acima de 60 anos: <?php echo $info_60 ?>
             </div>
+        </div>
+        <div class="info_caixa">
             <div class="info_masculino">
                 Masculino: <?php echo $info_masculino ?>
             </div>
@@ -103,11 +110,16 @@
             <div class="info_outro_genero">
                 Outro gênero: <?php echo $info_outro_genero ?>
             </div>
+        </div>
+        <div class="info_caixa">
             <div class="info_sim_pcd">
                 PCD: <?php echo $info_sim_pcd ?>
             </div>
             <div class="info_nao_pcd">
                 Não PCD: <?php echo $info_nao_pcd ?>
+            </div>
+            <div class="total">
+                Total: <?php echo $info_total ?>
             </div>
         </div>
     </div>
@@ -116,16 +128,9 @@
             <!--<td>Id</td>-->
             <td><center>Nome</center></td>
             <td><center>Sexo</center></td>
-            <td><center>Email</center></td>
-            <td><center>Telefone</center></td>
-            <td><center>Nascimento</center></td>
-            <td><center>RG</center></td>
-            <td><center>CPF</center></td>
+            <td><center>Idade</center></td>
             <td><center>PCD</center></td>
-            <td><center>Tipo PCD</center></td>
-            <td><center>Login</center></td>
-            <td><center>Senha</center></td>
-            <td><center>Endereço</center></td>
+            <td><center>Informações</center></td>
             <td colspan="4"><center>Ações</center></td>
         </tr>
         <?php while($row = mysqli_fetch_array($result)){?>
@@ -133,11 +138,7 @@
             <!--<td><?php //echo($row['id'])?></td>-->
             <td><?php echo($row['nome_completo'])?></td>
             <td><?php echo($row['sexo'])?></td>
-            <td><?php echo($row['email'])?></td>
-            <td><?php echo($row['telefone'])?></td>
-            <td><?php echo(date("d/m/Y", strtotime($row['nascimento'])))?></td>
-            <td><?php echo($row['rg'])?></td>
-            <td><?php echo($row['cpf'])?></td>
+            <td><?php echo($idade)?></td>
             <td><?php
              if($row['pcd'] == 1){
                 echo "Sim";
@@ -145,21 +146,18 @@
                 echo "Não";
              }
              ?></td>
-            <td><?php echo($row['pcd_desc'])?></td>
-            <td><?php echo($row['login'])?></td>
-            <td><?php echo($row['senha'])?></td>
             <td><?php
             $idEndereco = $row['endereco_id'];
-            echo('<a href="./endereco/index.php?id='.$idEndereco.'&i='.$idAluno.'" class="crud_link">Exibir</a>')
+            echo('<a href="./endereco/index.php?id='.$idEndereco.'" class="crud_link">Endereço</a>')
             ?></td>
-            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'" class="crud_link">Exibir</a>')?></td>
-            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.'" class="crud_link">Alterar</a>')?></td>
-            <td><?php echo('<a href="delete.php?id='.$row['id'].'&i='.$idAluno.'" class="crud_link">Excluir</a>')?></td>
+            <td><?php echo('<a href="read.php?id='.$row['id'].'" class="crud_link">Ver mais</a>')?></td>
+            <td><?php echo('<a href="update.php?id='.$row['id'].'" class="crud_link">Alterar</a>')?></td>
+            <td><?php echo('<a href="delete.php?id='.$row['id'].'" class="crud_link">Excluir</a>')?></td>
         </tr>
         <?php } ?>
     </table>
     <div class="voltar">
-        <p><a href='../administrador.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+        <p><a href='../administrador.php'>Voltar</a></p>
     </div>
     </div>
 </div>

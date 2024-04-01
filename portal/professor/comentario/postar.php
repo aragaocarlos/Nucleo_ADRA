@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 }
 
 // Redirecionamento de volta para a página anterior
-header("Location: ../mural.php?i=$idProfessor&c=$idCurso&t=$idTurma");
+header("Location: ../mural.php?c=$idCurso&t=$idTurma");
 exit(); // Certifique-se de sair após o redirecionamento
 ?>
 ?>

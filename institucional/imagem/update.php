@@ -1,5 +1,6 @@
 <?php
 require_once "../../util/config.php";
+session_start();
 
 // Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -60,7 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Redirecionamento de volta para a página anterior
-header("Location: ../usuario.php?i=$idAdmin");
-exit(); // Certifique-se de sair após o redirecionamento
+header("Location: ../usuario.php");
+exit();
 ?>

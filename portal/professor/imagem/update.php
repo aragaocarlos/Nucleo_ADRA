@@ -1,5 +1,6 @@
 <?php
 require_once "../../../util/config.php";
+session_start();
 
 // Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

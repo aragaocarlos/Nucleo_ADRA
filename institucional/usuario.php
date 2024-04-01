@@ -3,7 +3,7 @@ session_start();
 date_default_timezone_set('America/Sao_Paulo');
 require_once "../util/config.php";
 
-$idAdmin = $_GET['i'];
+$idAdmin = $_SESSION['idAdmin'];
 
 $sql_perfil = "SELECT * FROM administracao";
 $result_perfil = mysqli_query($link, $sql_perfil);
@@ -44,12 +44,12 @@ while ($row = mysqli_fetch_array($result)) {
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="administrador.php?i=<?php echo $idAdmin; ?>">
+                <a href="administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="usuario.php?i=<?php echo $idAdmin; ?>">
+                <a href="usuario.php">
                     <div id="perfil" class="opcoes-nav">
                     <?php
                         echo "<img src='$imagemDataUri' alt=''>";
@@ -119,11 +119,8 @@ while ($row = mysqli_fetch_array($result)) {
                 }
             }
             ?>
-            <div class="sair">
-                <a href="../index.php">
-                    <div class="botao-sair">Sair</div>
-                </a>
-            </div>
-        </div>
+        <form action="usuario_logout.php" method="post">
+            <button type="submit" class="sair"><div class="botao-sair">Sair</div></button>
+        </form>
     </div>
 </body>

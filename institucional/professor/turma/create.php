@@ -1,37 +1,3 @@
-<?php
-
-session_start();
-require_once "../../../util/config.php";
-
-$idAluno = $_GET['i'];
-$idProfessor = $_GET['p'];
-
-$sql_end_2 = "SELECT * FROM professor";
-$result_2 = mysqli_query($link, $sql_end_2);
-while($row = mysqli_fetch_array($result_2)){
-    if($row['id_professor'] == $idProfessor){
-        $nomeProfessor = $row['nome_completo'];
-    }
-}
-
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-	$professor = $idProfessor;
-    $turma = $_POST['turma'];
-
-	$sql = "INSERT INTO professor_turma (professor_id, turma_id) VALUES(?, ?)";
-	$stmt = mysqli_prepare($link, $sql);
-	mysqli_stmt_bind_param($stmt, "ii", $professor, $turma);
-
-    if (mysqli_stmt_execute($stmt)) {
-        "Curso cadastrado com sucesso!";
-    } else {
-        "Erro ao cadastrar o curso: " . mysqli_error($link);
-    }
-}
-
-?>
-    
-    
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -45,18 +11,54 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../../administrador.php?i=<?php echo $idAluno; ?>">
+                <a href="../../administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../../usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="../../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
             </div>
         </main>
     </header>
+
+    <!-- INÍCIO PHP -->
+    <?php
+
+    session_start();
+    require_once "../../../util/config.php";
+
+    $idAdmin = $_SESSION['idAdmin'];
+    $idProfessor = $_GET['p'];
+
+    $sql_end_2 = "SELECT * FROM professor";
+    $result_2 = mysqli_query($link, $sql_end_2);
+    while($row = mysqli_fetch_array($result_2)){
+        if($row['id_professor'] == $idProfessor){
+            $nomeProfessor = $row['nome_completo'];
+        }
+    }
+
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        $professor = $idProfessor;
+        $turma = $_POST['turma'];
+
+        $sql = "INSERT INTO professor_turma (professor_id, turma_id) VALUES(?, ?)";
+        $stmt = mysqli_prepare($link, $sql);
+        mysqli_stmt_bind_param($stmt, "ii", $professor, $turma);
+
+        if (mysqli_stmt_execute($stmt)) {
+            "Curso cadastrado com sucesso!";
+        } else {
+            "Erro ao cadastrar o curso: " . mysqli_error($link);
+        }
+    }
+
+    ?>
+        <!-- FIM PHP -->
+
 <div class="container-geral">
 <div class = "fundo">
         <div class = "area-matricula">
@@ -95,7 +97,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     
                     </div>
                     <div class="voltar">
-        <p><a href='index.php?i=<?php echo $idAluno; ?>&p=<?php echo $idProfessor; ?>'>Voltar</a></p>
+        <p><a href='index.php?p=<?php echo $idProfessor; ?>'>Voltar</a></p>
     </div>
                 </form>
             </div>

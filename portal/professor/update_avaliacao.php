@@ -1,6 +1,7 @@
 <?php 
         require_once "../../util/config.php";
-        $idProfessor = $_GET['i'];
+        session_start();
+        $idProfessor = $_SESSION['idProfessor'];
         $idTurma = $_GET['t'];
         $idCurso = $_GET['c'];
     ?>
@@ -18,12 +19,12 @@
 <header>
     <main>
         <div class="cabecalho-conteudo">
-            <a href="../../institucional/administrador.php?i=<?php echo $idProfessor; ?>">
+            <a href="../../institucional/administrador.php">
             <div id="logo" class="opcoes-nav">
                 <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
             </div>
             </a>
-            <a href="usuario.php?i=<?php echo $idProfessor; ?>">
+            <a href="usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 <?php
                 $sql_perfil = "SELECT * FROM professor";
@@ -116,7 +117,7 @@
 
 </div>
 <div class="voltar">
-    <p><a href='avaliacao.php?i=<?php echo $idProfessor; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a></p>
+    <p><a href='avaliacao.php&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a></p>
 </div>
     </body>
     </html>

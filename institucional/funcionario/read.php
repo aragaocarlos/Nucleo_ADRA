@@ -1,7 +1,8 @@
 <?php
     require_once "../../util/config.php";
+    session_start();
 
-    $idAluno = $_GET['i'];
+    $idAdmin = $_SESSION['idAdmin'];
     if($_GET['id']){
         $id = $_GET['id'];
         $sql = "SELECT * FROM administracao WHERE id = ?";
@@ -27,12 +28,12 @@
     <header>
         <main>
             <div class="cabecalho-conteudo">
-            <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -47,7 +48,7 @@
         <p>Senha: <?php echo($row['senha']) ?></p>
     </div>
     <div class="voltar">
-        <p><a href='index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+        <p><a href='index.php'>Voltar</a></p>
     </div>
 </body>
 </html>

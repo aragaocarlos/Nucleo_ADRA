@@ -1,7 +1,8 @@
 <?php
     require_once "../../../util/config.php";
-
-    $idAluno = $_GET['i'];
+    session_start();
+    
+    $idAdmin = $_SESSION['idAdmin'];
     if($_GET['id']){
         $id = $_GET['id'];
         $sql = "SELECT * FROM endereco WHERE id = ?";
@@ -27,12 +28,12 @@
     <header>
         <main>
             <div class="cabecalho-conteudo">
-            <a href="../../administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../../administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../../usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="../../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -51,7 +52,7 @@
         <p>Estado: <?php echo($row['estado']) ?></p>
     </div>
     <div class="voltar">
-        <p><a href='index.php?i=<?php echo $idAluno; ?>&id=<?php echo $id; ?>'>Voltar</a></p>
+        <p><a href='index.php?id=<?php echo $id; ?>'>Voltar</a></p>
     </div>
 </body>
 </html>

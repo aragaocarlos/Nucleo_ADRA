@@ -3,20 +3,20 @@
 session_start();
 require_once "../../util/config.php";
 
-$idAluno = $_GET['i'];
+$idAdmin = $_SESSION['idAdmin'];
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
-	$logradouro = $_POST["logradouro"];
-	$numero = $_POST["numero"];
-	$complemento =  $_POST["complemento"];
-	$bairro = $_POST["bairro"];
-	$cep = $_POST["cep"];
-	$cidade = $_POST["cidade"];
-	$estado = $_POST["estado"];
+    $logradouro = $_POST["logradouro"];
+    $numero = $_POST["numero"];
+    $complemento =  $_POST["complemento"];
+    $bairro = $_POST["bairro"];
+    $cep = $_POST["cep"];
+    $cidade = $_POST["cidade"];
+    $estado = $_POST["estado"];
 
-	$sql_end_1 = "INSERT INTO endereco (logradouro, numero, complemento, bairro, cep, cidade, estado) VALUES(?, ?, ?, ?, ?, ?, ?)";
-	$stmt_end = mysqli_prepare($link, $sql_end_1);
-	mysqli_stmt_bind_param($stmt_end, "sssssss", $logradouro, $numero, $complemento, $bairro, $cep, $cidade, $estado);
+    $sql_end_1 = "INSERT INTO endereco (logradouro, numero, complemento, bairro, cep, cidade, estado) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    $stmt_end = mysqli_prepare($link, $sql_end_1);
+    mysqli_stmt_bind_param($stmt_end, "sssssss", $logradouro, $numero, $complemento, $bairro, $cep, $cidade, $estado);
 
     if (mysqli_stmt_execute($stmt_end)) {
         "Curso cadastrado com sucesso!";
@@ -27,41 +27,35 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     // Compara endereço cadastrado com o banco de dados para obter id
     $sql_end_2 = "SELECT * FROM endereco";
     $result = mysqli_query($link, $sql_end_2);
-	while($row = mysqli_fetch_array($result)){
-	if($logradouro == $_POST["logradouro"])
-		$endereco_id = $row['id'];
-	}
+    while($row = mysqli_fetch_array($result)){
+    if($logradouro == $_POST["logradouro"])
+        $endereco_id = $row['id'];
+    }
 
-	$nome_completo = $_POST["nome_completo"];
+    $nome_completo = $_POST["nome_completo"];
 
     // Divide nome completo em nome e sobrenome
-	$partes = explode(' ', $nome_completo);
-	$ultimo_valor = count($partes)-1;
+    $partes = explode(' ', $nome_completo);
+    $ultimo_valor = count($partes)-1;
 
-	$nome = $partes[0];
-	$sobrenome = $partes[$ultimo_valor];
-	$genero = $_POST["genero"];
-	$email = $_POST["email"];
+    $nome = $partes[0];
+    $sobrenome = $partes[$ultimo_valor];
+    $genero = $_POST["genero"];
+    $email = $_POST["email"];
     $telefone = $_POST["telefone"];
-	$nascimento = $_POST["nascimento"];
+    $nascimento = $_POST["nascimento"];
+    $rg = $_POST["rg"]; 
+    $cpf = $_POST["cpf"]; 
+    $pcd = $_POST["pcd"];
+    $pcd_desc = $_POST["pcd_desc"];
+    $login = $_POST["login"];
+    $senha = $_POST["senha"];
 
-    $dataNascimento = new DateTime($_POST['nascimento']);
-    $dataAtual = new DateTime();
-    $diferenca = $dataAtual->diff($dataNascimento);
-    $idade = $diferenca->y;
-
-	$rg = $_POST["rg"]; 
-	$cpf = $_POST["cpf"]; 
-	$pcd = $_POST["pcd"];
-	$pcd_desc = $_POST["pcd_desc"];
-	$login = $_POST["login"];
-	$senha = $_POST["senha"];
-
-    $sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, telefone, nascimento, idade, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_aluno = "INSERT INTO aluno (nome_completo, nome, sobrenome, sexo, email, telefone, nascimento, rg, cpf, pcd, pcd_desc, login, senha, endereco_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_aluno = mysqli_prepare($link, $sql_aluno);
     
     if ($stmt_aluno) {
-        mysqli_stmt_bind_param($stmt_aluno, "sssssssississsi", $nome_completo, $nome, $sobrenome, $genero, $email, $telefone, $nascimento, $idade, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
+        mysqli_stmt_bind_param($stmt_aluno, "sssssssssisssi", $nome_completo, $nome, $sobrenome, $genero, $email, $telefone, $nascimento, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $endereco_id);
     
         if (mysqli_stmt_execute($stmt_aluno)) {
             echo "Aluno cadastrado com sucesso!";
@@ -77,8 +71,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     mysqli_close($link);
 }
 ?>
-    
-    
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -92,18 +85,22 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+                <a href="../administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
             </div>
         </main>
     </header>
+
+    <!-- INÍCIO PHP -->
+    <!-- FIM PHP -->
+
 <div class="container-geral">
 <div class = "fundo">
         <div class = "area">
@@ -158,7 +155,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     
                     </div>
                     <div class="voltar">
-    <p><a href='index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+    <p><a href='index.php'>Voltar</a></p>
 </div>
                 </form>
             </div>

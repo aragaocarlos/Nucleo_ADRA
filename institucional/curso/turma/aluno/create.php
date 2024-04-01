@@ -3,7 +3,7 @@
 session_start();
 require_once "../../../../util/config.php";
 
-$idAluno = $_GET['i'];
+$idAdmin = $_SESSION['idAdmin'];
 $idCurso = $_GET['c'];
 $idTurma = $_GET['t'];
 
@@ -64,12 +64,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../../../administrador.php?i=<?php echo $idAluno; ?>">
+                <a href="../../../administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../../../usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="../../../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -105,7 +105,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     
                     </div>
                     <div class="voltar">
-        <p><a href='index.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a></p>
+        <p><a href='index.php?c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a></p>
     </div>
                 </form>
             </div>

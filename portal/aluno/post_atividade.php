@@ -2,7 +2,7 @@
     session_start();
     require_once "../../util/config.php";
 
-    $idAluno = $_GET['i'];
+    $idAluno = $_SESSION['idAluno'];
     $idAtividade = $_GET['a'];
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
@@ -41,27 +41,27 @@ if ($result && mysqli_num_rows($result) > 0) {
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="curso.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
-                <a href="mural.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="mural.php?c=<?php echo $idCurso ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="mural-texto">
                             Mural
                         </div>
                     </div>
                 </a>
-                <a href="atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="atividade.php?c=<?php echo $idCurso ?>&t=<?php echo $idTurma; ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
                     </div>
                 </div>
                 </a>
-                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+                <a href="avaliacao.php?c=<?php echo $idCurso ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="notas-texto">
                             Avaliação
@@ -69,7 +69,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                     </div>
                 </a>
                 </div>
-                <a href="usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="usuario.php">
                     <div id="perfil" class="opcoes-nav">
                     <?php
                 $sql_perfil = "SELECT * FROM professor";

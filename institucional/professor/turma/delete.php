@@ -23,13 +23,13 @@
     <div class="container-admin">
     <?php
         require_once "../../../util/config.php";
-
-        $idAluno = $_GET['i'];
+        session_start();
+    
+        $idAdmin = $_SESSION['idAdmin'];
         $idProfessor = $_GET['p'];
         if ($_GET['id']) {
             $id = $_GET['id'];
             
-            // Update foreign key constraint to handle cascading deletes
             $sqlUpdateFK = "SET foreign_key_checks = 0";
             mysqli_query($link, $sqlUpdateFK);
 
@@ -43,11 +43,10 @@
                 echo "<p>Não foi possível excluir</p>";
             }
 
-            // Reset foreign key constraint
             $sqlResetFK = "SET foreign_key_checks = 1";
             mysqli_query($link, $sqlResetFK);
 
-            echo "<a href='index.php?i=$idAluno?&p=$idProfessor'>Voltar</a>";
+            echo "<a href='index.php?p=$idProfessor'>Voltar</a>";
         }
         ?>
     </div>

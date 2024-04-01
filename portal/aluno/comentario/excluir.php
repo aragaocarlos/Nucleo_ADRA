@@ -3,7 +3,7 @@
 
         $idTurma = $_GET['t'];
         $idCurso = $_GET['c'];
-        $idAluno = $_GET['i'];
+        $idAluno = $_SESSION['idAluno'];
         if ($_GET['id']) {
             $id = $_GET['id'];
             
@@ -28,7 +28,7 @@
         }
 
 // Redirecionamento de volta para a página anterior
-header("Location: ../mural.php?i=$idAluno&c=$idCurso&t=$idTurma");
+header("Location: ../mural.php?c=$idCurso&t=$idTurma");
 exit(); // Certifique-se de sair após o redirecionamento
 ?>
 ?>

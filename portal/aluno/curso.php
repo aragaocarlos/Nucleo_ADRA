@@ -1,6 +1,7 @@
 <?php
+    session_start();
     require_once "../../util/config.php";
-    $idAluno = $_GET['i'];
+    $idAluno = $_SESSION['idAluno'];
 
 ?>
 
@@ -20,7 +21,7 @@
                 <div class="logo">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
-                <a href="usuario.php?i=<?php echo $idAluno ?>">
+                <a href="usuario.php">
                     <div id="perfil" class="opcoes-nav">
                     <?php
                 $sql_perfil = "SELECT * FROM aluno";
@@ -74,7 +75,7 @@
                         $id_curso = $row['curso_id_curso'];
                         $sala = $row['sala'];
         ?>
-            <div class="curso"><a href="mural.php?c=<?php echo $row['curso_id_curso']; ?>&i=<?php echo $idAluno; ?>&t=<?php echo $idTurma; ?>">
+            <div class="curso"><a href="mural.php?c=<?php echo $row['curso_id_curso']; ?>&t=<?php echo $idTurma; ?>">
                 
                 <div class="conteudo-curso">
                     <!-- NOME DO CURSO -->

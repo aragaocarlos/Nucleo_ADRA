@@ -1,7 +1,8 @@
 <?php
     require_once "../../../util/config.php";
+    session_start();
+    $idAdmin = $_SESSION['idAdmin'];
 
-    $idAluno = $_GET['i'];
     $id= $_GET['id'];
     $sql = "SELECT * FROM endereco WHERE id = ?";
     $stmt = mysqli_prepare($link, $sql);
@@ -25,12 +26,12 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-            <a href="../../administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../../administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../../usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="../../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -62,12 +63,12 @@
             <td><?php echo($row['cidade'])?></td>
             <td><?php echo($row['estado'])?></td>
             <!-- EDITAR ENDEREÇOS -->
-            <td><?php echo('<a href="read.php?id='.$row['id'].'&i='.$idAluno.'" class="crud_link">Exibir</a>')?></td>
-            <td><?php echo('<a href="update.php?id='.$row['id'].'&i='.$idAluno.'" class="crud_link">Alterar</a>')?></td>
+            <td><?php echo('<a href="read.php?id='.$row['id'].'" class="crud_link">Exibir</a>')?></td>
+            <td><?php echo('<a href="update.php?id='.$row['id'].'" class="crud_link">Alterar</a>')?></td>
         </tr>
     </table>
     <div class="voltar">
-        <p><a href='../index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+        <p><a href='../index.php'>Voltar</a></p>
     </div>
     </div>
 </div>

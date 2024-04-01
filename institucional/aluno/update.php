@@ -1,6 +1,8 @@
 <?php 
         require_once "../../util/config.php";
-        $idAluno = $_GET['i'];
+        session_start();
+        $idAdmin = $_SESSION['idAdmin'];
+
         if($_GET['id']){
             $id = $_GET['id'];
             $sql = "SELECT * FROM aluno WHERE id = ?";
@@ -23,12 +25,6 @@
             $email = $_POST["email"];
             $telefone = $_POST["telefone"];
             $nascimento = date("Y-m-d", strtotime($_POST["nascimento"]));
-
-            $dataNascimento = new DateTime($nascimento);
-            $dataAtual = new DateTime();
-            $diferenca = $dataAtual->diff($dataNascimento);
-            $idade = $diferenca->y;
-
             $rg = $_POST["rg"];
             $cpf = $_POST["cpf"];
             $pcd = $_POST["pcd"];
@@ -36,9 +32,9 @@
             $login = $_POST["login"];
             $senha = $_POST["senha"];
             $id = $_POST["id"];
-            $sql = "UPDATE aluno SET nome_completo = ?, nome = ?, sobrenome = ?, sexo = ?, email = ?, telefone = ?, nascimento = ?, idade = ?, rg = ?, cpf = ?, pcd = ?, pcd_desc = ?, login = ?, senha = ? WHERE id = ?";
+            $sql = "UPDATE aluno SET nome_completo = ?, nome = ?, sobrenome = ?, sexo = ?, email = ?, telefone = ?, nascimento = ?, rg = ?, cpf = ?, pcd = ?, pcd_desc = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "sssssssississsi", $nome_completo, $nome, $sobrenome, $sexo, $email, $telefone, $nascimento, $idade, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $id);
+            mysqli_stmt_bind_param($stmt, "sssssssssisssi", $nome_completo, $nome, $sobrenome, $sexo, $email, $telefone, $nascimento, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $id);
 
             if (mysqli_stmt_execute($stmt)) {
                 echo "Registro atualizado com sucesso.";
@@ -63,12 +59,12 @@
 <header>
     <main>
         <div class="cabecalho-conteudo">
-        <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+        <a href="../administrador.php">
             <div id="logo" class="opcoes-nav">
                 <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
             </div>
             </a>
-            <a href="../usuario.php?i=<?php echo $idAluno; ?>">
+            <a href="../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -77,7 +73,7 @@
 </header>
 <div class="container-admin">
     <h2>Alteração de Alunos</h2>
-    <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>">
+    <form method="post" action="update.php?id=<?php echo $id ?>">
         <p>Nome: <input type="text" name="nome_completo" value="<?php echo $row['nome_completo'] ?>"></p>
         <p>Sexo: <input type="text" name="sexo" value="<?php echo $row['sexo'] ?>"></p>
         <p>Email: <input type="text" name="email" value="<?php echo $row['email'] ?>"></p>
@@ -111,7 +107,7 @@
 
 </div>
 <div class="voltar">
-    <p><a href='index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+    <p><a href='index.php'>Voltar</a></p>
 </div>
     </body>
     </html>

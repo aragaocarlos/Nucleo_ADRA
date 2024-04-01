@@ -2,7 +2,7 @@
     session_start();
     require_once "../util/config.php";
 
-    $idAdmin = $_GET['i'];
+    $idAdmin = $_SESSION['idAdmin'];
 
     $sql_perfil = "SELECT * FROM administracao";
     $result_perfil = mysqli_query($link, $sql_perfil);
@@ -75,24 +75,24 @@
     </div>
     <div class="container-botoes">
         <div class="dois_botoes">
-            <a href="./funcionario/index.php?&i=<?php echo $idAdmin; ?>">
+            <a href="./funcionario/index.php">
                 <div class="botao-texto">
                     Funcionários
                 </div>
             </a>
-            <a href="./curso/index.php?&i=<?php echo $idAdmin; ?>">
+            <a href="./curso/index.php">
                 <div class="botao-texto">
                     Cursos
                 </div>
             </a>
         </div>
         <div class="dois_botoes">
-            <a href="./professor/index.php?&i=<?php echo $idAdmin; ?>">
+            <a href="./professor/index.php">
                 <div class="botao-texto">
                     Professores
                 </div>
             </a>
-            <a href="./aluno/index.php?&i=<?php echo $idAdmin; ?>">
+            <a href="./aluno/index.php">
                 <div class="botao-texto">
                     Alunos
                 </div>

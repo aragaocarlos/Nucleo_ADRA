@@ -1,8 +1,8 @@
 <?php 
         require_once "../../../util/config.php";
+        session_start();
 
-        
-        $idAluno = $_GET['i'];
+        $idAdmin = $_SESSION['idAdmin'];
         $idCurso = $_GET['c'];
         
         $sql_1 = "SELECT * FROM curso";
@@ -60,12 +60,12 @@
 <header>
     <main>
         <div class="cabecalho-conteudo">
-            <a href="../../administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../../administrador.php">
             <div id="logo" class="opcoes-nav">
                 <img src="../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
             </div>
             </a>
-            <a href="../../usuario.php?i=<?php echo $idAluno; ?>">
+            <a href="../../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -76,7 +76,7 @@
 <h2>Curso "<?php echo $nomeCurso ?>"</h2>
     <h3>Alterar Turma</h3>
     <br>
-    <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>&c=<?php echo $idCurso ?>">
+    <form method="post" action="update.php?id=<?php echo $id ?>&c=<?php echo $idCurso ?>">
         <p>Turma: <input type="text" name="codigo" value="<?php echo $row['codigo'] ?>"></p>
         <p>Sala: <input type="text" name="sala" value="<?php echo $row['sala'] ?>"></p>
         <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
@@ -85,7 +85,7 @@
 
 </div>
 <div class="voltar">
-    <p><a href='index.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>'>Voltar</a></p>
+    <p><a href='index.php?c=<?php echo $idCurso; ?>'>Voltar</a></p>
 </div>
     </body>
     </html>

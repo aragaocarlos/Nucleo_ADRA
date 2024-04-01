@@ -13,7 +13,7 @@
         }
     }
 
-    $idProfessor = $_GET['i'];
+    $idProfessor = $_SESSION['idProfessor'];
     $sql_2 = "SELECT * FROM professor";
     $result_2 = mysqli_query($link, $sql_2);
     while($row = mysqli_fetch_array($result_2)){
@@ -81,27 +81,27 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="curso.php?i=<?php echo $idProfessor; ?>">
+                <a href="curso.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
-                <a href="mural.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>">
+                <a href="mural.php?c=<?php echo $idCurso ?>">
                     <div class="opcao-nav">
                         <div class="mural-texto">
                             Mural
                         </div>
                     </div>
                 </a>
-                <a href="atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>">
+                <a href="atividade.php?c=<?php echo $idCurso ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
                     </div>
                 </div>
                 </a>
-                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>">
+                <a href="avaliacao.php?c=<?php echo $idCurso ?>">
                     <div class="opcao-nav">
                         <div class="notas-texto">
                             Avaliação
@@ -109,7 +109,7 @@
                     </div>
                 </a>
                 </div>
-                <a href="usuario.php?i=<?php echo $idProfessor; ?>">
+                <a href="usuario.php">
                     <div id="perfil" class="opcoes-nav">
                     <?php
                 $sql_perfil = "SELECT * FROM professor";
@@ -183,7 +183,7 @@
                         <!--<button><div class="editar">
                             <img src="../../imagens/editar.png" alt="">
                         </div></button>-->
-                        <div class="excluir"><?php echo '<a href="./post/excluir.php?id='.$idPost.'&i='.$idProfessor.'&t='.$idTurma.'&c='.$idCurso.'"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
+                        <div class="excluir"><?php echo '<a href="./post/excluir.php?id='.$idPost.'&t='.$idTurma.'&c='.$idCurso.'"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
                     </div>
                 </div>
                 <div class="conteudo-post">
@@ -330,7 +330,7 @@
                             <!--<button><div class="editar">
                                 <img src="../../imagens/editar.png" alt="">
                             </div></button>-->
-                            <div class="excluir"><?php echo '<a href="./comentario/excluir.php?id='.$idComentario.'&i='.$idProfessor.'&t='.$idTurma.'&c='.$idCurso.'"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
+                            <div class="excluir"><?php echo '<a href="./comentario/excluir.php?id='.$idComentario.''&t='.$idTurma.'&c='.$idCurso.'"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
                         </div>
                         <?php
                     }

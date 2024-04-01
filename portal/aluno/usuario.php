@@ -3,7 +3,7 @@
     date_default_timezone_set('America/Sao_Paulo');
     require_once "../../util/config.php";
 
-    $idAluno = $_GET['i'];
+    $idAluno = $_SESSION['idAluno'];
 
     $sql = "SELECT * FROM aluno";
     $result = mysqli_query($link, $sql);
@@ -23,7 +23,7 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="curso.php?i=<?php echo $idAluno; ?>">
+                <a href="curso.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
@@ -198,11 +198,9 @@
                 }
             }
             ?>
-            <div class="sair">
-                <a href="../aluno.php">
-                    <div class="botao-sair">Sair</div>
-                </a>
-            </div>
+            <form action="usuario_logout.php" method="post">
+                <button type="submit" class="sair"><div class="botao-sair">Sair</div></button>
+            </form>
         </div>
     </div>
 </body>

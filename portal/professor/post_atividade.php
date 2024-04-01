@@ -2,7 +2,7 @@
     session_start();
     require_once "../../util/config.php";
 
-    $idProfessor = $_GET['i'];
+    $idProfessor = $_SESSION['idProfessor'];
     $idAtividade = $_GET['a'];
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
@@ -23,27 +23,27 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="curso.php?i=<?php echo $idProfessor; ?>">
+                <a href="curso.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
-                <a href="mural.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
+                <a href="mural.php?c=<?php echo $idCurso ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="mural-texto">
                             Mural
                         </div>
                     </div>
                 </a>
-                <a href="lista_atividade.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
+                <a href="lista_atividade.php?c=<?php echo $idCurso ?>&t=<?php echo $idTurma; ?>">
                 <div class="opcao-nav">
                     <div class="atividades">
                         Atividades
                     </div>
                 </div>
                 </a>
-                <a href="avaliacao.php?c=<?php echo $idCurso ?>&i=<?php echo $idProfessor; ?>&t=<?php echo $idTurma; ?>">
+                <a href="avaliacao.php?c=<?php echo $idCurso ?>&t=<?php echo $idTurma; ?>">
                     <div class="opcao-nav">
                         <div class="notas-texto">
                             Avaliação
@@ -51,7 +51,7 @@
                     </div>
                 </a>
                 </div>
-                <a href="usuario.php?i=<?php echo $idProfessor; ?>">
+                <a href="usuario.php">
                     <div id="perfil" class="opcoes-nav">
                     <?php
                 $sql_perfil = "SELECT * FROM professor";

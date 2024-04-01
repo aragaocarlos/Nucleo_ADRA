@@ -4,7 +4,7 @@
     require_once "../../../util/config.php";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
-    $idAluno = $_POST["idAluno"];
+    $idAluno = $_SESSION['idAluno'];
     $idCurso = $_POST["idCurso"];
     $idPost = $_POST["idPost"];
     $idTurma = $_POST["idTurma"];
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 }
 
 // Redirecionamento de volta para a página anterior
-header("Location: ../mural.php?i=$idAluno&c=$idCurso&t=$idTurma");
+header("Location: ../mural.php?c=$idCurso&t=$idTurma");
 exit(); // Certifique-se de sair após o redirecionamento
 ?>
 ?>

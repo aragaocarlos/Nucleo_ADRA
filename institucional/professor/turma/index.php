@@ -1,7 +1,8 @@
 <?php
     require_once "../../../util/config.php";
+    session_start();
 
-    $idAluno = $_GET['i'];
+    $idAdmin = $_SESSION['idAdmin'];
     $idProfessor = $_GET['p'];
 
     $sql_1 = "SELECT * FROM professor";
@@ -27,12 +28,12 @@
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+                <a href="../administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -44,7 +45,7 @@
 <h2>Professor: <?php echo $nomeProfessor?></h2>
     <h3>Turmas</h3>
     <br>
-    <p><a href="create.php?i=<?php echo $idAluno; ?>&p=<?php echo $idProfessor; ?>" class="incluir">Incluir</a></p>
+    <p><a href="create.php?p=<?php echo $idProfessor; ?>" class="incluir">Incluir</a></p>
     <br>
     <?php 
         $sql_1 = "SELECT * FROM professor_turma";
@@ -77,20 +78,20 @@
                 <td><?php echo $codigo ?></td>
                 <td><?php echo $sala ?></td>
             </div>
-            <td><?php echo('<a href="delete.php?id='.$idTurma.'&i='.$idAluno.'&p='.$idProfessor.'" class="crud_link">Excluir</a>')?></td>
+            <td><?php echo('<a href="delete.php?id='.$idTurma.'&p='.$idProfessor.'" class="crud_link">Excluir</a>')?></td>
         </tr>
         <?php
-}
-}
-}
-}
-}
-}
+    }
+    }
+    }
+    }
+    }
+    }
         ?>
     </table>
     </div>
     <div class="voltar">
-        <p><a href='../index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+        <p><a href='../index.php'>Voltar</a></p>
     </div>
 </div>
 

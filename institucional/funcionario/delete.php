@@ -22,8 +22,10 @@
     
     <div class="container-admin">
     <?php
+        session_start();
         require_once "../../util/config.php";
-        $idAluno = $_GET['i'];
+
+        $idAdmin = $_SESSION['idAdmin'];
         if ($_GET['id']) {
             $id = $_GET['id'];
             
@@ -45,7 +47,7 @@
             $sqlResetFK = "SET foreign_key_checks = 1";
             mysqli_query($link, $sqlResetFK);
 
-            echo "<a href='index.php?i=$idAluno'>Voltar</a>";
+            echo "<a href='index.php'>Voltar</a>";
         }
         ?>
     </div>

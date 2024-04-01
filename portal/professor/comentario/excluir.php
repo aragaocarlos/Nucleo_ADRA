@@ -1,9 +1,10 @@
 <?php
         require_once "../../../util/config.php";
+        session_start();
 
         $idTurma = $_GET['t'];
         $idCurso = $_GET['c'];
-        $idProfessor = $_GET['i'];
+        $idProfessor = $_SESSION['idProfessor'];
         if ($_GET['id']) {
             $id = $_GET['id'];
             
@@ -28,7 +29,7 @@
         }
 
 // Redirecionamento de volta para a página anterior
-header("Location: ../mural.php?i=$idProfessor&c=$idCurso&t=$idTurma");
+header("Location: ../mural.php?c=$idCurso&t=$idTurma");
 exit(); // Certifique-se de sair após o redirecionamento
 ?>
 ?>

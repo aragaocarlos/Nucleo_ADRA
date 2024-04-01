@@ -1,7 +1,8 @@
 <?php
     require_once "../../util/config.php";
+    session_start();
+    $idAdmin = $_SESSION['idAdmin'];
 
-    $idAluno = $_GET['i'];
     if($_GET['id']){
         $id = $_GET['id'];
         $sql = "SELECT * FROM aluno WHERE id = ?";
@@ -27,12 +28,12 @@
     <header>
         <main>
             <div class="cabecalho-conteudo">
-            <a href="../administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../administrador.php">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../usuario.php?i=<?php echo $idAluno; ?>">
+                <a href="../usuario.php">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -47,7 +48,14 @@
         <p>Sexo: <?php echo($row['sexo']) ?></p>
         <p>Email: <?php echo($row['email']) ?></p>
         <p>Nascimento: <?php echo($row['nascimento']) ?></p>
-        <p>Idade: <?php echo($row['idade']) ?></p>
+        <?php
+            $nascimento = date("Y-m-d", strtotime($row['nascimento']));
+            $dataNascimento = new DateTime($nascimento);
+            $dataAtual = new DateTime();
+            $diferenca = $dataAtual->diff($dataNascimento);
+            $idade = $diferenca->y;
+        ?>
+        <p>Idade: <?php echo($idade) ?></p>
         <p>Telefone: <?php echo($row['telefone']) ?></p>
         <p>RG: <?php echo($row['rg']) ?></p>
         <p>CPF: <?php echo($row['cpf']) ?></p>
@@ -55,7 +63,7 @@
         <p>Senha: <?php echo($row['senha']) ?></p>
     </div>
     <div class="voltar">
-        <p><a href='index.php?i=<?php echo $idAluno; ?>'>Voltar</a></p>
+        <p><a href='index.php'>Voltar</a></p>
     </div>
 </body>
 </html>

@@ -1,6 +1,8 @@
 <?php 
-        require_once "../../../../util/config.php";
-        $idAluno = $_GET['i'];
+    require_once "../../../../util/config.php";
+    session_start();
+
+    $idAdmin = $_SESSION['idAdmin'];
         $idCurso = $_GET['c'];
         $idTurma = $_GET['t'];
 
@@ -31,20 +33,28 @@
         }
 
         if($_SERVER['REQUEST_METHOD'] == "POST"){        
-            $nome = $_POST["nome"];
-            $sobrenome = $_POST["sobrenome"];
+            $nome_completo = $_POST["nome_completo"];
+
+            // Divide nome completo em nome e sobrenome
+            $partes = explode(' ', $nome_completo);
+            $ultimo_valor = count($partes)-1;
+
+            $nome = $partes[0];
+            $sobrenome = $partes[$ultimo_valor];
             $sexo = $_POST["sexo"];
             $email = $_POST["email"];
             $telefone = $_POST["telefone"];
             $nascimento = date("Y-m-d", strtotime($_POST["nascimento"]));
             $rg = $_POST["rg"];
             $cpf = $_POST["cpf"];
+            $pcd = $_POST["pcd"];
+            $pcd_desc = $_POST["pcd_desc"];
             $login = $_POST["login"];
             $senha = $_POST["senha"];
             $id = $_POST["id"];
-            $sql = "UPDATE aluno SET nome = ?, sobrenome = ?, sexo = ?, email = ?, nascimento = ?, telefone = ?, rg = ?, cpf = ?, login = ?, senha = ? WHERE id = ?";
+            $sql = "UPDATE aluno SET nome_completo = ?, nome = ?, sobrenome = ?, sexo = ?, email = ?, telefone = ?, nascimento = ?, rg = ?, cpf = ?, pcd = ?, pcd_desc = ?, login = ?, senha = ? WHERE id = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "sssssssssi", $nome, $sobrenome, $sexo, $email, $nascimento, $telefone, $rg, $cpf, $login, $senha, $id);
+            mysqli_stmt_bind_param($stmt, "sssssssssisssi", $nome_completo, $nome, $sobrenome, $sexo, $email, $telefone, $nascimento, $rg, $cpf, $pcd, $pcd_desc, $login, $senha, $id);
 
             if (mysqli_stmt_execute($stmt)) {
                 echo "Registro atualizado com sucesso.";
@@ -69,12 +79,12 @@
 <header>
     <main>
         <div class="cabecalho-conteudo">
-            <a href="../../../administrador.php?i=<?php echo $idAluno; ?>">
+            <a href="../../../administrador.php?i=<?php echo $idAdmin; ?>">
             <div id="logo" class="opcoes-nav">
                 <img src="../../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
             </div>
             </a>
-            <a href="../../../usuario.php?i=<?php echo $idAluno; ?>">
+            <a href="../../../usuario.php?i=<?php echo $idAdmin; ?>">
                 <div id="perfil" class="opcoes-nav">
                 </div>
                 </a>
@@ -85,17 +95,32 @@
 <h2>Curso "<?php echo $nomeCurso?>" - Turma "<?php echo $turma?>"</h2>
         <h3>Alteração de Alunos</h3>
         <br>
-        <form method="post" action="update.php?i=<?php echo $idAluno; ?>&id=<?php echo $id ?>&c=<?php echo $idCurso ?>&t=<?php echo $idTurma ?>">
-        <p>Nome: <input type="text" name="nome" value="<?php echo $row['nome'] ?>"></p>
-        <p>Sobrenome: <input type="text" name="sobrenome" value="<?php echo $row['sobrenome'] ?>"></p>
+        <form method="post" action="update.php?i=<?php echo $idAdmin; ?>&id=<?php echo $id ?>&c=<?php echo $idCurso ?>&t=<?php echo $idTurma ?>">
+        <p>Nome: <input type="text" name="nome_completo" value="<?php echo $row['nome_completo'] ?>"></p>
         <p>Sexo: <input type="text" name="sexo" value="<?php echo $row['sexo'] ?>"></p>
         <p>Email: <input type="text" name="email" value="<?php echo $row['email'] ?>"></p>
         <p>Telefone: <input type="text" name="telefone" value="<?php echo $row['telefone'] ?>"></p>
         <p>Nascimento: <input type="text" name="nascimento" value="<?php echo(date("d/m/Y", strtotime($row['nascimento']))) ?>"></p>
         <p>RG: <input type="text" name="rg" value="<?php echo $row['rg'] ?>"></p>
         <p>CPF: <input type="text" name="cpf" value="<?php echo $row['cpf'] ?>"></p>
-        <p>PCD: <input type="text" name="cpf" value="<?php echo $row['cpf'] ?>"></p>
-        <p>PCD Tipo: <input type="text" name="cpf" value="<?php echo $row['pcd_desc'] ?>"></p>
+        <p>PCD: <select name="pcd">
+                    <?php
+                                        if($row['pcd'] == 1){
+                                            $pcdValor = 1;
+                                            $pcdValorOposto = 0;
+                                            $pcdString = 'Sim';
+                                            $pcdStringOposto = 'Não';
+                                        } else{
+                                            $pcdValor = 0;
+                                            $pcdValorOposto = 1;
+                                            $pcdString = 'Não';
+                                            $pcdStringOposto = 'Sim';
+                                        } 
+                    ?>
+                    <option value="<?php echo $pcdValor; ?>"><?php echo $pcdString; ?></option>
+                    <option value="<?php echo $pcdValorOposto; ?>"><?php echo $pcdStringOposto; ?></option>
+                </select></p>
+        <p>PCD Tipo: <input type="text" name="pcd_desc" value="<?php echo $row['pcd_desc'] ?>"></p>
         <p>Login: <input type="text" name="login" value="<?php echo $row['login'] ?>"></p>
         <p>Senha: <input type="text" name="senha" value="<?php echo $row['senha'] ?>"></p>
         <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
@@ -104,7 +129,7 @@
 
 </div>
     <div class="voltar">
-        <p><a href='index.php?i=<?php echo $idAluno; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a></p>
+        <p><a href='index.php?i=<?php echo $idAdmin; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a></p>
     </div>
     </body>
     </html>

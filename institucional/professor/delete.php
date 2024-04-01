@@ -21,6 +21,7 @@
     <div class="container-admin">
         <?php
         require_once "../../util/config.php";
+        session_start();
 
         $sql_2 = "SELECT * FROM professor";
         $result_2 = mysqli_query($link, $sql_2);
@@ -28,7 +29,7 @@
             $idEndereco = $row['endereco_id'];
         }
 
-        $idAluno = $_GET['i'];
+        $idAdmin = $_SESSION['idAdmin'];
         if ($_GET['id']) {
             $id = $_GET['id'];
             
@@ -60,7 +61,7 @@
             $sqlResetFK = "SET foreign_key_checks = 1";
             mysqli_query($link, $sqlResetFK);
 
-            echo "<a href='index.php?i=$idAluno'>Voltar</a>";
+            echo "<a href='index.php?i=$idAdmin'>Voltar</a>";
         }
         ?>
     </div>
