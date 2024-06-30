@@ -2,6 +2,8 @@
     session_start();
     date_default_timezone_set('America/Sao_Paulo');
     require_once "../../util/config.php";
+
+    if ($_SESSION != null){
     $idCurso = $_GET['c'];
     $idTurma = $_GET['t'];
 
@@ -122,6 +124,15 @@
     <title>Mural</title>
     <link rel="stylesheet" href="../../css/mural.css">
     <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
+    <!-- Confirmação de Exclusão -->
+    <script>
+        function confirmarExclusao(event) {
+            var confirmacao = confirm("Você tem certeza que quer excluir?");
+            if (!confirmacao) {
+                event.preventDefault(); // Cancela a ação de exclusão se o usuário clicar em "Não"
+            }
+        }
+    </script>
 </head>
 <body>
 <header>
@@ -329,11 +340,11 @@
                         }
                     }
                 }
-            } elseif($cargoComentario == 'Aluno'){
-                $sql_aluno = "SELECT * FROM aluno";
+            } elseif($cargoComentario == 'Professor'){
+                $sql_aluno = "SELECT * FROM professor";
                 $result_aluno = mysqli_query($link, $sql_aluno);
                 while($row = mysqli_fetch_array($result_aluno)){
-                    if($row['id'] == $idProfessorComentario){
+                    if($row['id_professor'] == $idProfessorComentario){
                         if (!empty($row['imagem'])) {
                             $imagem64Professor = $row['imagem'];
                             // Decodifica o texto em base64
@@ -402,7 +413,7 @@
                         <!--<button><div class="editar">
                             <img src="../../imagens/editar.png" alt="">
                         </div></button>-->
-                        <div class="excluir"><?php echo '<a href="./comentario/excluir.php?id='.$idComentario.'&t='.$idTurma.'&c='.$idCurso.'"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
+                        <div class="excluir"><?php echo '<a href="./comentario/excluir.php?id='.$idComentario.'&t='.$idTurma.'&c='.$idCurso.'" class="crud_link" onclick="confirmarExclusao(event)"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
                     </div>
                 </div>
                 <?php }?>
@@ -434,5 +445,11 @@
     ?>
         </div>
     </div>
+    <?php
+    } else{
+    // Redirecionamento de volta para a página anterior
+    header("Location: ../professor.php");
+    exit(); // Certifique-se de sair após o redirecionamento
+    }?> 
 </body>
 </html>

@@ -1,6 +1,8 @@
 <?php
     session_start();
     require_once "../../util/config.php";
+
+    if ($_SESSION != null){
     $idAluno = $_SESSION['idAluno'];
 
 ?>
@@ -135,5 +137,11 @@
         ?>
         </div>
     </div>
+    <?php
+} else{
+// Redirecionamento de volta para a página anterior
+header("Location: ../aluno.php");
+exit(); // Certifique-se de sair após o redirecionamento
+}?>
 </body>
 </html>

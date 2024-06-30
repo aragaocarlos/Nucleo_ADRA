@@ -2,6 +2,7 @@
     require_once "../../../../util/config.php";
     session_start();
 
+    if ($_SESSION != null){
     $idAdmin = $_SESSION['idAdmin'];
         $idCurso = $_GET['c'];
         $idTurma = $_GET['t'];
@@ -76,21 +77,24 @@
         <link rel="icon" href="../../../../imagens/nucleo-adra-icone.png" >
     </head>
     <body>
-<header>
-    <main>
-        <div class="cabecalho-conteudo">
-            <a href="../../../administrador.php?i=<?php echo $idAdmin; ?>">
-            <div id="logo" class="opcoes-nav">
-                <img src="../../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
-            </div>
-            </a>
-            <a href="../../../usuario.php?i=<?php echo $idAdmin; ?>">
-                <div id="perfil" class="opcoes-nav">
+    <header>
+        <main>
+            <div class="cabecalho-conteudo">
+                <a href="../../../administrador.php?i=<?php echo $idAdmin; ?>">
+                <div id="logo" class="opcoes-nav">
+                    <img src="../../../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-        </div>
-    </main>
-</header>
+                <a href="../../../usuario.php?i=<?php echo $idAdmin; ?>">
+                    <div id="perfil" class="opcoes-nav">
+                    <?php
+                        echo "<img src='$imagemDataUri' alt=''>";
+                        ?>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </header>
 <div class="container-admin">
 <h2>Curso "<?php echo $nomeCurso?>" - Turma "<?php echo $turma?>"</h2>
         <h3>Alteração de Alunos</h3>
@@ -131,5 +135,11 @@
     <div class="voltar">
         <p><a href='index.php?i=<?php echo $idAdmin; ?>&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a></p>
     </div>
+    <?php
+    } else{
+    // Redirecionamento de volta para a página anterior
+    header("Location: ../../../../index.php");
+    exit(); // Certifique-se de sair após o redirecionamento
+    }?>
     </body>
     </html>

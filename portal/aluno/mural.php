@@ -2,6 +2,8 @@
     session_start();
     date_default_timezone_set('America/Sao_Paulo');
     require_once "../../util/config.php";
+
+    if ($_SESSION != null){
     $idCurso = $_GET['c'];
     $idTurma = $_GET['t'];
 
@@ -39,7 +41,7 @@
         if($row['id'] == $idAluno){
             $nomeAluno = $row['nome'];
             $sobrenomeAluno = $row['sobrenome'];
-            $cargoAluno = 'Professor';
+            $cargoAluno = 'Aluno';
             $email = $row['email'];
         }
     }
@@ -122,6 +124,15 @@
     <title>Mural</title>
     <link rel="stylesheet" href="../../css/mural.css">
     <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
+    <!-- Confirmação de Exclusão -->
+    <script>
+        function confirmarExclusao(event) {
+            var confirmacao = confirm("Você tem certeza que quer excluir?");
+            if (!confirmacao) {
+                event.preventDefault(); // Cancela a ação de exclusão se o usuário clicar em "Não"
+            }
+        }
+    </script>
 </head>
 <body>
 <header>
@@ -300,11 +311,11 @@
             $comentarioData = $row_comentario['data'];
             $comentarioConteudo = $row_comentario['texto'];
             $cargoComentario = $row_comentario['cargo'];
-            if($cargoComentario == 'Professor'){
-                $sql_professor = "SELECT * FROM professor";
-                $result_professor = mysqli_query($link, $sql_professor);
-                while($row = mysqli_fetch_array($result_professor)){
-                    if($row['id_professor'] == $idAlunoComentario){
+            if($cargoComentario == 'Aluno'){
+                $sql_aluno = "SELECT * FROM aluno";
+                $result_aluno = mysqli_query($link, $sql_aluno);
+                while($row = mysqli_fetch_array($result_aluno)){
+                    if($row['id_aluno'] == $idAlunoComentario){
                         if (!empty($row['imagem'])) {
                             $imagem64Aluno = $row['imagem'];
                             // Decodifica o texto em base64
@@ -394,7 +405,7 @@
                         <!--<button><div class="editar">
                             <img src="../../imagens/editar.png" alt="">
                         </div></button>-->
-                        <div class="excluir"><?php echo '<a href="./comentario/excluir.php?id='.$idComentario.'&t='.$idTurma.'&c='.$idCurso.'"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
+                        <div class="excluir"><?php echo '<a href="./comentario/excluir.php?id='.$idComentario.'&t='.$idTurma.'&c='.$idCurso.'" class="crud_link" onclick="confirmarExclusao(event)"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
                     </div>
                         <?php
                         }?>
@@ -413,7 +424,7 @@
                                     <input type="hidden" name="sobrenome" value="<?php echo $sobrenomeAluno; ?>">
                                     <input type="hidden" name="idCurso" value="<?php echo $idCurso; ?>">
                                     <input type="hidden" name="idAluno" value="<?php echo $idAluno; ?>">
-                                    <input type="hidden" name="cargo" value="Professor">
+                                    <input type="hidden" name="cargo" value="aluno">
                                 </div>
                                 <div class="comentarios_container-enviar">
                                     <button type="submit"><img src="../../imagens/enviar.png"></button>
@@ -428,5 +439,11 @@
     ?>
         </div>
     </div>
+    <?php
+    } else{
+    // Redirecionamento de volta para a página anterior
+    header("Location: ../aluno.php");
+    exit(); // Certifique-se de sair após o redirecionamento
+    }?> 
 </body>
 </html>

@@ -2,6 +2,7 @@
     require_once "../../../util/config.php";
     session_start();
 
+    if ($_SESSION != null){
     $idAdmin = $_SESSION['idAdmin'];
     $idCurso = $_GET['c'];
 
@@ -22,6 +23,15 @@
     <title>Curso: <?php echo $nomeCurso ?> </title>
     <link rel="stylesheet" href="../../../css/mural.css">
     <link rel="icon" href="../../../imagens/nucleo-adra-icone.png" >
+    <!-- Confirmação de Exclusão -->
+    <script>
+        function confirmarExclusao(event) {
+            var confirmacao = confirm("Você tem certeza que quer excluir?");
+            if (!confirmacao) {
+                event.preventDefault(); // Cancela a ação de exclusão se o usuário clicar em "Não"
+            }
+        }
+    </script>  
 </head>
 <body>
 <header>
@@ -44,7 +54,7 @@
     <h2>Curso "<?php echo $nomeCurso?>"</h2>
     <h3>Turmas</h3>
     <br>
-    <p><a href="create.php" class="incluir">Incluir</a></p>
+    <p><a href="create.php?c=<?php echo($idCurso) ?>" class="incluir">Incluir</a></p>
     <table border="0" class="tabela-admin">
         <tr class="tabela-titulo">
             <!--<td>Id</td>-->
@@ -64,7 +74,7 @@
             </div>
             <td><?php echo('<a href="read.php?c='.$idCurso.'&id='.$row['id'].'" class="crud_link">Exibir</a>')?></td>
             <td><?php echo('<a href="update.php?c='.$idCurso.'&id='.$row['id'].'" class="crud_link">Alterar</a>')?></td>
-            <td><?php echo('<a href="delete.php?c='.$idCurso.'&id='.$row['id'].'" class="crud_link">Excluir</a>')?></td>
+            <td><?php echo('<a href="delete.php?c='.$idCurso.'&id='.$row['id'].'" class="crud_link" onclick="confirmarExclusao(event)">Excluir</a>')?></td>
         </tr>
         <?php  }
         } ?>
@@ -74,6 +84,11 @@
         <p><a href='../index.php'>Voltar</a></p>
     </div>
 </div>
-
+<?php
+} else{
+// Redirecionamento de volta para a página anterior
+header("Location: ../../../index.php");
+exit(); // Certifique-se de sair após o redirecionamento
+}?>
 </body>
 </html>

@@ -3,6 +3,7 @@
     date_default_timezone_set('America/Sao_Paulo');
     require_once "../../util/config.php";
 
+    if ($_SESSION != null){
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
     $sql = "SELECT * FROM curso";
@@ -14,9 +15,9 @@
     }
 
     $idProfessor = $_SESSION['idProfessor'];
-    $sql_2 = "SELECT * FROM professor";
-    $result_2 = mysqli_query($link, $sql_2);
-    while($row = mysqli_fetch_array($result_2)){
+    $sql = "SELECT * FROM professor";
+    $result = mysqli_query($link, $sql);
+    while($row = mysqli_fetch_array($result)){
         if($row['id_professor'] == $idProfessor){
             $nomeProfessor = $row['nome'];
             $sobrenomeProfessor = $row['sobrenome'];
@@ -26,30 +27,22 @@
     }
 
     $idPost = $_GET['p'];
-
-    function traduzNomeMes($nomeMesIngles) {
-        $mesesTraduzidos = array(
-            'January' => 'janeiro',
-            'February' => 'fevereiro',
-            'March' => 'março',
-            'April' => 'abril',
-            'May' => 'maio',
-            'June' => 'junho',
-            'July' => 'julho',
-            'August' => 'agosto',
-            'September' => 'setembro',
-            'October' => 'outubro',
-            'November' => 'novembro',
-            'December' => 'dezembro'
-        );
-
-        return $mesesTraduzidos[$nomeMesIngles];
+    $sql = "SELECT * FROM post";
+    $result = mysqli_query($link, $sql);
+    while($row = mysqli_fetch_array($result)){
+        if($row['id'] == $idPost){
+            $nomePost = $row['nome'];
+            $sobrenomePost = $row['sobrenome'];
+            $cargoPost = $row['cargo'];
+            $conteudoPost = $row['conteudo'];
+            $horarioPost = $row['horario'];
+        }
     }
 
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
-        $nome = $nomeAluno;
-        $sobrenome = $sobrenomeAluno;
-        $cargo = $cargoAluno;
+        $nome = $nomeProfessor;
+        $sobrenome = $sobrenomeProfessor;
+        $cargo = $cargoProfessor;
         $conteudo = $_POST["conteudo"];
         $horario = date('d/m H:i');
 
@@ -83,7 +76,7 @@
             <div class="cabecalho-conteudo">
                 <a href="curso.php">
                 <div id="logo" class="opcoes-nav">
-                    <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
+                    <img src="../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
                 <div class="opcoes-nav">
@@ -111,29 +104,6 @@
                 </div>
                 <a href="usuario.php">
                     <div id="perfil" class="opcoes-nav">
-                    <?php
-                $sql_perfil = "SELECT * FROM professor";
-                $result_perfil = mysqli_query($link, $sql_perfil);
-                while ($row = mysqli_fetch_array($result_perfil)) {
-                    if($row['id_professor'] == $idProfessor){
-                        if (!empty($row['imagem'])) {
-                                    // Decodifica o texto em base64
-                                    $imagemDecodificada = base64_decode($row['imagem']);
-
-                                    // Determina o tipo de conteúdo da imagem
-                                    $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecodificada, FILEINFO_MIME_TYPE);
-
-                                    // Gera um URI de dados para a imagem
-                                    $imagemDataUri = "data:$tipoConteudo;base64," . base64_encode($imagemDecodificada);
-
-                                    // Exibe a imagem usando a tag <img>
-                                    echo "<img src='$imagemDataUri' alt=''>";
-                        } else {
-                            echo '<img src="../../imagens/perfil-branco-200px.png" alt="">';
-                        }
-                        }
-                    }
-                        ?>
                     </div>
                 </a>
             </div>
@@ -143,226 +113,44 @@
     <div class="container">
         <div class="container-geral">
 
-        <?php
-                $sql = "SELECT * FROM post";
-                $result = mysqli_query($link, $sql);
-                while($row = mysqli_fetch_array($result)){
-                    if($row['id'] == $idPost){
-        ?>
-        <div class="post_pagina">
-            <div class="post-alinhamento">
-                <div class="cabecalho">
-                    <div class="foto-aluno">
-                        <?php
-                        if (!empty($row['imagem'])) {
-                            $imagem64Professor = $row['imagem'];
-                            // Decodifica o texto em base64
-                            $imagemDecode = base64_decode($row['imagem']);
-    
-                            // Determina o tipo de conteúdo da imagem
-                            $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecode, FILEINFO_MIME_TYPE);
-    
-                            // Gera um URI de dados para a imagem
-                            $imagemDataUriPost = "data:$tipoConteudo;base64," . base64_encode($imagemDecode);
-                        } else {
-                            $imagemDataUriPost = "../../imagens/perfil.png";
-                        }
-                        echo "<img src='$imagemDataUriPost' alt=''>";        
-                        ?>
-                    </div>
-                    <div class="container-nome">
-                        <div class="nome-aluno">
-                        <?php echo $row['nome']; ?>
-                        <?php echo $row['sobrenome']; ?>
-                        </div>
-                        <div class="tipo-aluno">
-                        <?php echo $row['cargo']; ?>
-                        </div>
-                    </div>
-                    <div class="post_icone">
-                        <!--<button><div class="editar">
-                            <img src="../../imagens/editar.png" alt="">
-                        </div></button>-->
-                        <div class="excluir"><?php echo '<a href="./post/excluir.php?id='.$idPost.'&t='.$idTurma.'&c='.$idCurso.'"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
-                    </div>
+    <div class="post">
+        <div class="post-alinhamento">
+            <div class="cabecalho">
+                <div class="foto-aluno">
+                    <img src="../../imagens/perfil-branco.png" alt="">
                 </div>
-                <div class="conteudo-post">
-                    <p><?php echo $row['conteudo']; ?></p>
-                </div>
-                <div class="post_anexo">
-                    <?php
-                        if (!empty($row['imagem'])) {
-                            $imagem64Professor = $row['imagem'];
-                            // Decodifica o texto em base64
-                            $imagemDecode = base64_decode($row['imagem']);
-    
-                            // Determina o tipo de conteúdo da imagem
-                            $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecode, FILEINFO_MIME_TYPE);
-    
-                            // Gera um URI de dados para a imagem
-                            $anexoUriPost = "data:$tipoConteudo;base64," . base64_encode($imagemDecode);
-                        } else {
-                            $anexoUriPost = "";
-                        }
-                        echo "<img src='$anexoUriPost' alt=''>";        
-                    ?>
-                </div>
-                <div class="data">
-                    <?php
-                    // Cria um objeto DateTime usando a data original e o formato
-                    $dataObj = DateTime::createFromFormat('d/m H:i', $row['horario']);
-
-                    // Obtém o dia e o mês da data no formato desejado
-                    $dia = $dataObj->format('d');
-                    $mes = $dataObj->format('F'); // 'F' retorna o nome completo do mês em inglês
-
-                    // Traduz o nome do mês para português (ou outro idioma, se necessário)
-                    $mesTraduzido = traduzNomeMes($mes);
-
-                    // Formata a data no novo formato
-                    $dataFormatoNovo = $dia . ' de ' . $mesTraduzido;
-
-                    echo $dataFormatoNovo;
-                    ?>
+                <div class="container-nome">
+                    <div class="nome-aluno">
+                        <?php echo $nomePost ?>
+                        <?php echo $sobrenomePost ?>
+                    </div>
+                    <div class="tipo-aluno">
+                    <?php echo $cargoPost ?>
+                        
+                    </div>
                 </div>
             </div>
-            <div class="container_comentarios">
-            <?php
-            
-            // Inicializa as variáveis de comentário antes do loop interno
-            $idComentario = null;
-            $comentarioNome = null;
-            $comentarioData = null;
-            $comentarioConteudo = null;
-            $cargoComentario = null;
-            $imagemDataUriComentario = null;
-    
-            // Loop interno para comentários
-            $sql_comentario = "SELECT * FROM comentario WHERE post_id = $idPost";
-            $result_comentario = mysqli_query($link, $sql_comentario);
-            while ($row_comentario = mysqli_fetch_array($result_comentario)) {
-                $idComentario = $row_comentario['id'];
-                $idProfessorComentario = $row_comentario['aluno_id'];
-                $comentarioNome = $row_comentario['nome'] . ' ' . $row_comentario['sobrenome'];
-                $comentarioData = $row_comentario['data'];
-                $comentarioConteudo = $row_comentario['texto'];
-                $cargoComentario = $row_comentario['cargo'];
-                
-                if ($cargoComentario == 'Professor') {
-                    $sql_professor = "SELECT * FROM professor";
-                    $result_professor = mysqli_query($link, $sql_professor);
-                    while ($row = mysqli_fetch_array($result_professor)) {
-                        if ($row['id_professor'] == $idProfessorComentario) {
-                            if (!empty($row['imagem'])) {
-                                $imagem64Professor = $row['imagem'];
-                                // Decodifica o texto em base64
-                                $imagemDecode = base64_decode($row['imagem']);
-            
-                                // Determina o tipo de conteúdo da imagem
-                                $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecode, FILEINFO_MIME_TYPE);
-            
-                                // Gera um URI de dados para a imagem
-                                $imagemDataUriComentario = "data:$tipoConteudo;base64," . base64_encode($imagemDecode);
-                            } else {
-                                $imagemDataUriComentario = "../../imagens/perfil.png";
-                            }
-                        }
-                    }
-                } elseif ($cargoComentario == 'Aluno') {
-                    $sql_aluno = "SELECT * FROM aluno";
-                    $result_aluno = mysqli_query($link, $sql_aluno);
-                    while ($row = mysqli_fetch_array($result_aluno)) {
-                        if ($row['id'] == $idProfessorComentario) {
-                            if (!empty($row['imagem'])) {
-                                $imagem64Professor = $row['imagem'];
-                                // Decodifica o texto em base64
-                                $imagemDecode = base64_decode($row['imagem']);
-            
-                                // Determina o tipo de conteúdo da imagem
-                                $tipoConteudo = finfo_buffer(finfo_open(), $imagemDecode, FILEINFO_MIME_TYPE);
-            
-                                // Gera um URI de dados para a imagem
-                                $imagemDataUriComentario = "data:$tipoConteudo;base64," . base64_encode($imagemDecode);
-                            } else {
-                                $imagemDataUriComentario = "../../imagens/perfil.png";
-                            }
-                        }
-                    }
-                } else {
-                    $imagemDataUriComentario = "../../imagens/perfil.png";
-                }
-                ?>
-                <div class="comentario_feito">
-                    <div class="comentarios_foto-aluno">
-                        <?php echo "<img src='$imagemDataUriComentario' alt=''>"; ?>
-                    </div>
-                    <div class="comentarios_container-texto">
-                        <div class="comentarios_container-nome">
-                            <div class="comentarios_nome-aluno">
-                            <?php echo 
-                            $comentarioNome; ?>
-                            </div>
-                            <div class="comentarios_data">
-                                <?php
-                                // Cria um objeto DateTime usando a data original e o formato
-                                $dataObj = DateTime::createFromFormat('Y-m-d', $comentarioData);
-
-                                // Obtém o dia e o mês da data no formato desejado
-                                $dia = $dataObj->format('d');
-                                $mes = $dataObj->format('F'); // 'F' retorna o nome completo do mês em inglês
-            
-                                // Traduz o nome do mês para português (ou outro idioma, se necessário)
-                                $mesTraduzido = traduzNomeMes($mes);
-            
-                                // Formata a data no novo formato
-                                $dataFormatoNovo = $dia . ' de ' . $mesTraduzido;
-            
-                                echo $dataFormatoNovo;                    
-                                ?>
-                            </div>
-                        </div>
-                        <div class="comentarios_conteudo">
-                        <?php echo $comentarioConteudo; ?>
-                        </div>
-                    </div>
-                    <?php if($idProfessorComentario == $idProfessor){?>
-                        <div class="comentarios_post_icone">
-                            <!--<button><div class="editar">
-                                <img src="../../imagens/editar.png" alt="">
-                            </div></button>-->
-                            <div class="excluir"><?php echo '<a href="./comentario/excluir.php?id='.$idComentario.''&t='.$idTurma.'&c='.$idCurso.'"><img src="../../imagens/excluir.png" alt=""></a>'?></div>
-                        </div>
-                        <?php
-                    }
-                }?>
-                </div>
-                <div class="comentarios_input">
-                        <div class="comentarios_perfil-aluno">
-                            <?php echo "<img src='$imagemDataUriProfessor' alt=''>"; ?>
-                        </div>
-                            <form action="./comentario/postar.php" method="POST">
-                                <div class="comentarios_container-input">
-                                    <input type="text" name="comentario_texto" placeholder="Insira seu comentário">
-                                    <input type="hidden" name="idPost" value="<?php echo $idPost; ?>">
-                                    <input type="hidden" name="idTurma" value="<?php echo $idTurma; ?>">
-                                    <input type="hidden" name="nome" value="<?php echo $nomeProfessor; ?>">
-                                    <input type="hidden" name="sobrenome" value="<?php echo $sobrenomeProfessor; ?>">
-                                    <input type="hidden" name="idCurso" value="<?php echo $idCurso; ?>">
-                                    <input type="hidden" name="idProfessor" value="<?php echo $idProfessor; ?>">
-                                    <input type="hidden" name="cargo" value="Professor">
-                                </div>
-                                <div class="comentarios_container-enviar">
-                                    <button type="submit"><img src="../../imagens/enviar.png"></button>
-                                </div>
-                            </form>
-                        </div>
-                </div>
+            <div class="conteudo-post">
+                <p><?php echo $conteudoPost ?></p>
             </div>
-            <?php
-            }
-        }
-    ?>
+            <div class="data">
+                <?php echo $horarioPost ?>
+            </div>
+        </div>
+        <!--
+        <div class="comentarios">
+            Mostrar todos os comentários
+        </div>
+            -->
+        </div>
 
         </div>
     </div>
+    <?php
+    } else{
+    // Redirecionamento de volta para a página anterior
+    header("Location: ../professor.php");
+    exit(); // Certifique-se de sair após o redirecionamento
+    }?> 
 </body>
+</html>

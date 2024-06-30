@@ -2,6 +2,7 @@
     require_once "../../util/config.php";
     session_start();
 
+    if ($_SESSION != null){
     $idAdmin = $_SESSION['idAdmin'];
     $sql = "SELECT * FROM administracao";
     $result = mysqli_query($link, $sql);
@@ -16,19 +17,31 @@
     <title>Funcionários</title>
     <link rel="stylesheet" href="../../css/mural.css">
     <link rel="icon" href="../../imagens/nucleo-adra-icone.png" >
+    <!-- Confirmação de Exclusão -->
+    <script>
+        function confirmarExclusao(event) {
+            var confirmacao = confirm("Você tem certeza que quer excluir?");
+            if (!confirmacao) {
+                event.preventDefault(); // Cancela a ação de exclusão se o usuário clicar em "Não"
+            }
+        }
+    </script>
 </head>
 <body>
 <header>
         <main>
             <div class="cabecalho-conteudo">
-                <a href="../administrador.php">
+                <a href="../administrador.php?i=<?php echo $idAdmin; ?>">
                 <div id="logo" class="opcoes-nav">
                     <img src="../../imagens/nucleo-adra-branco-232x48.png" alt="logo-adra">
                 </div>
                 </a>
-                <a href="../usuario.php">
-                <div id="perfil" class="opcoes-nav">
-                </div>
+                <a href="usuario.php?i=<?php echo $idAdmin; ?>">
+                    <div id="perfil" class="opcoes-nav">
+                    <?php
+                        echo "<img src='$imagemDataUri' alt=''>";
+                        ?>
+                    </div>
                 </a>
             </div>
         </main>
@@ -49,7 +62,7 @@
             <td><?php echo($row['nome'])?></td>
             <td><?php echo('<a href="read.php?id='.$row['id'].'" class="crud_link">Ver mais</a>')?></td>
             <td><?php echo('<a href="update.php?id='.$row['id'].'" class="crud_link">Alterar</a>')?></td>
-            <td><?php echo('<a href="delete.php?id='.$row['id'].'" class="crud_link">Excluir</a>')?></td>
+            <td><?php echo('<a href="delete.php?id='.$row['id'].'" class="crud_link" onclick="confirmarExclusao(event)">Excluir</a>')?></td>
         </tr>
         <?php } ?>
     </table>
@@ -58,6 +71,11 @@
     </div>
     </div>
 </div>
-
+<?php
+} else{
+// Redirecionamento de volta para a página anterior
+header("Location: ../../index.php");
+exit(); // Certifique-se de sair após o redirecionamento
+}?>
 </body>
 </html>

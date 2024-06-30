@@ -1,6 +1,8 @@
 <?php
     require_once "../../../util/config.php";
     session_start();
+
+    if ($_SESSION != null){
     $idAdmin = $_SESSION['idAdmin'];
 
     $id= $_GET['id'];
@@ -72,6 +74,11 @@
     </div>
     </div>
 </div>
-
+<?php
+    } else{
+    // Redirecionamento de volta para a página anterior
+    header("Location: ../../../index.php");
+    exit(); // Certifique-se de sair após o redirecionamento
+    }?> 
 </body>
 </html>

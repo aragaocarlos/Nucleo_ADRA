@@ -2,6 +2,7 @@
     session_start();
     require_once "../../util/config.php";
 
+    if ($_SESSION != null){
     $idAluno = $_SESSION['idAluno'];
     $idAtividade = $_GET['a'];
     $idTurma = $_GET['t'];
@@ -140,6 +141,12 @@ if ($result && mysqli_num_rows($result) > 0) {
             </div>
         </div>
     </div>
+    <?php
+    } else{
+    // Redirecionamento de volta para a página anterior
+    header("Location: ../aluno.php");
+    exit(); // Certifique-se de sair após o redirecionamento
+    }?> 
 </body>
 </html>
 

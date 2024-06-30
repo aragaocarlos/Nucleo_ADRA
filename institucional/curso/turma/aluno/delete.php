@@ -57,7 +57,8 @@
             $sqlResetFK = "SET foreign_key_checks = 1";
             mysqli_query($link, $sqlResetFK);
 
-            echo "<a href='index.php?c=$idCurso&t=$idTurma'>Voltar</a>";
+            header("Location: ./index.php?c=$idCurso&t=$idTurma");
+            exit();
         }
         ?>
     </div>

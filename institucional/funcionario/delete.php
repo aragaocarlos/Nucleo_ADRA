@@ -47,7 +47,8 @@
             $sqlResetFK = "SET foreign_key_checks = 1";
             mysqli_query($link, $sqlResetFK);
 
-            echo "<a href='index.php'>Voltar</a>";
+            header("Location: ./index.php");
+            exit();
         }
         ?>
     </div>

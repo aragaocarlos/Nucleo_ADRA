@@ -3,6 +3,7 @@ session_start();
 date_default_timezone_set('America/Sao_Paulo');
 require_once "../util/config.php";
 
+if ($_SESSION != null){
 $idAdmin = $_SESSION['idAdmin'];
 
 $sql_perfil = "SELECT * FROM administracao";
@@ -123,4 +124,11 @@ while ($row = mysqli_fetch_array($result)) {
             <button type="submit" class="sair"><div class="botao-sair">Sair</div></button>
         </form>
     </div>
+<?php
+} else{
+// Redirecionamento de volta para a página anterior
+header("Location: ../index.php");
+exit(); // Certifique-se de sair após o redirecionamento
+}?>
 </body>
+</html>

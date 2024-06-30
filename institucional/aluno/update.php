@@ -1,6 +1,8 @@
 <?php 
         require_once "../../util/config.php";
         session_start();
+
+        if ($_SESSION != null){
         $idAdmin = $_SESSION['idAdmin'];
 
         if($_GET['id']){
@@ -109,5 +111,11 @@
 <div class="voltar">
     <p><a href='index.php'>Voltar</a></p>
 </div>
+<?php
+    } else{
+    // Redirecionamento de volta para a página anterior
+    header("Location: ../../index.php");
+    exit(); // Certifique-se de sair após o redirecionamento
+    }?>
     </body>
     </html>

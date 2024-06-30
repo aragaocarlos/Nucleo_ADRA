@@ -2,6 +2,7 @@
         require_once "../../../util/config.php";
         session_start();
 
+        if ($_SESSION != null){
         $idAdmin = $_SESSION['idAdmin'];
         $idCurso = $_GET['c'];
         
@@ -87,5 +88,12 @@
 <div class="voltar">
     <p><a href='index.php?c=<?php echo $idCurso; ?>'>Voltar</a></p>
 </div>
+<?php
+} else{
+// Redirecionamento de volta para a página anterior
+#header("Location: ../usuario.php?i=$idProfessor");
+header("Location: ../../../index.php");
+exit(); // Certifique-se de sair após o redirecionamento
+}?>
     </body>
     </html>

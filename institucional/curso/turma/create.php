@@ -2,8 +2,8 @@
 
 session_start();
 require_once "../../../util/config.php";
-session_start();
 
+if ($_SESSION != null){
 $idAdmin = $_SESSION['idAdmin'];
 $idCurso = $_GET['c'];
 
@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <link rel="icon" href="../../../imagens/nucleo-adra-icone.png" >
 </head>
 <body>
-    <header>
+<header>
         <main>
             <div class="cabecalho-conteudo">
                 <a href="../../administrador.php?i=<?php echo $idAdmin; ?>">
@@ -60,12 +60,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 </div>
                 </a>
                 <a href="../../usuario.php?i=<?php echo $idAdmin; ?>">
-                <div id="perfil" class="opcoes-nav">
-                </div>
+                    <div id="perfil" class="opcoes-nav">
+                    <?php
+                        echo "<img src='$imagemDataUri' alt=''>";
+                        ?>
+                    </div>
                 </a>
             </div>
         </main>
-    </header>  
+    </header> 
 
 <div class="container-geral">
 <div class = "fundo">
@@ -96,5 +99,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         </div>
 </div>
 </div>
+<?php
+} else{
+// Redirecionamento de volta para a página anterior
+#header("Location: ../usuario.php?i=$idProfessor");
+header("Location: ../../../index.php");
+exit(); // Certifique-se de sair após o redirecionamento
+}?>
 </body>
 </html>

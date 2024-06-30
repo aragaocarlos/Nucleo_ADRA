@@ -2,6 +2,7 @@
     session_start();
     require_once "../util/config.php";
 
+    if ($_SESSION != null){
     $idAdmin = $_SESSION['idAdmin'];
 
     $sql_perfil = "SELECT * FROM administracao";
@@ -100,5 +101,11 @@
         </div>
     </div>
 </div>
-
+<?php
+} else{
+// Redirecionamento de volta para a página anterior
+header("Location: ../index.php");
+exit(); // Certifique-se de sair após o redirecionamento
+}?>
 </body>
+</html>

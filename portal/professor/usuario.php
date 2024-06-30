@@ -3,6 +3,7 @@ session_start();
 date_default_timezone_set('America/Sao_Paulo');
 require_once "../../util/config.php";
 
+if ($_SESSION != null){
 $idProfessor = $_SESSION['idProfessor'];
 
 $sql = "SELECT * FROM professor";
@@ -175,4 +176,10 @@ while ($row = mysqli_fetch_array($result)) {
             </form>
         </div>
     </div>
+    <?php
+    } else{
+    // Redirecionamento de volta para a página anterior
+    header("Location: ../professor.php");
+    exit(); // Certifique-se de sair após o redirecionamento
+    }?> 
 </body>

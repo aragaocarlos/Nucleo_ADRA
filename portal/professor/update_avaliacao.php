@@ -1,6 +1,8 @@
 <?php 
         require_once "../../util/config.php";
         session_start();
+
+        if ($_SESSION != null){
         $idProfessor = $_SESSION['idProfessor'];
         $idTurma = $_GET['t'];
         $idCurso = $_GET['c'];
@@ -119,5 +121,11 @@
 <div class="voltar">
     <p><a href='avaliacao.php&c=<?php echo $idCurso; ?>&t=<?php echo $idTurma; ?>'>Voltar</a></p>
 </div>
+    <?php
+    } else{
+    // Redirecionamento de volta para a página anterior
+    header("Location: ../professor.php");
+    exit(); // Certifique-se de sair após o redirecionamento
+    }?> 
     </body>
     </html>

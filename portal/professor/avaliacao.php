@@ -2,6 +2,7 @@
     session_start();
     require_once "../../util/config.php";
 
+    if ($_SESSION != null){
     $idProfessor = $_SESSION['idProfessor'];
     $idTurma = $_GET['t'];
     $idCurso = $_GET['c'];
@@ -173,5 +174,11 @@
     </div>
 
 </div>
+    <?php
+    } else{
+    // Redirecionamento de volta para a página anterior
+    header("Location: ../professor.php");
+    exit(); // Certifique-se de sair após o redirecionamento
+    }?> 
 </body>
 </html>
